@@ -1,0 +1,27 @@
+public class Solution
+{
+    //Function to check whether a Binary Tree is BST or not.
+    boolean isBST(Node node)
+    {
+        if(!isBST1(node)){
+            return false;
+        }
+        return true;
+    }
+    
+    boolean BST(Node node , int min , int max){
+         if (node == null)
+            return true;
+            
+         if (node.data < min || node.data > max)
+            return false;
+            
+        return (BST(node.left, min, node.data-1) &&
+            BST(node.right, node.data+1, max));
+    }
+    
+     boolean isBST1(Node root)  {
+        return BST(root, Integer.MIN_VALUE,
+                               Integer.MAX_VALUE);
+    }
+}
