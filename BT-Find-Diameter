@@ -1,0 +1,28 @@
+class Solution {
+    // Function to return the diameter of a Binary Tree.
+    int  ans = 0;
+    int diameter(Node root) {
+        func(root);
+        return ans;
+    }
+    
+    int func (Node node){
+        if(node == null){
+            return 0;
+        }
+        
+        int l = func(node.left);
+        int r = func(node.right);
+        
+        int a  = l+r+1;
+        ans = Math.max(ans,a);
+        int b = 1 + Math.max(l,r);
+        
+        // int a = l+r+1;
+        // int b = Math.max(l,r) +1;
+        // ans = Math.max(ans,Math.max(a,b));
+        
+        return b;
+    }
+    
+}
