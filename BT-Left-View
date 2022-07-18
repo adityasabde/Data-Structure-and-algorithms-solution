@@ -1,0 +1,87 @@
+class Tree
+{
+    //Function to return list containing elements of left view of binary tree.
+    // private static 
+    // ArrayList<Integer> leftView(Node root)
+    // {
+    //      ArrayList <Integer> ans = new ArrayList();
+    //     if(root == null){
+    //         return ans ;
+    //     }
+        
+        
+    // //   arr.add(root.data);
+    //   func(root,ans);
+    //   return ans;
+    // }
+    
+    // void func(Node node , ArrayList <Integer> arr ){
+    //     if(node == null){
+    //         return ;
+    //     }
+    //     arr.add(node.data); 
+    //     if(node.left != null){
+    //         func(node.left,arr);        
+    //     }else{
+    //         func(node.right,arr);
+    //     }
+    
+       
+        
+        
+    // }
+    
+    
+    // type 2 
+//     void printLeft(Node root,ArrayList<Integer> ans){
+//       if(root==null){
+//           return;
+//       }
+//       ans.add(root.data);
+//       if(root.left != null){
+//           printLeft(root.left,ans); 
+//       }else{
+//           printLeft(root.right,ans);
+//       }
+//   }
+//   //Function to return list containing elements of left view of binary tree.
+//   ArrayList<Integer> leftView(Node root)
+//   {
+//      ArrayList<Integer> ans=new ArrayList<>();
+//      if(root==null){
+//          return ans;
+//      }
+//      ans.add(root.data);
+//      printLeft(root.left,ans);
+//      return ans;
+     
+//   }
+
+
+
+// type 3
+
+ArrayList<Integer> leftView(Node root)
+    {
+      // Your code here
+      ArrayList<Integer>result=new ArrayList<Integer>();
+     
+       leftView(root, result, 0);
+       return result;
+    }   
+   
+    public void leftView(Node curr, List<Integer> result, int currDepth){
+        
+        if(curr==null){
+            return;
+        }    
+        
+        if(currDepth==result.size()){
+            result.add(curr.data);
+        }
+        
+        leftView(curr.left, result, currDepth + 1);
+        leftView(curr.right, result, currDepth + 1);
+        
+    }
+}
