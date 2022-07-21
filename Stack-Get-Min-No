@@ -1,0 +1,33 @@
+class GetMin
+{
+     static ArrayList<Integer> arrlist = new ArrayList<>();
+     static Stack <Integer> stack = new Stack<Integer>();
+    //Function to push all the elements into the stack.
+    public static Stack<Integer> _push(int arr[],int n)
+    {
+        if (stack.isEmpty()){
+        for(int i=0 ;i<n ;i++){
+            int x= arr[i];
+                 stack.push(x);
+                  arrlist.add(x);
+            }
+        }
+        return stack;
+      
+    }
+    
+    //Function to print minimum value in stack each time while popping.
+    static void _getMinAtPop(Stack<Integer>s)
+    {
+        Collections.sort(arrlist);
+        int n = s.size();
+        for(int i=0 ; i<n ; i++){
+            System.out.print(arrlist.get(0)+" ");
+             if(!s.isEmpty()){
+             int no = s.pop();
+             arrlist.remove(Integer.valueOf(no));
+            }
+            
+        }
+    }
+}
