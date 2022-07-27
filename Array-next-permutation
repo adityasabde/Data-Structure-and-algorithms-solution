@@ -1,0 +1,37 @@
+class Solution {
+    public void nextPermutation(int[] nums) {
+        
+		//initialise starting and ending indices of the array we will reverse at the end
+        int s_revIndex = 0;
+        int e_revIndex = nums.length - 1;
+        
+        for(int i = nums.length - 2; i >= 0; i--){
+            if(nums[i] < nums[i + 1]){
+                //find the next largest element in the array i+1 to n
+                int next_largest = Integer.MAX_VALUE;
+                int index = -1;
+                for(int j = i + 1; j < nums.length; j++){
+                    if(nums[j] > nums[i] && nums[j] <= next_largest){
+                        next_largest = nums[j];
+                        index = j;
+                    }
+                }
+                //swap num[i] with next_largest
+                int temp = nums[index];
+                nums[index] = nums[i];
+                nums[i] = temp;
+                s_revIndex = i + 1;
+                break;
+            }
+        }
+        
+        //reverse the array from s_revindex to e_revindex
+        while(s_revIndex < e_revIndex){
+            int temp = nums[e_revIndex];
+            nums[e_revIndex] = nums[s_revIndex];
+            nums[s_revIndex] = temp;
+            s_revIndex++;
+            e_revIndex--;
+        }
+        }
+}
