@@ -1,0 +1,52 @@
+class Solution {
+    int getPairsCount(int[] arr, int n, int k) {
+        // n^2 time complexity
+        // int count=0;
+        // for(int i=0;i<n-1;i++){
+        //     for(int j=i+1 ; j<n;j++){
+        //         if(arr[i] + arr[j] == k){
+        //             count++;
+        //         }
+        //     }
+        // }
+        // return count;
+        
+    //  optimize solution O(n) solution
+    
+      int count=0;
+       Map<Integer,Integer>map=new HashMap<>();
+       for(int i: arr)
+       {
+           if(map.containsKey(k-i)){
+               count+=map.get(k-i);
+           }
+           map.put(i,map.getOrDefault(i,0)+1);
+       }return count;
+       
+       
+    // //   if Given Element is sorted then use two pointer algorithm
+    //   to find pair of element who sum is k we can find pair only one from this code
+      
+    //   int right =n-1 ; 
+    //   int left = 0;
+    //   int count=0;
+    //   Arrays.sort(arr); 
+    // //   for(int i:arr){
+    // //       System.out.println(i);
+    // //   }
+    //   while(left < right){
+    //       if(arr[left] + arr[right] == k){
+    //             count++;
+    //             right--;
+    //             left++;
+    //       }
+    //       else if(arr[left] + arr[right] > k){
+    //           right--;
+    //       }
+    //       else{
+    //           left++;
+    //       }
+    //   }
+    //   return count;
+    }
+}
