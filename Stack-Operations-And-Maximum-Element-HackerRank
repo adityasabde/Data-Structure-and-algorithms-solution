@@ -1,0 +1,49 @@
+class Result {
+
+    /*
+     * Complete the 'getMax' function below.
+     *
+     * The function is expected to return an INTEGER_ARRAY.
+     * The function accepts STRING_ARRAY operations as parameter.
+     */
+
+    public static List<Integer> getMax(List<String> o) {
+       Stack <Integer> s = new Stack<>();
+       Stack <Integer> s2 = new Stack<>();
+       ArrayList <Integer> arr = new ArrayList<>();
+       
+       for(int i=0;i<o.size();i++){
+        //    System.out.println(o.get(i).charAt(0)==1);
+           if(o.get(i).charAt(0) == '1'){
+               
+               String st ="";
+               char c[] = o.get(i).toCharArray();
+               for(int j =2; j<c.length; j++){
+                   st  +=  c[j] ;
+               }
+              
+              int x = 0;
+              if(!s2.isEmpty()){
+                 x= s2.peek();   
+              }
+              
+               int y = Integer.parseInt(st); 
+                s.push(y);
+               if(y > x){
+                    s2.push(y);
+               }else{
+                    s2.push(x); 
+               }
+           }
+           else if(o.get(i).charAt(0) == '2'){
+                   s.pop();
+                   s2.pop();
+           }
+           else if(o.get(i).charAt(0) == '3'){
+              arr.add(s2.peek());
+           }   
+       }
+       return arr;
+    }
+
+}
