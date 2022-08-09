@@ -1,0 +1,78 @@
+# first method 
+
+class Solution
+{   
+    //Function to return length of longest subsequence of consecutive integers.
+	static int findLongestConseqSubseq(int a[], int n)
+	{
+	    //using a HashSet to store elements.
+		HashSet<Integer> hs = new HashSet<Integer>();
+		int ans = 0;
+		
+		//inserting all the array elements in HashSet.
+		for(int i=0; i<n; i++)
+			hs.add(a[i]);
+		
+		//checking each possible sequence from the start. 
+		for(int i=0; i<n; i++)
+		{
+		    //if current element is starting element of a sequence then only 
+            //we try to find out the length of sequence. 
+			if(!hs.contains(a[i]-1))
+			{
+				int j = a[i];
+				//then we keep checking whether the next consecutive elements
+                //are present in HashSet and we keep incrementing the counter. 
+				while(hs.contains(j))
+				{
+					j++;
+				}
+				
+				//storing the maximum count.
+				if(ans<j-a[i])
+					ans=j-a[i];
+			}
+		}
+		//returning the length of longest subsequence.
+		return ans;
+	}
+}
+
+
+
+
+
+
+# second method
+
+class Solution
+{   
+    // arr[] : the input array
+    // N : size of the array arr[]
+    
+    //Function to return length of longest subsequence of consecutive integers.
+	static int findLongestConseqSubseq(int arr[], int N)
+	{
+	    int count =1 ;
+	    int max= 0;
+	  Arrays.sort(arr);
+	  
+	  for(int i=0;i<N-1;i++){
+	      if(arr[i]+1 == arr[i+1]){
+	          count++;
+	      }
+	      else if(arr[i] == arr[i+1]){
+	          continue;
+	      }
+	      else{
+	          max = Math.max(max,count);
+	          count =1;
+	      }
+	  }
+	  max = Math.max(max,count); // ifarray is 1,2,3,4,5 then this cond. is use
+	  return max;
+
+
+        
+	}
+}
