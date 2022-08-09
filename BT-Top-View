@@ -1,0 +1,41 @@
+	public static void topView(Node root) {
+     class queueobj{
+         Node node;
+         int hd;
+         queueobj(Node node,int hd){
+             this.node =  node;
+             this.hd = hd;
+         }
+     }
+     Queue <queueobj> q = new LinkedList<>();
+      Map<Integer, Node> topViewMap
+            = new TreeMap<Integer, Node>();
+      
+      if(root == null){
+          return ;
+      }else{
+          q.add(new queueobj(root,0));
+      }
+      
+      while(!q.isEmpty()){
+          queueobj tmpNode = q.poll();
+          if(!topViewMap.containsKey(tmpNode.hd)){
+              topViewMap.put(tmpNode.hd,tmpNode.node);
+          }
+          if(tmpNode.node.left != null){
+              q.add(new queueobj(tmpNode.node.left, tmpNode.hd-1));
+          }
+          if(tmpNode.node.right != null){
+              q.add(new queueobj(tmpNode.node.right, tmpNode.hd+1));
+          }
+      }
+      
+      for( Map.Entry<Integer, Node> entry :
+             topViewMap.entrySet()){
+          System.out.print(entry.getValue().data+" ");
+      }
+    
+    }
+    
+    
+    imp link :::  https://www.geeksforgeeks.org/print-nodes-top-view-binary-tree/
