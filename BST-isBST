@@ -1,4 +1,33 @@
-  static Stack <Integer> st = new Stack<>();
+right approch 
+
+
+
+    boolean checkBST(Node root) {
+         if(isBST(root,Integer.MIN_VALUE,Integer.MAX_VALUE)){
+             return true;
+         }
+        return false;
+    }
+
+   static boolean isBST(Node node,int min,int max){
+       if(node == null){
+           return true;
+       }
+       
+       if(node.data > max || node.data < min){
+           return false;
+       }
+       
+       return (isBST(node.left,min,node.data-1) && isBST(node.right,node.data+1,max));
+   }
+ 
+ 
+ 
+ 
+ by using stack as we know inorder traversal of the bst is asending order 
+ but not works 
+ 
+ static Stack <Integer> st = new Stack<>();
     boolean checkBST(Node root) {
          orderele(root);   
          int value = st.pop();  
