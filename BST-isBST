@@ -1,0 +1,25 @@
+  static Stack <Integer> st = new Stack<>();
+    boolean checkBST(Node root) {
+         orderele(root);   
+         int value = st.pop();  
+        for(int i=1;i<st.size();i++){
+                int x = st.pop();
+                if( x < value){
+                    value = x; 
+                }else{
+                    return false;
+                }
+        }  
+            return true;
+    }
+
+   static Node orderele(Node root){
+       if(root == null){
+          return root;
+       } 
+        orderele(root.left);
+         st.push(root.data);
+         orderele(root.right);
+       
+       return root;
+   }
