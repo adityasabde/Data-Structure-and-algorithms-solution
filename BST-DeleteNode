@@ -18,7 +18,7 @@ class Tree {
             }else if(root.right == null){
                 return root.left;
             }
-                int data  = minvalue(root.right);
+                int data  = minvalue(root.right);   // aga aisa element delete karan he jiske left right dono me element he  to us element ke right side me jo bhi element min hoga usko uske jaga par dal denge and us subtree par phir se vo delete function laaga denge 
                 root.data = data;
                 
                 root.right = deleteNode(root.right,root.data);
