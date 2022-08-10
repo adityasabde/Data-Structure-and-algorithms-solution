@@ -17,3 +17,38 @@ class Solution {
       return root;
     }
 }
+
+
+
+Iterative approch
+
+class Solution {
+    // Function to insert a node in a BST.
+    Node insert(Node root, int Key) {
+      Node node = new Node(Key);
+      Node parent = null;
+      Node curr = root;
+      
+      while(curr != null){
+          parent = curr;
+          if(curr.data > Key){
+              curr = curr.left;
+          }
+          else if(curr.data < Key){
+              curr = curr.right;
+          }
+      }
+      
+      if(parent == null){
+          return node;
+      }
+      
+      if(parent.data > Key){
+          parent.left = node;
+      }else if(parent.data < Key){
+          parent.right = node;
+      }
+      
+      return root;
+    }
+}
