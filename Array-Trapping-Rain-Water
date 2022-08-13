@@ -1,0 +1,83 @@
+class Solution{
+    
+    // arr: input array
+    // n: size of array
+    // Function to find the trapped water between the blocks.
+    static long trappingWater(int arr[], int n) { 
+        
+    // first approch  test case :- 105/152    
+    //   int count =0 ;
+    //   int l = arr[0];
+    //   int r = arr[n-1];
+     
+    //  for(int i=1;i<n-1;i++){
+    //     //  System.out.println(arr[i]+" ");
+         
+    //      int j=1;
+    //      while(j<i){
+    //          if(l < arr[j]){
+    //              l = arr[j];
+    //          }
+    //          j++;
+    //      }
+    //     // System.out.println("arr[i] has L - "+l);
+         
+    //      int k = n-1;
+    //      while(k>i){
+    //          if(r<arr[k]){
+    //              r=arr[k];
+    //          }
+    //          k--;
+    //      }
+         
+    //     //  System.out.println("arr[i] has R - "+r);
+         
+    //      if(l > arr[i] && r> arr[i]){
+    //          int min = Math.min(l,r);
+    //          count += (min-arr[i]);
+            
+    //      }
+    //       l = arr[0];
+    //       r = arr[n-1];
+    //     //  System.out.println("count current "+count);
+    //  }      
+      
+    //   return (long)count;
+    
+    
+    
+    
+    
+    // second approch test case :- 152/152
+    long count =0 ;
+    int []prev = new int[n];
+    
+    int []next = new int[n];
+    
+    prev[0] = arr[0];
+    next[n-1] = arr[n-1];
+    
+    for(int i=1;i<n;i++){
+        int min = Math.max(prev[i-1],arr[i]);
+        prev[i] = min;
+    }
+    for(int i= n-2;i>=0;i--){
+        int min = Math.max(next[i+1],arr[i]);
+        next[i] = min;
+    } 
+    
+    for(int i=0;i<n;i++){
+        int l = prev[i];
+        int r = next[i];
+        //  System.out.println(arr[i] );
+        // System.out.println("arr[i] has L - "+l);
+        //  System.out.println("arr[i] has R - "+r);
+        if(l>arr[i] && r>arr[i] ){
+            int min = Math.min(l,r);
+            count += (min-arr[i]);
+        }
+    }
+    return count;
+
+   }
+}
