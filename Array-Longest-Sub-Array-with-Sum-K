@@ -1,0 +1,74 @@
+class Solution{
+    // Function for finding maximum and value pair
+    public static int lenOfLongSubarr (int A[], int N, int K) {
+         
+    // int i = 0, j = 0, sum = 0;
+    // int maxLen = Integer.MIN_VALUE;
+ 
+    // while (j < N) {
+    //   sum += A[j];
+    //   if (sum < K) {
+    //     j++;
+    //   }
+    //   else if (sum == K) {
+    //     maxLen = Math.max(maxLen, j-i+1);
+    //     j++;
+    //   }
+    //   else if (sum > K) {
+    //     while (sum > K) {
+    //       sum -= A[i];
+    //       i++;
+    //     }
+    //     if(sum == K){
+    //       maxLen = Math.max(maxLen, j-i+1);
+    //     }
+    //     j++;
+    //   }
+    // }
+    // return maxLen;
+    
+    
+        int ans = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int sum = 0;
+        
+        map.put(0, -1);
+        
+        for(int i=0; i<N; i++)
+        {
+            sum += A[i];
+            if(map.containsKey(sum-K))
+            {
+                ans = Math.max(ans, i-map.get(sum-K));
+            }
+            
+            if(map.containsKey(sum)==false){
+                 map.put(sum, i);
+            }
+        }
+        return ans;
+        
+        
+        // int sum =0 ;
+        // int max= 0;
+        // for(int i=0; i<N;i++){
+        //     sum = A[i];
+        //      if(A[i] == K){
+        //           max = Math.max(max,1);
+        //         }
+        //     for(int j=i+1;j<N;j++){
+        //         if(A[j] == K){
+        //           max = Math.max(max,1);
+        //         }
+        //         sum  += A[j];
+        //         if(sum == K){
+        //             max = Math.max(max,j-i+1);
+        //         }
+        //     }
+        // }
+        
+        // return max;
+    }
+    
+    
+}
