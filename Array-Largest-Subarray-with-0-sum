@@ -1,0 +1,26 @@
+class GfG
+{
+    int maxLen(int arr[], int n)
+    {
+        int count=0;
+        int maxcount=0;
+        int currsum=0;
+        HashMap<Integer,Integer>map=new HashMap<>();
+        map.put(currsum,0);
+        for(int i=1;i<=n;i++)
+        {
+            currsum+=arr[i-1];
+            if(map.containsKey(currsum))
+            {
+                count=i-map.get(currsum);
+                if(count>maxcount)
+                {
+                    maxcount=count;
+                }
+            }
+            map.putIfAbsent(currsum,i);
+        }
+       
+        return maxcount;
+    }
+}
