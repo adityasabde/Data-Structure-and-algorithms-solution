@@ -1,0 +1,120 @@
+class Solution
+{
+    
+    //  static long getSum(long X[], int n)
+    // {
+    //     long sum = 0;
+    //     for (int i = 0; i < n; i++)
+    //         sum += X[i];
+    //     return sum;
+    // }
+     
+    // Function to calculate : a - b = (sumA - sumB) / 2
+  
+    
+    long findSwapValues(long A[], int n, long  B[], int m)
+    {
+    //     long ans = -1;
+    //     HashSet<Long> map = new HashSet <>();
+      
+    //     for(int j=0;j<n;j++){
+    //         map.add(A[j]);
+    //     }
+        
+    //     long sum1 = 0;
+    //     long sum2 =0 ;
+        
+    //     for(int i=0;i<n;i++){
+    //         sum1 += A[i];
+    //     }
+        
+    //     for(int k=0;k<m;k++){
+    //         sum2 += B[k];
+    //     }
+    // //   System.out.println("sum1 " + sum1);
+    // //   System.out.println("sum2 " + sum2);
+    //     long sub = Math.abs(sum1-sum2);
+        
+    //     // System.out.println("sub " + sub);
+        
+    //     for(int i=0;i<m;i++){
+    //         long value = Math.abs( sub - B[i]);
+            
+    //         // System.out.println("value " + map.contains(value));
+    //         if(map.contains(value)){
+    //           long p1 = sum2 - B[i] + value;
+    //           long p2 = sum1 - value + B[i];
+    //           if(p1 == p2){
+                  
+    //               ans = 1;
+    //             //   System.out.println("sucess "+ans);
+    //               return ans;
+    //           }
+              
+    //         }
+    //     }
+        
+    //     return ans;
+    
+    long ans =-1;
+    int sum1 = 0;
+    int sum2 =0 ;
+    for(int i=0;i<n;i++)sum1+=A[i];
+    for(int i=0;i<m;i++)sum2+=B[i];
+    
+    int sum = Math.abs(sum1 - sum2);
+    // System.out.println("sum " + sum);
+    
+    if(sum == 0){
+        ans = 1;
+        return ans;
+    }
+    
+    
+    int j= 0 , k=0;
+    while(j<n && k<m){
+        // System.out.println("sum1 " + A[]);
+        long diff = Math.abs( A[j] - B[k]);
+        if(diff == sum){
+            ans = 1;
+            break;
+        }else if(diff < sum){
+            j++;
+        }
+        else{
+            k++;
+        }
+    }
+    
+    return ans;
+    
+    // long ans = -1;
+    //  long sum1 = getSum(A, n);
+    //     long sum2 = getSum(B, m);
+  
+    //     // Look for val1 and val2, such that
+    //     // sumA - val1 + val2 = sumB - val2 + val1
+    //     long newsum1, newsum2;
+    //     for (int i = 0; i < n; i++)
+    //     {
+    //         for (int j = 0; j < m; j++)
+    //         {
+    //             newsum1 = sum1 - A[i] + B[j];
+    //             newsum2 = sum2 - B[j] + A[i];
+    //             if (newsum1 == newsum2)
+    //             {
+    //                 // val1 = A[i];
+    //                 ans =1; 
+    //                 break;
+    //                 // val2 = B[j];
+    //             }
+    //         }
+    //     }
+  
+        // System.out.println(val1+" "+val2);
+
+    
+        // return ans;
+        
+    }
+}
