@@ -1,0 +1,65 @@
+Given a string S containing only digits, Your task is to complete the function genIp() which returns a vector containing all possible combinations of valid IPv4 IP addresses and takes only a string S as its only argument.
+Note: Order doesn't matter. A valid IP address must be in the form of A.B.C.D, where A, B, C, and D are numbers from 0-255. The numbers cannot be 0 prefixed unless they are 0.
+
+
+For string 11211 the IP address possible are 
+1.1.2.11
+1.1.21.1
+1.12.1.1
+11.2.1.1
+
+
+Input:
+S = 1111
+Output: 1.1.1.1
+
+
+class Solution {
+    public static boolean func(String s){
+      if(s.length()==0 || s.length()>3){
+          return false;
+      }
+       
+      int n=Integer.valueOf(s);
+      if(s.length()>1 && s.charAt(0)=='0'){
+          return false;
+      }
+      return n<=255;
+    }
+    
+    
+    public ArrayList<String> genIp(String s) {
+      ArrayList<String> arr = new ArrayList<>();
+      
+      int n = s.length();
+      
+       if(n<4){
+          arr.add("-1");
+            return arr;
+      }
+      
+      for(int i =0 ;i<n-2;i++){
+          for(int j= i;j<n-1;j++){
+              for(int k=j;k<n;k++){
+                  String s1= s.substring(0,i);
+                   String s2= s.substring(i,j); 
+                   String s3= s.substring(j,k);
+                    String s4= s.substring(k);
+ 
+                if(func(s1)&& func(s2) && func(s3)&& func(s4)){
+                   arr.add(s1+"."+s2+"."+s3+"."+s4);
+                }          
+              }
+              
+          }
+      }
+      if(arr.size() == 0){
+           arr.add("-1");
+          return arr;
+      }
+   return arr;
+       
+        
+    }
+}
+
