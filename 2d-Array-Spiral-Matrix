@@ -1,0 +1,87 @@
+link :: https://leetcode.com/problems/spiral-matrix/
+
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        ArrayList<Integer> arr = new ArrayList<>();
+        
+      /*  for(int i =0 ;i<=matrix.length/2;i++){
+          for(int j =i;j<matrix[i].length-i;j++){
+              arr.add(matrix[i][j]);
+          }   
+          System.out.println("horizontal print");  
+          System.out.println(arr);
+            
+            
+          for(int k =i+1 ;k<matrix.length-i;k++){
+              arr.add(matrix[k][matrix[k].length-1-i]);
+          }
+          System.out.println("vertical print");
+            System.out.println(arr);
+            
+          for(int p= matrix[matrix.length-1].length-i-2 ;p>=i;p--){
+              arr.add(matrix[matrix.length-1-i][p]);
+          }  
+            
+          System.out.println("reverese print");
+          System.out.println(arr);  
+           
+          for(int q = matrix.length-2-i;q>i;q--){
+              arr.add(matrix[q][i]);
+          }  
+            
+            
+        }
+        
+        return arr;
+        */
+        
+        int m = matrix.length;
+        int n = matrix[0].length;
+        
+        int left =0;
+        int right = n-1;
+        
+        int top = 0;
+        int bottom=m-1;
+       
+        int op = 1;
+      /*  1 = left to right  
+        2 = top to down
+        3 = right to left
+        4 = bottom to top*/     
+        
+       while(top<=bottom && left<=right){
+           if(op == 1){
+               for(int i = left ;i<=right;i++){
+                   arr.add(matrix[top][i]);
+               }
+              top++; 
+           }
+           else if(op == 2){
+               for(int i = top;i<=bottom;i++){
+                   arr.add(matrix[i][right]);
+               }
+               right--;
+           }
+           else if(op == 3){
+               for(int i=right ;i>=left;i--){
+                  arr.add(matrix[bottom][i]);
+               }
+               bottom--;
+           }
+           else if(op == 4){
+               for(int i =bottom;i>=top;i--){
+                   arr.add(matrix[i][left]);
+               }
+               left++;
+           }
+           if(op <= 4){
+               op++;
+           }else{
+              op = 0;
+           }
+       } 
+        
+        return arr;
+    }
+}
