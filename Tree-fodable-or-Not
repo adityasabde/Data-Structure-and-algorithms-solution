@@ -1,0 +1,52 @@
+Given a binary tree, check if the tree can be folded or not. A tree can be folded if left and right subtrees of the tree are structure wise same. An empty tree is considered as foldable.
+Consider the below trees:
+(a) and (b) can be folded.
+(c) and (d) cannot be folded.
+
+(a)
+       10
+     /    \
+    7      15
+     \    /
+      9  11
+(b)
+        10
+       /  \
+      7    15
+     /      \
+    9       11
+(c)
+        10
+       /  \
+      7   15
+     /    /
+    5   11
+(d)
+         10
+       /   \
+      7     15
+    /  \    /
+   9   10  12
+
+
+
+class Tree
+{
+    //Function to check whether a binary tree is foldable or not.
+    boolean IsFoldable(Node node) 
+	{ 
+		boolean x = func(node,node);
+		return x;
+	} 
+	
+	static boolean func(Node n1,Node n2){
+	    if(n1 == null && n2 == null){
+	        return true;
+	    }
+	    if(n1 == null || n2 == null){
+	        return false;
+	    }
+	    
+	    return func(n1.left,n2.right)&& func(n1.right,n2.left);
+	}
+}
