@@ -1,0 +1,71 @@
+Given two unsorted arrays arr1[] and arr2[]. They may contain duplicates. For each element in arr1[] count elements less than or equal to it in array arr2[].
+
+Input:
+m = 6, n = 6
+arr1[] = {1,2,3,4,7,9}
+arr2[] = {0,1,2,1,1,4}
+Output: 4 5 5 6 6 6
+Explanation: Number of elements less than
+or equal to 1, 2, 3, 4, 7, and 9 in the
+second array are respectively 4,5,5,6,6,6
+
+solution 
+
+class Solution
+{
+    
+    public static ArrayList<Integer> countEleLessThanOrEqual(int arr1[], int arr2[], int m, int n)
+    {
+       // add your code here
+    
+    //   ArrayList<Integer> arr = new ArrayList<>();
+    //   Arrays.sort(arr2);
+    // //   Arrays.sort(arr1);
+    //   for(int i=0;i<m;i++){
+    //     int count = 0;
+    //     for(int j= 0;j<n;j++){
+    //         if(arr1[i] >= arr2[j]){
+    //             count++;
+    //         }
+    //     }
+    //     arr.add(count);
+    //   }
+    //     return arr;
+    
+    ArrayList<Integer> arr = new ArrayList<>();
+    Arrays.sort(arr2);
+    int index =0 ;
+    for(int  i=0 ;i<m;i++){
+        index = binaryfind(arr1[i],arr2);
+        int count =0 ;
+        // for(int i =0 ; i<index;i++){
+        //     // arr.add(arr2[i]);
+        //     count++;
+        // }
+        arr.add(index+1);
+        
+    }
+    return arr;
+    }
+    
+    public static int binaryfind(int x,int a[]){
+        int low = 0;
+        int high = a.length-1;
+        
+        int v =0;
+        while(low<=high){
+            int mid = (low+high)/2;
+            //  if(a[mid] == x){
+            //       return mid;
+             if(a[mid] <= x){
+                 low = mid+1;
+                 
+             }else {
+                 high  = mid -1;
+                
+             }
+        }
+        return high;
+    }
+   
+}
