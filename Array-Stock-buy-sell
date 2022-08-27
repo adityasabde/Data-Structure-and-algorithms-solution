@@ -1,0 +1,52 @@
+The cost of stock on each day is given in an array A[] of size N. Find all the segment of days on which you buy and sell the stock so that in between those days your profit is maximum.
+
+Note: Since there can be multiple solutions, the driver code will return 1 if your answer is correct, otherwise, it will return 0. In case there's no profit the driver code will return the string "No Profit" for a correct solution.
+
+Input:
+N = 7
+A[] = {100,180,260,310,40,535,695}
+Output:
+1
+Explanation:
+One possible solution is (0 3) (4 6)
+We can buy stock on day 0,
+and sell it on 3rd day, which will 
+give us maximum profit. Now, we buy 
+stock on day 4 and sell it on day 6.
+
+
+
+class Solution{
+    //Function to find the days of buying and selling stock for max profit.
+    ArrayList<ArrayList<Integer> > stockBuySell(int arr[], int n) {
+         ArrayList<ArrayList<Integer>> arr1 = new ArrayList<>();
+        //  ArrayList<Integer> arr2 = new ArrayList<>();
+         int i =0; //min
+         int j =0; //max
+        //  int max =0 ;
+         while(i<n){
+             
+             while(j<n-1 && arr[j] < arr[j+1]){
+                j++;
+             }
+                
+             if(i!=j){
+                   
+                 ArrayList<Integer> arr2 = new ArrayList<>();
+                 `
+                 arr2.add(i);
+                 arr2.add(j);
+                 
+                 arr1.add(arr2);
+                 
+              }
+                 i = ++j;
+                 
+                 if(j>=n-1)break; 
+         }
+         
+         return arr1;
+        
+       
+    }
+}
