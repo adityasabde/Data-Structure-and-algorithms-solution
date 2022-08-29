@@ -1,0 +1,72 @@
+Given a Binary tree and a key in the binary tree, find the node right to the given key. If there is no node on right side, then return a node with value -1.
+
+Input:
+
+       10
+     /    \
+    2      6
+   / \      \
+  8   4      5
+and key = 2
+Output: 6
+Explanation: We can see in the above tree
+that the next right node of 2 is 6
+
+Input:
+      10
+    /     \
+   2       6
+  / \       \
+ 8   4       5
+and key = 5
+Output: -1
+Explanation: We can see in the above tree 
+that there's No next right node of 5.
+So, the output is -1.
+
+class Solution{
+	Node nextRight(Node root, int key)
+    {
+        Queue <Node> q = new LinkedList<>();
+        Node node = new Node(-1);
+        // node.data = -1;
+        // node.next = null;
+        if(root == null ){
+            return node;
+        }
+        if((root.left == null && root.right == null)){
+            return node;
+        }
+        q.add(root);
+		while(!q.isEmpty()){
+		    int n = q.size();
+		    for(int i =0 ; i<n ;i++){
+    		    Node temp = q.poll();
+    		    if(temp !=null){
+    		        if(temp.data == key ){
+    		           if(i == n-1){
+    		               return node;
+    		           } 
+    		           return q.peek();
+    		        }      
+    		    }
+    		  
+    		    if(temp.left != null){
+    		        q.add(temp.left);
+    		    }
+    		  //  else{
+    		  //      q.add(new Node(-1));
+    		  //  }
+    		    if(temp.right != null){
+    		        q.add(temp.right);
+    		    }//else{
+    		  //      q.add(new Node(-1));
+    		  //  }
+		    }
+		    
+		    
+		    
+		}
+		return node;
+    }
+}
