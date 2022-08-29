@@ -1,40 +1,52 @@
 link :: https://leetcode.com/problems/spiral-matrix/
 
-class Solution {
-    public List<Integer> spiralOrder(int[][] matrix) {
-        ArrayList<Integer> arr = new ArrayList<>();
-        
-      /*  for(int i =0 ;i<=matrix.length/2;i++){
-          for(int j =i;j<matrix[i].length-i;j++){
-              arr.add(matrix[i][j]);
-          }   
-          System.out.println("horizontal print");  
-          System.out.println(arr);
-            
-            
-          for(int k =i+1 ;k<matrix.length-i;k++){
-              arr.add(matrix[k][matrix[k].length-1-i]);
-          }
-          System.out.println("vertical print");
-            System.out.println(arr);
-            
-          for(int p= matrix[matrix.length-1].length-i-2 ;p>=i;p--){
-              arr.add(matrix[matrix.length-1-i][p]);
-          }  
-            
-          System.out.println("reverese print");
-          System.out.println(arr);  
-           
-          for(int q = matrix.length-2-i;q>i;q--){
-              arr.add(matrix[q][i]);
-          }  
-            
-            
-        }
-        
-        return arr;
-        */
-        
+class Solution
+{
+    //Function to return a list of integers denoting spiral traversal of matrix.
+    static ArrayList<Integer> spirallyTraverse(int matrix[][], int r, int c)
+    {
+       // l - r -- > 1 , t - d ->2 , r- l -> 3 , b - t-> 4
+        ArrayList<Integer> ans =new ArrayList<>();
+
+ int top=0;
+       int right=c-1;
+       int left=0;
+       int bottom=r-1;
+       
+       
+       while(top<=bottom && left<=right){
+           //traverse left to right
+           for(int i=left; i<=right; i++)
+               ans.add(matrix [top][i]);
+               top++;
+               
+              //traverse top to botton  
+               for(int i=top; i<=bottom; i++)
+               ans.add(matrix[i][right]);
+               right--;
+               
+               if(top<=bottom){ //check overflow condition 
+                   
+                // traverse right to left    
+               for(int i=right; i>=left; i--)
+               ans.add(matrix[bottom][i]);
+               bottom--;
+               }
+               
+               if(left<=right){  //check over flow condition
+                   
+                //traverse the bottom to top   
+               for(int i=bottom ; i>=top; i--)
+               ans.add(matrix[i][left]);
+               left++;
+               
+               }
+       }
+       return ans;
+    }
+}
+
+
         int m = matrix.length;
         int n = matrix[0].length;
         
