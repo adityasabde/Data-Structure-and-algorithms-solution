@@ -1,0 +1,50 @@
+Given an array arr[] of size N and an integer K. Find the maximum for each and every contiguous subarray of size K.
+
+Input:
+N = 9, K = 3
+arr[] = 1 2 3 1 4 5 2 3 6
+Output: 
+3 3 4 5 5 5 6 
+Explanation: 
+1st contiguous subarray = {1 2 3} Max = 3
+2nd contiguous subarray = {2 3 1} Max = 3
+3rd contiguous subarray = {3 1 4} Max = 4
+4th contiguous subarray = {1 4 5} Max = 5
+5th contiguous subarray = {4 5 2} Max = 5
+6th contiguous subarray = {5 2 3} Max = 5
+7th contiguous subarray = {2 3 6} Max = 6
+
+
+
+class Solution
+{
+    //Function to find maximum of each subarray of size k.
+    static ArrayList<Integer> arr1 = new ArrayList<>();
+    static ArrayList <Integer> max_of_subarrays(int arr[], int n, int k)
+    {
+       func(arr,0,k-1);
+       return arr1;
+    }
+    
+    public static void func(int arr[],int i,int j){
+        if(j>arr.length){
+            return;
+        }
+        int max = arr[i]
+;        for(int k=i;k<=j;k++){
+            if(max<arr[k]){
+                max = arr[k];
+            }          
+         }
+        //  System.out.println("max "+max);
+         arr1.add(max);
+         if(j+1<arr.length){
+            func(arr,i+1,j+1);    
+         }else{
+             return;
+         }
+         
+         
+    }
+    
+}
