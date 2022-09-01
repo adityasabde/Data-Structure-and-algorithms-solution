@@ -14,6 +14,32 @@ Explanation:
 6th contiguous subarray = {5 2 3} Max = 5
 7th contiguous subarray = {2 3 6} Max = 6
 
+//First solution
+class Solution
+{
+    //Function to find maximum of each subarray of size k.
+    // static 
+    static ArrayList <Integer> max_of_subarrays(int arr[], int n, int k)
+    {
+    //   Queue <Integer> q = new LinkedList<>();      
+      int i =0 ;
+      int j = k-1;
+    ArrayList<Integer> arr1 = new ArrayList<>();
+      while(j<n){
+           int max= arr[i];
+          for(int p=i;p<=j;p++ ){
+              if(max<arr[p]){
+                  max = arr[p];
+              }
+          }
+          arr1.add(max);
+          i++;
+          j++;
+      }
+      return arr1;
+    }
+    
+}
 
 
 class Solution
