@@ -1,0 +1,30 @@
+Given the root of a binary tree, construct a string consisting of parenthesis and integers from a binary tree with the preorder traversal way, and return it.
+
+Omit all the empty parenthesis pairs that do not affect the one-to-one mapping relationship between the string and the original binary tree.
+
+Input: root = [1,2,3,4]
+Output: "1(2(4))(3)"
+Explanation: Originally, it needs to be "1(2(4)())(3()())", but you need to omit all the unnecessary empty parenthesis pairs. And it will be "1(2(4))(3)"
+
+
+class Solution {
+    public String tree2str(TreeNode root) {
+       StringBuilder s  =  new StringBuilder();
+       
+        func(s, root );
+        return s.substring(1,s.length()-1);
+    }
+    
+    public void func(StringBuilder s , TreeNode root){
+       if(root == null)return;
+        
+        s.append("(");
+        s.append(root.val);
+        if(root.left == null && root.right !=null){
+            s.append("()");
+        }
+        func(s,root.left);
+        func(s,root.right);
+        s.append(")");
+    }
+}
