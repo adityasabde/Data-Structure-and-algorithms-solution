@@ -1,0 +1,50 @@
+ Given a Binary Search Tree. Find sum of all elements smaller than and equal to Kth smallest element.
+ 
+ Input: 
+          20
+        /    \
+       8     22
+     /    \
+    4     12
+         /    \
+        10    14   , K=3
+
+Output: 22
+Explanation:
+Sum of 3 smallest elements are: 
+4 + 8 + 10 = 22
+
+//User function Template for Java
+
+/*
+class Node {
+    int data;
+    Node left, right;
+    Node(int key){
+        this.data = key;
+        this.left = this.right = null;
+    }
+}
+*/
+
+class Tree {
+     int sum =0;
+     int c =0 ;
+    int sum(Node root, int k) { 
+      
+        if(root == null){
+            return 0;
+        }
+        int i = sum(root.left,k);
+         c++;
+        if(k < c){
+            return sum;
+        }
+        sum += root.data;
+       
+        int j = sum(root.right,k);
+        return sum;
+    } 
+    
+    
+}
