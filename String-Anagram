@@ -1,0 +1,47 @@
+Input:a = geeksforgeeks, b = forgeeksgeeks
+Output: YES
+Explanation: Both the string have same characters with
+        same frequency. So, both are anagrams.
+        
+        
+hashmap use for counting the character        
+
+class Solution
+{    
+    //Function is to check whether two strings are anagram of each other or not.
+    public static boolean isAnagram(String a,String b)
+    {
+        HashMap<Character,Integer>map1 = new HashMap<>();
+         HashMap<Character,Integer>map2 = new HashMap<>();
+         
+         a = a.trim().toLowerCase();
+         b = b.trim().toLowerCase();
+         
+       for(int i =0 ;i<a.length() ; i++){
+           if(map1.containsKey(a.charAt(i))){
+               map1.put(a.charAt(i),map1.get(a.charAt(i))+1);
+           }
+           else{
+               map1.put(a.charAt(i),1);
+           }
+       }
+       
+          for(int i =0 ;i<b.length() ; i++){
+           if(map2.containsKey(b.charAt(i))){
+               map2.put(b.charAt(i),map2.get(b.charAt(i))+1);
+           }else{
+               map2.put(b.charAt(i),1);
+           }
+           
+       }
+       
+    if(a.length() != b.length()){
+        return false;
+    }
+       
+     if(map1.equals(map2)){
+       return true;   
+     }
+      return false;
+    } 
+}
