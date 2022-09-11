@@ -1,0 +1,29 @@
+Input: 
+N = 7 
+K = 50
+arr[] = {1, 12, 5, 111, 200, 1000, 10}
+Output: 4
+Explaination: The costs of the toys 
+you can buy are 1, 12, 5 and 10.
+
+
+class Solution{
+    static int toyCount(int N, int k, int arr[])
+    {
+       Arrays.sort(arr);
+       int paise = 0;
+       int count = 0;
+       for(int i=0;i<N;i++){
+           k = k - arr[i];
+           count++;
+           if(k <0){
+               count--;
+               break;
+           }
+           if(k == 0){
+               break;
+           }
+       }
+       return count;
+    }
+}
