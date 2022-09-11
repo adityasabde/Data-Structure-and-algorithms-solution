@@ -1,0 +1,75 @@
+class Solution
+{
+    //Function to sort an array using quick sort algorithm.
+    static void quickSort(int arr[], int low, int high)
+    {
+        //  System.out.println(low + " "+ high);
+        
+      if(low < high){
+          int loc = partition(arr , low , high);
+          quickSort(arr, low , loc-1);
+          quickSort(arr, loc+1 , high);
+      }
+    }
+    // static int partition(int arr[], int low, int high)
+    // {
+    //     int start = low;
+    //     int end  = high;
+    //     int pivot = arr[low];
+    //     while(start < end){
+    //          while(arr[start]<=pivot){
+    //             start++;
+    //             if(start > high){
+    //                 break;
+    //             }
+    //         }
+    //         while(arr[end] > pivot ){
+    //             end--;
+    //              if(end < low){
+    //                 break;
+    //             }
+    //         }
+    //         if(arr[start] > arr[end]){
+    //             int temp = arr[start] ;
+    //             arr[start] = arr[end] ;
+    //             arr[end] = temp ;
+    //         }
+    //     }
+    //     int t = arr[end];
+    //     arr[end] = pivot;
+    //     pivot = t;
+        
+    //     // System.out.println(pivot);
+        
+    //     return end;
+       
+    // } 
+    
+    
+    static int partition(int arr[], int low, int high)
+    {
+        int pivot = arr[high];
+        int i = (low-1); // index of smaller element
+        for (int j=low; j<high; j++)
+        {
+            // If current element is smaller than or
+            // equal to pivot
+            if (arr[j] <= pivot)
+            {
+                i++;
+ 
+                // swap arr[i] and arr[j]
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+ 
+        // swap arr[i+1] and arr[high] (or pivot)
+        int temp = arr[i+1];
+        arr[i+1] = arr[high];
+        arr[high] = temp;
+ 
+        return i+1;
+    }
+}
