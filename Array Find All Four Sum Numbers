@@ -57,6 +57,44 @@ sum of 2, 4, 7, 10 = 23 and sum of 3,
 //      }
       
 //       return a;
+
+//sdecond approch
+
+ Set<ArrayList<Integer>> set = new LinkedHashSet<>();
+   Arrays.sort(arr);
+   for (int i=0; i<=arr.length-2; i++) {
+       for (int j=i+1; j<=arr.length-1; j++) {
+           int l=j+1, r=arr.length-1;
+           while (l<r) {
+               if(arr[i]+arr[j]+arr[l]+arr[r] < k){
+                   l++;
+               }else if(arr[i]+arr[j]+arr[l]+arr[r] > k){
+                   r--;
+               } else {
+                   set.add(new ArrayList<>(Arrays.asList(arr[i],arr[j],arr[l],arr[r])));
+                   r--;
+               }
+           }
+       }
+   }
+   return new ArrayList<>(set);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //     }
 // }
 
