@@ -1,0 +1,106 @@
+Input:
+N = 7, K = 23
+A[] = {10,2,3,4,5,7,8}
+Output: 2 3 8 10 $2 4 7 10 $3 5 7 8 $
+Explanation: Sum of 2, 3, 8, 10 = 23,
+sum of 2, 4, 7, 10 = 23 and sum of 3,
+5, 7, 8 = 23.
+
+
+// User function Template for Java
+
+// arr[] : int input array of integers
+// k : the quadruple sum required
+
+// class Solution {
+//     public ArrayList<ArrayList<Integer>> fourSum(int[] arr, int k) {
+//       ArrayList<ArrayList<Integer>> a = new ArrayList<>();
+//       HashMap<Integer,Integer> map = new HashMap<>();
+       
+//       for(int i =0 ;i<arr.length ;i++){
+//           if(map.containsKey(arr[i])){
+//               map.put(arr[i],map.get(arr[i])+1);
+//           }else{
+//               map.put(arr[i],1);
+//           }
+//       } 
+      
+//       for(int i =0 ;i<arr.length-2;i++){
+//           for(int j= i+1;j<arr.length-1;j++){
+//               for(int p=j+1 ; p<arr.length;p++){
+//                   int x = arr[i] + arr[j] + arr[p];
+//                   ArrayList<Integer> a1 = new ArrayList<>();
+//                   if(map.containsKey(k-x)){
+//                       int count = map.get(k-x);
+//                       if(count == 1){
+//                          if(k-x == arr[i] || k-x == arr[j] || k-x == arr[p] ){
+//                              break;
+//                          }
+//                           a1.add(arr[i]);
+//                           a1.add(arr[j]);
+//                           a1.add(arr[p]);
+//                           a1.add(k-x);
+//                           a.add(a1);
+//                       }
+//                   }
+//               }
+//           }
+//       }
+//      HashSet<ArrayList<Integer>> set = new HashSet<>();
+//      for(int i =0 ;i<a.size();i++){
+//          set.add(a.get(i));
+//      }
+//      a.clear();
+//     //  Iterator <ArrayList<Integer>> it = new set.iterator();
+//       for(ArrayList<Integer> ele : set){
+//          a.add(ele);
+//      }
+      
+//       return a;
+//     }
+// }
+
+
+
+
+class Solution {
+    public ArrayList<ArrayList<Integer>> fourSum(int[] arr, int k) {
+        // code here
+        
+        ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
+        
+        Arrays.sort(arr);
+        int n = arr.length;
+        
+        for(int i=0; i<n-3; i++){
+            for(int j=i+1; j<n-2; j++){
+                int req = k - arr[i] - arr[j];
+                int start = j+1;
+                int end = n-1;
+                while(start < end){
+                    ArrayList<Integer> al = new ArrayList<>();
+                    if(arr[start] + arr[end] == req){
+                        al.add(arr[i]);
+                        al.add(arr[j]);
+                        al.add(arr[start]);
+                        al.add(arr[end]);
+                        if(!ans.contains(al)){
+                            ans.add(al);
+                        }
+                        start++;
+                        end--;
+                    }    
+                    else if(arr[start] + arr[end] < req){
+                        start++;
+                    }
+                    else{
+                        end--;
+                    }
+                }
+            }
+        }
+        
+        return ans;
+        
+    }
+}
