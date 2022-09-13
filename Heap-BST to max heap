@@ -1,0 +1,52 @@
+Input :
+                 4
+               /   \
+              2     6
+            /  \   /  \
+           1   3  5    7  
+
+Output : 1 2 3 4 5 6 7 
+Exaplanation :
+               7
+             /   \
+            3     6
+          /   \  /   \
+         1    2 4     5
+The given BST has been transformed into a
+Max Heap and it's postorder traversal is
+1 2 3 4 5 6 7.
+
+
+
+
+class Solution
+{
+    static Stack <Integer> st = new Stack<>();
+    public static void convertToMaxHeapUtil(Node root)
+    {
+        func(root);
+    
+        func2(root);
+        
+    }
+    static void func2(Node root){
+        if(root == null){
+            return;
+        }
+        root.data = st.pop();
+        func2(root.right);
+        func2(root.left);
+    }
+    
+    static void func(Node root){
+        if(root == null){
+            return;
+        }
+        func(root.left);
+        st.push(root.data);
+        func(root.right);
+    }
+    
+
+    
+}
