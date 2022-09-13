@@ -1,0 +1,55 @@
+S = "GFG"
+Output: 43334
+Explanation: For 'G' press '4' one time.
+For 'F' press '3' three times.
+
+
+
+class Solution 
+{ 
+    String printSequence(String S) 
+    { 
+        String str = "";
+        HashMap <Character,ArrayList<Integer>> map = new HashMap<>();
+        int i = 2 ;
+        char ch = 'a';
+        while(i<=9){
+            if(i==7 || i==9){
+                   for(int j=1 ;j<=4;j++){
+                    ArrayList<Integer> arr = new ArrayList<>();
+                    arr.add(i);
+                    arr.add(j);
+                    map.put(ch,arr);
+                    ch++;
+                } 
+            }else{
+                for(int j=1 ;j<=3;j++){
+                    ArrayList<Integer> arr = new ArrayList<>();
+                    arr.add(i);
+                    arr.add(j);
+                    map.put(ch,arr);
+                    ch++;
+                }
+            }
+            i++;
+        }
+        
+        char a [] = S.toCharArray();
+        
+        for(int k =0;k<a.length;k++){
+           a[k] =  Character.toLowerCase(a[k]);
+           ArrayList<Integer> as =  map.get(a[k]);
+       
+        if(as == null){
+            str+= Integer.toString(0);
+        }else{
+              int x = as.get(1);
+              for(int l = 0 ;l<x;l++){
+                  str +=  Integer.toString(as.get(0));
+              }
+             }
+        }
+      return str;  
+        
+    }
+}
