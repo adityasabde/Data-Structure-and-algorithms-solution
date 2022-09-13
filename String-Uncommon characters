@@ -1,0 +1,52 @@
+A = geeksforgeeks
+B = geeksquiz
+Output: fioqruz
+Explanation: 
+The characters 'f', 'i', 'o', 'q', 'r', 'u','z' 
+are either present in A or B, but not in both.
+
+
+
+
+class Solution
+{
+    String UncommonChars(String A, String B)
+    {
+        HashSet<Character> set1 = new HashSet<>();
+          HashSet<Character> set2 = new HashSet<>();
+        for(int i =0 ;i<A.length();i++){
+              set1.add(A.charAt(i));
+        }
+        
+        for(int i =0 ;i<B.length();i++){
+                  set2.add(B.charAt(i));
+        }
+        
+        String str = "";
+        for(char v : set1){
+            if(!set2.contains(v)){
+               str += v;
+            }
+        }
+        
+         for(char v : set2){
+            if(!set1.contains(v)){
+               str += v;
+            }
+        }
+    
+        if(str.length() == 0){
+            str ="-1";
+        }
+    
+        char ch[] = str.toCharArray();
+       
+        Arrays.sort(ch);
+        
+        str = String.valueOf(ch);
+        
+        
+        return str;
+    }
+    
+}
