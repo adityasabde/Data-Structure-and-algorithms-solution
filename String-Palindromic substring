@@ -1,0 +1,60 @@
+Input:
+S = "aaaabbaa"
+Output: aabbaa
+Explanation: The longest Palindromic
+substring is "aabbaa".
+
+
+Input: 
+S = "abc"
+Output: a
+Explanation: "a", "b" and "c" are the 
+longest palindromes with same length.
+The result is the one with the least
+starting index.
+
+
+
+
+class Solution{
+    static String longestPalin(String S){
+        int max = -1;
+        String pal ="";
+        int m =0 ,n =0;
+        
+        for(int i =0 ;i<S.length();i++){
+            for(int j = i ;j<S.length();j++){
+                int count = check(S,i,j);
+                
+                if(max < count){
+                    max = count;
+                    m=i;
+                    n=j;
+                }
+            }
+        }
+        
+        for(int k =m;k<=n;k++){
+            pal += S.charAt(k);
+        }
+        return pal;
+    }
+    
+    static int check(String s,int i,int j){
+        String pal = "";
+        int count = j-i+1;
+        while(i<=j){
+            if(s.charAt(i) == s.charAt(j)){
+                i++;
+                j--;
+            }else{
+                break;
+            }
+        }
+        if(i>j){
+            return count;
+        }
+        return -1;
+    }
+    
+}
