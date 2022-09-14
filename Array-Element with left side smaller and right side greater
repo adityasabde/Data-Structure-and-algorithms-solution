@@ -1,0 +1,54 @@
+Input:
+N = 4
+A[] = {4, 2, 5, 7}
+Output:
+5
+Explanation:
+Elements on left of 5 are smaller than 5
+and on right of it are greater than 5.
+
+
+Input:
+N = 3
+A[] = {11, 9, 12}
+Output:
+-1
+
+
+class Compute {
+    public int findElement(int arr[], int n){
+        if( n == 1 || n== 2){
+            return -1;
+        }
+        int min [] = new int[n];
+        int max [] = new int[n];
+         
+         int max1 = arr[0];
+         max[0] = arr[0];
+         int min1 = arr[n-1];
+         min[0] = arr[n-1];
+         
+        for(int i=1; i<n ;i++){
+            if(max1 < arr[i]){
+                max1 = arr[i];
+            }
+            max[i] = max1;
+        }
+         
+        for(int i=n-1; i>=0 ;i--){
+            if(min1 > arr[i]){
+                min1 = arr[i];
+            }
+            min[i] = min1;
+        } 
+        
+        for(int i = 1;i<n-1;i++){
+            if(arr[i] <= min[i+1] && arr[i] >= max[i-1]){
+                return arr[i];
+            }
+        }     
+         
+         
+        return -1;
+    }
+}
