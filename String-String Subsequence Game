@@ -1,0 +1,37 @@
+Input: S = "abc"
+Output: "ab", "ac", "abc" 
+Explanation: "ab", "ac", "abc" are 
+the all possible subsequences which 
+start with vowel and end with consonant
+
+class Solution {
+    // static  TreeSet <String> set = new TreeSet<>();
+    static TreeSet<String> allPossibleSubsequences(String s) {
+        TreeSet <String> set = new TreeSet<>();
+        String v = "aeiou";
+        String s2 ="";
+        func(s,set,0,s2);
+
+        return set;
+    }
+    
+    static void func( String s1,TreeSet<String> set,int i,String s2){
+    if( s2.length()>=2){
+        if((s2.charAt(0)=='a'|| s2.charAt(0)=='e' || s2.charAt(0)=='i'||s2.charAt(0)=='o' 
+        || s2.charAt(0)=='u')   &&
+           (s2.charAt(s2.length()-1)!='a'&& s2.charAt(s2.length()-1)!='e' &&
+           s2.charAt(s2.length()-1)!='i'&& s2.charAt(s2.length()-1)!='o' && s2.charAt(s2.length()-1)!='u') ){
+               set.add(s2);                  
+           }
+    }    
+       if (i==s1.length()) {
+            return;
+        }
+        
+        if(i < s1.length()){
+            func(s1,set,i+1,s2);
+            func(s1,set,i+1,s2+s1.charAt(i));     
+         }
+      
+    }
+}
