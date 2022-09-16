@@ -1,0 +1,69 @@
+Input: ABC
+Output:
+ABC ACB BAC BCA CAB CBA
+Explanation:
+Given string ABC has permutations in 6 
+forms as ABC, ACB, BAC, BCA, CAB and CBA .
+
+
+class Solution {
+  ArrayList<String> list = new ArrayList<>();
+  HashSet<String> hs = new HashSet<>();
+  public List<String> find_permutation(String S) {
+      boolean freq[] = new boolean[S.length()];
+      StringBuilder ans= new StringBuilder ();
+      permute(S,ans,freq);
+      
+     for(String s:hs){
+          list.add(s);
+      }
+      Collections.sort(list);
+      return list;
+  }
+  public void permute(String S, StringBuilder ans,boolean freq[]){
+      if(ans.length() == S.length()){
+          hs.add(ans.toString());
+          return;
+      }
+      for(int j =0;j<S.length();j++ ){
+         if(!freq[j]){
+             freq[j] = true;
+             ans.append(S.charAt(j));
+             permute(S,ans,freq);
+             ans.deleteCharAt(ans.length()-1);  
+             freq[j] = false;;
+         }
+      }
+      
+       
+  }
+}
+
+
+
+
+// class Solution {
+//   ArrayList<String> list = new ArrayList<>();
+//   HashSet<String> hs = new HashSet<>();
+//   public List<String> find_permutation(String S) {
+//       // Code here
+      
+//       permute(S,"");
+//       for(String s:hs){
+//           list.add(s);
+//       }
+//       Collections.sort(list);
+//       return list;
+//   }
+//   public void permute(String S, String ans){
+//       if(S.length()==0){
+//           hs.add(ans);
+//           return;
+//       }
+//       for(int i=0;i<S.length();i++){
+//           char cur =S.charAt(i);
+//           String remaining = S.substring(0,i)+S.substring(i+1);
+//           permute(remaining, ans+cur);
+//       }
+//   }
+// }
