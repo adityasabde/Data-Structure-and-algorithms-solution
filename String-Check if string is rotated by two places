@@ -1,0 +1,35 @@
+Input:
+a = amazon
+b = azonam
+Output: 1
+Explanation: amazon can be rotated anti
+clockwise by two places, which will make
+it as azonam.
+
+
+
+
+
+class Solution
+{
+    //Function to check if a string can be obtained by rotating
+    //another string by exactly 2 places.
+    public static boolean isRotated(String str1, String str2)
+    {
+       String clock ="";
+       String anti="";
+       
+       if(str1.length() != str2.length()){
+           return false;
+       }
+       if(str1.length() < 2){
+           return str1.equals(str2);
+       }
+       int len = str1.length();
+       clock += str1.substring(len-2,len)+str1.substring(0,len-2);
+       anti += str1.substring(2)+str1.substring(0,2);
+        
+       return (str2.equals(clock) || str2.equals(anti));
+    }
+    
+}
