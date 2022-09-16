@@ -1,0 +1,40 @@
+Input : 
+N = 5
+A[] = {-8, 2, 3, -6, 10}
+K = 2
+Output : 
+-8 0 -6 -6
+Explanation :
+First negative integer for each window of size k
+{-8, 2} = -8
+{2, 3} = 0 (does not contain a negative integer)
+{3, -6} = -6
+{-6, 10} = -6
+
+
+class Compute {
+    
+    public long[] printFirstNegativeInteger(long A[], int N, int K)
+    {
+        int flag = 0;
+      long [] arr = new long[N-K+1]; 
+      int v= 0 ;
+      for(int i = 0 ; i < N-K+1 ; i++){
+
+         for(int j = i;j<i+K;j++){
+              if(A[j]<0){
+                 arr[v++] = A[j];
+                 flag =1;
+                 break;
+             }
+         }
+         if(flag == 0){
+             arr[v++] = (long)0;
+         }
+
+         flag =0;
+      }
+ 
+      return arr;
+    }
+}
