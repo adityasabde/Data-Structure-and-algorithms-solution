@@ -1,0 +1,34 @@
+
+Given a string str and another string patt. Find the minimum index of the character in str that is also present in patt.
+
+Input:
+str = geeksforgeeks
+patt = set
+Output: 1
+Explanation: e is the character which is
+present in given str "geeksforgeeks"
+and is also presen in patt "set". Minimum
+index of e is 1.
+
+
+class Solution
+{
+    //Function to find the minimum indexed character.
+    public static int minIndexChar(String str, String patt)
+    {
+       
+      StringBuilder s = new StringBuilder();
+      for(int i=0;i<str.length();i++){
+          s.append(str.charAt(i));
+          String s1 = s.toString();
+          if(patt.contains(s1)){
+              return i;
+          }
+          s.deleteCharAt(0);
+          
+      } 
+       int x =-1;
+    return x;
+    }
+   
+}
