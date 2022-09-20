@@ -1,0 +1,55 @@
+Input: s = "abab"
+Output: 2
+Explanation: "ab" is the longest proper 
+prefix and suffix. 
+
+Input: s = "aaaa"
+Output: 3
+Explanation: "aaa" is the longest proper 
+prefix and suffix.
+
+
+class Solution {
+    int lps(String s) {
+        // StringBuilder s1 = new StringBuilder();
+        // StringBuilder s2 = new StringBuilder();
+    //   String  x = "";
+    //   String  y = "";
+       
+    //   int n = s.length();
+    //   int ans = 0;
+    //   for(int i =0;i<n-1;i++){
+    //       x+=s.charAt(i);
+    //       y = s.charAt(n-1-i)+y;
+    //       if(x.equals(y)){
+    //           ans  = x.length();
+    //       }
+    //   }
+    //   return ans;
+       
+     
+        if (s == null || s.length() == 0){return 0;}
+           
+             return computeLPSArray(s)[s.length()-1];
+        
+        }
+        
+        int[] computeLPSArray(String pat){
+        
+        int M=pat.length();
+        int i=0; 
+        int j=1;
+        int[] lps=new int[M];
+        while (j < M) {
+            if(pat.charAt(i)==pat.charAt(j)){
+                lps[j++] = ++i;
+            } else if (i == 0) {
+                lps[j++] = 0;
+            } else {
+                i = lps[--i];
+            }
+        }
+        return lps;
+       
+    }
+}
