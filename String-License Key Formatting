@@ -1,0 +1,69 @@
+Input: 
+S = "5F3Z-2e-9-w", K = 4
+Output: "5F3Z-2E9W"
+Explanation: The string S has been split into two
+parts, each part has 4 characters. Note that two
+extra dashes are not needed and can be removed.
+
+Input:
+S = "2-5g-3-J", K = 2
+Output: "2-5G-3J"
+Explanation: The string s has been split 
+into three parts, each part has 2 characters 
+except the first part as it could
+be shorter as mentioned above.
+
+
+class Solution{
+    static String ReFormatString(String S, int K){
+        Stack<Character> s1 = new Stack<>();
+        // Stack<Character> s2 = new Stack<>();
+        char ch []=S.toCharArray();
+        for(int i =0;i<ch.length;i++){
+            if(ch[i] !='-'){
+                s1.push(ch[i]);
+            }
+        }
+
+        StringBuilder str = new StringBuilder();
+        String st = "";
+        if(s1.size() < K ){
+            while(!s1.isEmpty()){
+                st = s1.pop() + st;
+            }
+            return st.toUpperCase();
+        }
+        
+        if(s1.isEmpty()){
+            return "" ;
+        }
+
+        while(!s1.isEmpty()){
+            int j =0;
+            while(j<K){
+                if(s1.isEmpty()){
+                    break;
+                }
+                str.append(s1.pop());        
+                j++;
+            }
+            str.append('-');
+        }
+
+        StringBuilder str2 = new StringBuilder();
+
+        while(str.charAt(str.length()-1) =='-'){
+            
+           str.deleteCharAt(str.length()-1);
+        }
+
+        for(int i=str.length()-1;i>=0;i--){
+            if(Character.isLowerCase(str.charAt(i))){
+                 str2.append(Character.toUpperCase(str.charAt(i)));
+            }else{
+                str2.append(str.charAt(i));
+            }
+        }
+        return str2.toString();
+    }
+}
