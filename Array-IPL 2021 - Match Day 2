@@ -1,0 +1,108 @@
+Input:
+N = 9, K = 3
+arr[] = 1 2 3 1 4 5 2 3 6
+Output: 
+3 3 4 5 5 5 6 
+Explanation: 
+1st contiguous subarray = {1 2 3} Max = 3
+2nd contiguous subarray = {2 3 1} Max = 3
+3rd contiguous subarray = {3 1 4} Max = 4
+4th contiguous subarray = {1 4 5} Max = 5
+5th contiguous subarray = {4 5 2} Max = 5
+6th contiguous subarray = {5 2 3} Max = 5
+7th contiguous subarray = {2 3 6} Max = 6
+
+
+
+class Solution {
+    static ArrayList<Integer> max_of_subarrays(int arr[], int n, int k) {
+        ArrayList<Integer> a = new ArrayList<>();
+        // int i =0 ;
+        // int j = 0;
+        // int max;
+        // while(i<n-k+1){
+        //     j = i ;
+        //     max=0;
+        //     while(j<i+k){
+        //         if(max < arr[j]){
+        //             max = arr[j];
+        //         }
+        //         j++;
+        //     }
+        //     a.add(max);
+        //     i++;
+        // }
+        
+        // return a;
+        
+        
+        // PriorityQueue <Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+        // for(int i=0;i<k;i++){
+        //     pq.add(arr[i]);
+        // }
+        // a.add(pq.peek());
+        // pq.remove(arr[0]);
+        
+        // for(int i =k;i<n;i++){
+        //     pq.add(arr[i]);
+        //     a.add(pq.peek());
+        //     pq.remove(arr[i-k+1]);
+        // }
+        // return a;
+        
+    //     TreeMap<Integer,Integer> tm = new TreeMap<>();
+    //   for(int i=0;i<n;i++){
+    //         tm.put(arr[i],tm.getOrDefault(arr[i],0)+1);
+    //         if(i+1 >= k){
+    //             a.add(tm.lastKey());
+    //             if(tm.get(arr[i]) > 1){
+    //               tm.put(arr[i],tm.getOrDefault(arr[i],0)-1);   
+    //             }else{
+    //                 tm.remove(arr[i+1-k]);
+    //             }
+    //         } 
+    //   }
+    //     return a;
+        
+    //     class Solution {
+    // static ArrayList<Integer> max_of_subarrays(int arr[], int n, int k) {
+    //     ArrayList<Integer> res = new ArrayList<>();
+        TreeMap<Integer,Integer> mp = new TreeMap<>(); 
+        for(int i = 0;i < k;i++){
+          mp.put(arr[i],i);  
+        } 
+        for(int i = k-1;i < n;i++)
+        {
+            mp.put(arr[i],i);
+            int index = mp.get(mp.lastKey());
+            while(index < (i - k + 1))
+            {
+                mp.pollLastEntry(); 
+                index = mp.get(mp.lastKey());
+            }
+            a.add(mp.lastKey());
+        }
+        return a;
+    }
+}
+
+
+// static ArrayList<Integer> max_of_subarrays(int arr[], int n, int k) {
+//         int max = 0;
+//         ArrayList<Integer> ar = new ArrayList<>();
+//       for(int i =0;i<k;i++){ 
+//           max = Math.max(max,arr[i]);
+//       }
+//          for(int i =k;i<n+1;i++){
+//             max =  Math.max(arr[i-1],max);
+//             if(i-k-1>=0 && max == arr[i-k-1]){
+//              max=0;
+//             for(int j =i-k;j<i;j++) max = Math.max(max,arr[j]);
+//             }
+//             ar.add(max);
+//          }
+//         return ar;
+//     } 
+        
+//     }
+// }
