@@ -1,0 +1,89 @@
+
+
+
+
+Input:
+K = 4
+value = {{1,2,3},{4 5},{5 6},{7,8}}
+Output: 1 2 3 4 5 5 6 7 8
+Explanation:
+The test case has 4 sorted linked 
+list of size 3, 2, 2, 2
+1st    list     1 -> 2-> 3
+2nd   list      4->5
+3rd    list      5->6
+4th    list      7->8
+The merged list will be
+1->2->3->4->5->5->6->7->8.
+
+
+
+
+
+class Solution
+{
+    //Function to merge K sorted linked list.
+    static PriorityQueue<Integer> pq = new PriorityQueue<>();
+    Node mergeKList(Node[]arr,int K)
+    {
+        Node n = arr[0];
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for(int i=1;i<K;i++){
+             n = recurmerge(n,arr[i]);
+        }
+        
+        return n;
+        
+    }
+    
+/////////////////////////////////////merging by recursively approch/////////////////////////////    
+    
+    public Node recurmerge(Node l1, Node l2){
+        if(l1 == null)return l2;
+        if(l2 == null)return l1;
+        
+        if(l1.data < l2.data){
+            l1.next = recurmerge(l1.next,l2);
+            return l1;
+        }else{
+            l2.next = recurmerge(l1, l2.next);
+            return l2;
+        }
+
+    }
+
+/////////////////////////////  merge by priority Queue //////////////////////////////
+
+    public Node merge(Node l1 , Node l2){
+        if(l1 == null)return l2;
+        if(l2 == null)return l1;
+        Node l = null;
+        while(l1 != null){
+            pq.add(l1.data);
+            l1 = l1.next;
+        }
+        while(l2 != null){
+            pq.add(l2.data);
+            l2 = l2.next;
+        }
+        
+        while(!pq.isEmpty()){
+            l = func(l, pq.poll());
+        }
+        return l;
+    }
+    
+    public Node func(Node n , int data){
+        Node temp = new Node(data);
+        if(n == null){
+            n = temp;
+        }else{
+            Node x = n;
+            while(x.next != null){
+                x = x.next;
+            }
+            x.next = temp;
+        }
+        return n;
+    }
+}
