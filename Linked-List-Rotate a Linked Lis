@@ -1,0 +1,32 @@
+
+Input:
+N = 5
+value[] = {2, 4, 7, 8, 9}
+k = 3
+Output: 8 9 2 4 7
+Explanation:
+Rotate 1: 4 -> 7 -> 8 -> 9 -> 2
+Rotate 2: 7 -> 8 -> 9 -> 2 -> 4
+Rotate 3: 8 -> 9 -> 2 -> 4 -> 7
+
+
+class Solution{
+    //Function to rotate a linked list.
+    public Node rotate(Node head, int k) {
+       for(int i =0;i<k;i++){
+          head = swap(head); 
+       }
+       return head;
+    }
+    
+    public Node swap (Node head){
+        Node temp = head;
+        int x = temp.data;
+        while(temp.next != null){
+            temp.data = temp.next.data;
+            temp = temp.next;
+        }
+        temp.data = x;
+        return head;
+    }
+}
