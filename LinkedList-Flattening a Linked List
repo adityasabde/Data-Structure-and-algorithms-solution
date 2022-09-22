@@ -1,0 +1,64 @@
+
+
+Input:
+5 -> 10 -> 19 -> 28
+|     |     |     | 
+7     20    22   35
+|           |     | 
+8          50    40
+|                 | 
+30               45
+Output:  5-> 7-> 8- > 10 -> 19-> 20->
+22-> 28-> 30-> 35-> 40-> 45-> 50.
+Explanation:
+The resultant linked lists has every 
+node in a single level.
+(Note: | represents the bottom pointer.)
+
+
+
+
+
+class GfG
+{
+    Node flatten(Node root)
+    {
+       PriorityQueue<Integer> pq = new PriorityQueue<>();
+       Node temp =  root;
+    //   Node b = null;
+       
+       while(temp != null){
+          pq.add(temp.data);
+          if(temp.bottom != null){
+              Node b = temp.bottom;
+              while(b != null){
+                  pq.add(b.data);
+                  b = b.bottom;
+              }
+          }
+          temp = temp.next;
+       }
+       Node k = new Node(-1);
+      while(!pq.isEmpty()){
+    
+          int h = pq.poll();
+         k =  func(k,h);
+      }
+       return k;
+    }
+    
+    public static Node func(Node list,int data){
+
+        Node vit = new Node(data);
+        if(list.data == -1){
+            list = vit;
+        }else{
+            Node x = list;
+            while(x.bottom != null){
+                x = x.bottom;
+            }
+            x.bottom = vit;
+        }
+        return list;
+    }
+}
