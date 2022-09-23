@@ -1,0 +1,62 @@
+
+Geek has a string Sof size Nconsisting of characters from '0'to '9'. He wants to minimise the length of the string. In each minimising operation, geek can remove any two consecutive characters if they are of the form {"12", "21", "34", "43", "56", "65", "78", "87", "09", "90"}.
+Find the minimum possible length of the string after applying minimising operations.
+
+
+Input: 
+N = 5 
+S = "12213"
+Output: 1
+Explanation: Geek can get the string of 
+length 1 in two minimising operation,
+In 1st operation Geek will remove "12" 
+from "12213" then Geek left with "213"
+In 2nd operation Geek will remove "21" 
+from "213" then Geek left with "3"
+
+
+
+
+class Solution { 
+    public int minLength(String s, int n) { 
+      HashSet<String> set = new HashSet<>();
+      set.add("12");
+      set.add("21");
+      set.add("34");
+      set.add("43");
+      set.add("56");
+      set.add("65");
+      set.add("78");
+      set.add("87");
+      set.add("09");
+      set.add("90");
+       
+    Stack<Character> st = new Stack<>();
+   
+    st.push(s.charAt(0));
+    
+    int i=1;
+    
+    while(i<n){
+         
+        if(st.isEmpty()){
+            st.push(s.charAt(i));
+        }else{
+            StringBuilder str  =  new StringBuilder(); 
+            str.append(st.peek());
+            str.append(s.charAt(i));
+             
+            String x = str.toString();
+            
+            if(set.contains(x)){
+                st.pop();
+            }else{
+                st.push(s.charAt(i));
+            }
+        }
+        i++;
+    }
+
+    return st.size();
+    }
+}
