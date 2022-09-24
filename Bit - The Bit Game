@@ -1,0 +1,39 @@
+
+Input:
+N = 8
+Output:
+1
+Explanation:
+N = 8
+N = 1000 (binary)
+Player 1 takes the bit.
+The remaining bits are all zero.
+Player 2 cannot make a move, 
+so Player 1 wins
+
+
+
+
+class Solution {
+    public static int swapBitGame(long N) {
+      
+        String s = Long.toBinaryString(N);
+        char ch [] = s.toCharArray();
+        Arrays.sort(ch);
+        int i = ch.length-1;
+        int count =0;
+        while(i>=0){
+            if(ch[i] == '0'){
+                break;
+            }
+            count++;
+            i--;
+        }
+        
+        if(count %2 != 0){
+            return 1;
+        }
+        
+        return 2;
+    }
+}
