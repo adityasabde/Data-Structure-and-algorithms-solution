@@ -1,0 +1,57 @@
+
+
+
+Input:
+N = 4
+arr[] = {7,2,6,5}
+B = 16
+Output:
+(2 2 2 2 2 2 2 2)
+(2 2 2 2 2 6)
+(2 2 2 5 5)
+(2 2 5 7)
+(2 2 6 6)
+(2 7 7)
+(5 5 6)
+
+
+
+
+lass Solution
+{
+    //Function to return a list of indexes denoting the required 
+    //combinations whose sum is equal to given number.
+    static ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
+    
+    static ArrayList<ArrayList<Integer>> combinationSum(ArrayList<Integer> A, int B)
+    {
+        
+        Collections.sort(A);
+        ArrayList<Integer> arr = new ArrayList<>();
+        HashSet<Integer> set = new HashSet<>(A);
+        ArrayList<Integer> arr3 = new ArrayList<>(set);
+        func(0, arr3,arr, B );
+        
+       
+        
+        // Collections.sort(ans);
+        return ans;
+        
+    }
+    
+   public static void func(int index , ArrayList<Integer> arr ,ArrayList<Integer> arr2, int target){
+        if(index == arr.size()){
+            if(target == 0){
+                ans.add(new ArrayList<>(arr2));
+            }
+            return;
+        }
+        
+        if(arr.get(index) <= target){
+            arr2.add(arr.get(index));
+            func(index , arr, arr2, target-arr.get(index));
+            arr2.remove(arr2.size()-1);
+        }
+        func(index+1 , arr , arr2 , target);
+    }
+}
