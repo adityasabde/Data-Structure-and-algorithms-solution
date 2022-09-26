@@ -1,0 +1,78 @@
+https://practice.geeksforgeeks.org/contest/interview-series-69/problems/#
+
+
+Input:
+N=5
+NUM=3
+A={1,1,3,4,3}
+Q={{0,2,2},{0,2,1},{0,4,2}}
+
+Output:
+2 1 2
+
+Explanation:
+
+For query 1: 0 2 2
+L=0,R=2,K=2
+let, L<=i<=R
+For i=0: frequency of a[i] i.e. 1 from i to n-1 is 2.
+For i=1: frequency of a[i] i.e. 1 from i to n-1 is 1.
+For i=2: frequency of a[i] i.e. 3 from i to n-1 is 2.
+Hence we have 2 elements from index 0 to 2 whose
+frequency from i to n-1 is 2.
+
+For query 2: 0 2 1
+L=0,R=2,K=1
+As we can see from the above query that there is only
+a single element in 0 to 2 whose frequency from i to n-1
+is 1.
+
+For query 3: 0 4 2
+The answer will be 2 because of the index 0 and 2.
+
+
+Input:
+N=5
+NUM=2
+A={1,1,1,1,1}
+Q={{0,4,4},{0,4,5}}
+
+Output:
+1 1
+
+
+
+class Solution {
+    public static ArrayList<Integer> solveQueries(int N, int num, int[] A, int[][] Q) {
+    //   HashMap<Integer,Integer> map = new HashMap<>();
+       ArrayList<Integer> arr = new ArrayList<>();
+       int occur [] = new int[N];
+       
+       for(int i =0;i<N;i++){
+           int count = 0;
+           for(int j = i;j<N ;j++){
+               if(A[i] == A[j]){
+                   count++;
+               }
+           }
+           occur[i] = count;
+       }
+        int count;
+       for(int i =0;i<num;i++){
+          int l = Q[i][0];
+          int r = Q[i][1];
+          int k = Q[i][2];
+          
+          int ctn = 0;
+         while(l<=r){
+             if(occur[l] == k){
+                 ctn++;
+             }
+             l++;
+         }
+         arr.add(ctn);
+
+       }
+        return arr;
+    }
+}
