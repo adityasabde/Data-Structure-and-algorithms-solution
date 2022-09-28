@@ -1,0 +1,56 @@
+
+Given an array of integers (A[])  and a number x, find the smallest subarray with sum greater than the given value.
+
+Note: The answer always exists. It is guaranteed that x doesn't exceed the summation of a[i] (from 1 to N).
+
+Input:
+A[] = {1, 4, 45, 6, 0, 19}
+x  =  51
+Output: 3
+Explanation:
+Minimum length subarray is 
+{4, 45, 6}
+
+
+
+class Solution {
+
+    public static int smallestSubWithSum(int a[], int n, int x) {
+       int max = Integer.MAX_VALUE;
+       int length = 0;
+       
+       int i = 0 ;
+       int j = 0 ;
+       if(n == 1){
+           if(x < a[0]){
+               return 1;
+           }else{
+               return 0;
+           }
+       }
+ 
+       while(i<n){
+       int sum  = 0 ;    
+           if(a[i] > x){
+               length = 1;
+           }else{
+               j = i;
+               while(j<n ){
+                   sum += a[j];
+                   j++;
+                  if(sum > x){
+                    length = j-i;
+                    break;
+                  }
+               }
+           }
+        
+            max = Math.min(length,max);
+
+           i++;
+                 
+           }
+       return max;
+              
+    }
+}
