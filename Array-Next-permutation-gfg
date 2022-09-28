@@ -1,0 +1,86 @@
+
+
+Input: N = 6
+arr = {1, 2, 3, 6, 5, 4}
+Output: {1, 2, 4, 3, 5, 6}
+Explaination: The next permutation of the 
+given array is {1, 2, 4, 3, 5, 6}.
+
+
+
+
+class Solution{
+    static List<Integer> nextPermutation(int n, int arr[]){
+    //   ArrayList<Integer > a = new ArrayList<>();
+    //      int idx1 = -1; 
+    //      int idx2 = -1;
+         
+    //      for(int i =n-2;i>=0;i--){
+    //          if(arr[i] <= arr[i+1]){
+    //              idx1 = i;
+    //              break;
+    //          }
+    //      }
+
+    //       if(idx1 >=0){
+    //             for(int j = n-1 ;j>=0 ; j--){
+    //                 if(arr[j] >= arr[idx1]){
+    //                     idx2 = j;
+    //                     break;
+    //                 }
+    //             }
+
+    //             swap(arr,arr[idx1],arr[idx2]);
+    //       }             
+            
+           
+        
+    //      reverse(arr,idx1+1,n-1);
+    //     for(int i =0 ;i<n;i++){
+    //         a.add(arr[i]);
+    //     }
+        
+    //     return a;
+    // }
+    
+         List<Integer>al=new ArrayList<>();
+      if(arr.length<=1) {
+          return al;
+      }
+       
+      int i=arr.length-2;
+       
+      while(i>=0 && arr[i]>=arr[i+1]) {
+          i--;
+      }
+       
+      if(i>=0){
+          int j=arr.length-1;
+           
+          while(arr[j]<=arr[i]) {
+              j--;
+          }
+          swap(arr,i,j);
+      }
+       
+      reverse(arr,i+1,arr.length-1);
+      for(int h:arr){
+          al.add(h);
+      }
+      return al;
+  }
+   
+  public static void swap(int a[], int l, int r){
+      int temp=a[l];
+      a[l]=a[r];
+      a[r]=temp;
+  }
+  public static void reverse(int a[],int i,int j){
+      while(i<j){
+          swap(a,i++,j--);
+      }
+  }
+
+    
+}
+
