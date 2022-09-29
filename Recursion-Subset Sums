@@ -1,0 +1,42 @@
+
+
+Input:
+N = 2
+arr[] = {2, 3}
+Output:
+0 2 3 5
+Explanation:
+When no elements is taken then Sum = 0.
+When only 2 is taken then Sum = 2.
+When only 3 is taken then Sum = 3.
+When element 2 and 3 are taken then 
+Sum = 2+3 = 5.
+
+
+
+
+class Solution{
+    ArrayList<Integer> subsetSums(ArrayList<Integer> arr, int N){
+        
+        ArrayList<Integer> al = new ArrayList<>();
+        int sum =0 ;
+        function(arr,al,N-1,sum);
+        
+        return al;
+        
+    }
+    
+    void function(ArrayList<Integer> al1  , ArrayList<Integer> al , int n , int sum){
+        if(n < 0 ){
+            al.add(sum);
+            return ;
+        }
+        
+        sum += al1.get(n);
+        function(al1,al,n-1,sum);
+        sum -= al1.get(n);
+        function(al1,al,n-1,sum);
+    }
+    
+    
+}
