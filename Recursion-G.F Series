@@ -1,0 +1,49 @@
+Siddhant made a special series and named it as G.F Series. The series follows this trend  Tn=(Tn-2)2-(Tn-1)  in which the first and the second term are 0 and 1 respectively. Help Siddhant to find up to N terms of the series.
+
+
+Input:
+N = 3
+Output:
+0 1 -1
+Explanation:
+First-term is given as 0 and the second 
+term is 1. So the T3 = (T3-2)2 - (T3-1) 
+= T12 - T2 = 02 - 1 = -1
+
+
+
+
+
+
+class Solution{
+    
+    static void gfSeries(int N){
+        long a = 0;
+        long b = 1;
+        
+        System.out.print(a+" " + b+ " ");
+        
+        print((long)N-2,a,b);
+         System.out.println();
+        
+    }
+    
+    static void print(long n , long a , long b){
+        if(n == 0){
+            return;
+        }
+        long c = a*a - b;
+         a = b;
+        b = c;
+        
+        System.out.print(c+" ");
+        
+        print(n-1,a,b);
+        
+    }
+    
+   
+}
+
+
+
