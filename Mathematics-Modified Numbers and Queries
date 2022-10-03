@@ -1,0 +1,108 @@
+Find the sum of all the numbers between the range l and r. Here each number is represented by the sum of its prime factors. 
+Note : For example, 6 is represented by 5 because 6 has two prime factors 2 and 3 and 2 + 3 = 5.
+
+
+Input: l = 1, r = 2
+Output: 3
+Explanation: 1->1, 2->2 and 1+2=3. 
+
+
+
+Input: l = 1, r = 6
+Output: 18
+Explanation: 1->1, 2->2, 3->3, 4->2
+5->5, 6->2+3=5, 1+2+3+2+5+5 = 18. 
+
+
+
+class Solution
+{
+    
+    public int sumOfAll(int l, int r)
+    {
+        boolean isPrime[] = new boolean[r+1];
+        // int k = 0 ;
+        
+        Arrays.fill(isPrime,true);
+        
+        for(int i =2; i<=r ;i++){
+            if(isPrime[i]){
+                for(int j = i*i ; j<=r ; j += i){
+                    isPrime[j] = false;
+                }
+            }
+        }
+        
+        int ans = 0 ;
+        
+        while(l<=r){
+            if(l == 1){
+              l++;
+               ans++;
+               continue;
+            }
+            int cur = 0 ;
+            for(int i =2;i<=l;i++){
+                if(isPrime[i] && l%i == 0){
+                    cur += i;
+                }
+            }
+            
+            ans += cur;
+            l++;
+        }
+        
+        return ans;
+        
+      
+    }
+    
+}
+
+
+
+
+
+
+//  public int sumOfAll(int l, int r)
+//     {
+//         //finding prime numbers till r by sieve of Eratosthenes 
+//         boolean sieve[] = new boolean[r+1];
+//         for(int i=2;i<=r;i++)
+//         {
+//             int j=2;
+//             // int m=i*j;
+//             while(i*j<=r){
+//                 sieve[i*j]=true;
+//                 j++;
+//             }
+//         }
+    
+        
+//         //extracting prime numbers till r
+//         ArrayList<Integer>list=new ArrayList<>();
+//         for(int i=2;i<=r;i++)
+//         {
+//             if(!sieve[i])
+//             list.add(i);
+//         }
+        
+//         //finding the sum according to the question
+//         int sum=0;
+//         for(int i=l;i<=r;i++)
+//         {
+//             if(i==1)
+//             {
+//                 sum+=1;
+//                 continue;
+//             }
+//             for(Integer e:list)
+//             {
+//                 if(i%e==0)
+//                 sum+=e;
+//                 if(e>i)
+//                 break;
+//             }
+//         }
+//         return sum;
+//     }
