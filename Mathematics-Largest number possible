@@ -1,0 +1,52 @@
+
+
+
+
+Input: N = 2, S = 9
+Output: 90
+Explaination: It is the biggest number 
+with sum of digits equals to 9.
+
+
+Input: N = 3, S = 20
+Output: 992
+Explaination: It is the biggest number 
+with sum of digits equals to 20.
+
+
+
+
+class Solution{
+    static String findLargest(int N, int s){
+        int x = 0;
+        if(s == 0 && N==1){
+            return "0";
+        }else{
+            if(s==0 ){
+                return "-1";
+            }
+        }
+        
+        if(s > 9*N){
+            return "-1";
+        }
+        
+        int arr [] = new int[N];
+        
+        for(int i =0 ;i< N ;i++){
+            if(s>=9){
+                arr[i] = 9;
+                s -= 9;
+            }else{
+                arr[i] = s;
+                s = 0;
+            }
+        }
+        
+        String str = "";
+        for(int i=0; i<N ;i++){
+            str += arr[i];
+        }
+        return str;
+    }
+}
