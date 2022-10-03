@@ -1,0 +1,95 @@
+Given two sorted arrays arr1[] and arr2[] of sizes n and m in non-decreasing order. Merge them in sorted order without using any extra space. Modify arr1 so that it contains the first N elements and modify arr2 so that it contains the last M elements.
+
+Input: 
+n = 4, arr1[] = [1 3 5 7] 
+m = 5, arr2[] = [0 2 6 8 9]
+Output: 
+arr1[] = [0 1 2 3]
+arr2[] = [5 6 7 8 9]
+Explanation:
+After merging the two 
+non-decreasing arrays, we get, 
+0 1 2 3 5 6 7 8 9.
+
+
+Input: 
+n = 2, arr1[] = [10, 12] 
+m = 3, arr2[] = [5 18 20]
+Output: 
+arr1[] = [5 10]
+arr2[] = [12 18 20]
+Explanation:
+After merging two sorted arrays 
+we get 5 10 12 18 20.
+
+
+
+// first enter the loop in first array check the ith element is greater than second first index array element is yes then swap both and by insertion sorrt logic array is already sorted
+so just fix the position of the element in arr2 array without sorting whole array again
+
+
+class Solution
+{
+    //Function to merge the arrays.
+    public static void merge(long arr1[], long arr2[], int n, int m) 
+    {
+        int i =0 ;
+        // int j =0 ;
+        while(i<n){
+           
+            if(arr1[i] > arr2[0]){
+                
+                long temp = arr1[i];
+                arr1[i] = arr2[0];
+                arr2[0] = temp;
+            
+                // Arrays.sort(arr2);
+                int k = 1 ;
+                long key = arr2[0];
+                while(k<m  && arr2[k] < key){
+                        arr2[k-1] = arr2[k];
+                        k++;
+                }
+                arr2[k-1] = key;
+            }
+            
+            i++;
+        }
+        
+        
+    }
+}
+//  for(int i=0;i<n;i++) {
+//             if(arr1[i] > arr2[0]) {
+//                 // swap
+//                 long temp = arr1[i];
+//                 arr1[i] = arr2[0];
+//                 arr2[0] = temp;
+                
+//                 // Using insertion sort idea since array2 is almost sorted after swapping
+//                 long key = arr2[0];
+                
+//                 int j = 1;
+//                 while(j < m && key > arr2[j]) {
+//                     arr2[j-1] = arr2[j];
+//                     j++;
+//                 }
+                
+//                 arr2[j-1] = key;
+//             }
+//         }
+
+//  int i = 0, j = 0, k = m - 1;
+//         while (i <= k && j < n) {
+//             if (arr1[i] < arr2[j])
+//                 i++;
+//             else {
+//                 int temp = arr2[j];
+//                 arr2[j] = arr1[k];
+//                 arr1[k] = temp;
+//                 j++;
+//                 k--;
+//             }
+//         }
+//         Arrays.sort(arr1);
+//         Arrays.sort(arr2);
