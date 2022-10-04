@@ -1,0 +1,41 @@
+Given three integers  'A' denoting the first term of an arithmetic sequence , 'C' denoting the common difference of an arithmetic sequence and an integer 'B'. you need to tell whether 'B' exists in the arithmetic sequence or not.
+
+Input: A = 1, B = 3, C = 2
+Output: 1
+Explaination: 3 is the second term of the 
+sequence starting with 1 and having a common 
+difference 2.
+
+
+Input: A = 1, B = 2, C = 3
+Output: 0
+Explaination: 2 is not present in the sequence.
+
+
+
+
+class Solution{
+    static int inSequence(int a, int b, int c){
+       double n;
+
+        if(c==0){
+
+            if( a==b ){
+                return 1 ;
+            }else{
+                return 0; 
+            }    
+
+        }
+        
+        n=(double)(b-a)/c + 1;
+
+        int m = (b-a)/c + 1;
+
+        if(n!=m || n<=0){
+            return 0;
+        }
+
+        return 1;
+    }
+}
