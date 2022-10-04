@@ -1,0 +1,63 @@
+The task is to count all the possible paths from top left to bottom right of a m X n matrix with the constraints that from each cell you can either move only to right or down.
+
+
+
+Input: m = 2, n = 2
+Output: 2 
+Explanation: Two possible ways are
+RD and DR.  
+
+
+
+Input: m = 3, R = 3
+Output: 6
+Explanation: Six possible ways are
+RRDD, DDRR, RDDR, DRRD, RDRD, DRDR. 
+
+
+
+
+class Solution
+{
+    int x;
+    int m = 1000000007;
+    int y;
+    long numberOfPaths(int m, int n)
+    {
+        x= m ;
+        y = n;
+        return DFS(0,0);
+    }
+    
+    long DFS(int i , int j){
+        if(i == x-1 || j == y-1)return 1;
+        
+        long right = DFS(i,j+1);
+        long left = DFS(i+1,j);
+        
+        return (right+left)%m;
+    }
+    
+}
+
+
+  int x;
+    int m = 1000000007;
+    int y;
+    long dp[][];
+    long numberOfPaths(int m, int n)
+    {
+        x= m ;
+        y = n;
+        dp = new long[101][101];
+        return DFS(0,0);
+    }
+    
+    long DFS(int i , int j){
+        if(i == x-1 || j == y-1)return 1;
+        if(dp[i][j] != 0 ) return dp[i][j];
+        long right = DFS(i,j+1);
+        long left = DFS(i+1,j);
+        
+        return dp[i][j]=(right+left)%m;
+    }
