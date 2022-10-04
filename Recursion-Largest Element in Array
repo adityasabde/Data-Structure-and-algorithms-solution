@@ -1,0 +1,23 @@
+
+class Compute {
+    
+    public int largest(int arr[], int n)
+    {
+     int max = Integer.MIN_VALUE;    
+      int x = max(arr,max,arr.length-1);   
+    
+        return x;
+    }
+    
+    int max(int arr[] , int max , int n){
+        if(n<0){
+            return max;
+        }
+        
+        if(max<arr[n]){
+            max = arr[n];
+        }
+        
+        return max(arr,max,n-1);
+    }
+}
