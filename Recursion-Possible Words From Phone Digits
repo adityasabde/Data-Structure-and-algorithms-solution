@@ -1,0 +1,59 @@
+
+
+
+
+Given a keypad as shown in the diagram, and an N digit number which is represented by array a[ ], the task is to list all words which are possible by pressing these numbers.
+
+
+
+Input: N = 3, a[] = {2, 3, 4}
+Output:
+adg adh adi aeg aeh aei afg afh afi 
+bdg bdh bdi beg beh bei bfg bfh bfi 
+cdg cdh cdi ceg ceh cei cfg cfh cfi 
+Explanation: When we press 2,3,4 then 
+adg, adh, adi, ... cfi are the list of 
+possible words.
+
+
+
+
+class Solution
+{
+    //Function to find list of all words possible by pressing given numbers.
+    static ArrayList <String> possibleWords(int a[], int N)
+    {
+        ArrayList<String> ans = new ArrayList<String>();
+        TreeSet<String> set = new TreeSet<>();
+        ans = comb(0,a,N);
+        
+        return ans;
+         
+    }
+    static String[] codes = {";",";","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    static ArrayList<String> comb(int i , int a[],int n){
+        if(i == a.length){
+            ArrayList<String> ans1 = new ArrayList<String>();
+            ans1.add("");
+            return ans1;
+        }
+        
+        
+         int x = a[i];
+         ArrayList<String> arr = comb(i+1,a,n);
+         ArrayList<String> ans = new ArrayList<String>();
+         String result = codes[x];
+         for(int j = 0 ;j<result.length() ; j++){
+             char ch = result.charAt(j);
+             for(String s : arr ){
+                 ans.add(ch + s);
+             }
+             
+         }
+         return ans;
+    }
+    
+    
+}
+
+
