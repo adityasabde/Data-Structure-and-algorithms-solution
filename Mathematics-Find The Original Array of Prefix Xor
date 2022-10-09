@@ -1,0 +1,38 @@
+Input: pref = [5,2,0,3,1]
+Output: [5,7,2,3,2]
+Explanation: From the array [5,7,2,3,2] we have the following:
+- pref[0] = 5.
+- pref[1] = 5 ^ 7 = 2.
+- pref[2] = 5 ^ 7 ^ 2 = 0.
+- pref[3] = 5 ^ 7 ^ 2 ^ 3 = 3.
+- pref[4] = 5 ^ 7 ^ 2 ^ 3 ^ 2 = 1.
+
+Input: pref = [13]
+Output: [13]
+Explanation: We have pref[0] = arr[0] = 13.
+
+
+
+class Solution {
+    public int[] findArray(int[] pref) {
+        int arr[] = new int[pref.length];
+        int ans = 0;
+        int m = 0;
+         
+        if(pref.length == 1){
+            return pref;
+        }else{
+            int i =1 ;
+            arr[0] = pref[0];
+ 
+            for(int j = 1 ; j < pref.length ; j++ ){
+            
+                    arr[j] = pref[j-1] ^ pref[j];
+                 
+                }
+            }
+           
+        
+        return arr;
+    }
+}
