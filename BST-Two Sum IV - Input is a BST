@@ -1,0 +1,50 @@
+Given the root of a Binary Search Tree and a target number k, return true if there exist two elements in the BST such that their sum is equal to the given target.
+
+
+
+
+Input: root = [5,3,6,2,4,null,7], k = 9
+Output: true
+
+
+
+
+
+
+
+class Solution {
+    public boolean findTarget(TreeNode root, int k) {
+           ArrayList <Integer> arr = new ArrayList<>();
+           HashMap<Integer, Integer> map = new HashMap<>();
+           
+           
+           fun(arr, root,k);
+           if(arr.size() == 1){
+               return false;
+           }
+        
+           for(int i =0 ;i<arr.size();i++){
+               map.put(arr.get(i),map.getOrDefault(arr.get(i),0)+1);
+           }
+       
+           for(int i =0 ;i<arr.size() ;i++){
+                  
+               int sum = arr.get(i) ;
+ System.out.println(k != k - sum);
+               if(map.containsKey(k-sum) && k/2 != k-sum){
+                   return true;
+               }
+           }
+           return false;
+
+    }
+    
+    public void fun(ArrayList<Integer>arr , TreeNode root , int k ){
+         if(root == null){
+             return;
+         }
+         fun(arr,root.left, k);
+         arr.add(root.val);
+         fun(arr,root.right,k);
+    }
+}
