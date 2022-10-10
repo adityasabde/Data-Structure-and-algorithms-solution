@@ -1,0 +1,306 @@
+
+
+
+You are given a n,m which means the row and column of the 2D matrix and an array of  size k denoting the number of operations. Matrix elements is 0 if there is water or 1 if there is land. Originally, the 2D matrix is all 0 which means there is no land in the matrix. The array has k operator and each operator has two integer A[i][0], A[i][1] means that you can change the cell matrix[A[i][0]][A[i][1]] from sea to island. Return how many island are there in the matrix after each operator.You need to return an array of size k.
+
+
+
+
+Input: n = 4
+m = 5
+k = 4
+A = {{1,1},{0,1},{3,3},{3,4}}
+
+Output: 1 1 2 2
+Explanation:
+0.  00000
+    00000
+    00000
+    00000
+1.  00000
+    01000
+    00000
+    00000
+2.  01000
+    01000
+    00000
+    00000
+3.  01000
+    01000
+    00000
+    00010
+4.  01000
+    01000
+    00000
+    00011
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution {
+    
+    public List<Integer> numOfIslands(int rows, int cols, int[][] operators) {
+    //     List<Integer> arr = new ArrayList<>();
+    //       int count = 0;
+    //      int a[][] = new int[rows][cols];
+    //     //  Arrays.fill(a,0);
+    //     // System.out.println(op.length);
+    //       for(int i =0 ; i< op.length ;i ++){
+    //           int x = op[i][0];
+    //           int y = op[i][0];
+    //           a[x][y] = 1;
+              
+    //             // System.out.println(x + " " + y);
+    //                 // System.out.println(y);
+                
+    //         if(x == 0 && y == 0 ){
+    //             if(x+1<rows && a[x+1][y] != 1 )
+    //             {
+    //               if(y+1 < cols && a[x][y+1] != 1)
+    //               {
+    //                 if(i == 3){
+    //                     System.out.println("1");
+    //                 }  
+    //                 count++; 
+                      
+    //               }
+                    
+    //             }
+    //          }
+    //          else if(x==0 && y == cols-1){
+    //              if(x+1<rows && a[x+1][y] != 1 )
+    //              {
+    //                  if(y-1>=0 && a[x][y-1] != 1)
+    //                  {
+    //                      if(i == 3){
+    //                     System.out.println("2");
+    //                 }
+    //                     count++;
+    //                  }
+    //             }   
+    //          }else if(x== rows-1 && y== cols-1){
+    //             if(y-1>=0 && a[x][y-1] != 1)
+    //             {
+    //               if(x-1>=0 && a[x-1][y] != 1)
+    //               {
+    //                   if(i == 3){
+    //                     System.out.println("3");
+    //                 }
+    //                  count++;
+    //               }
+    //             }
+    //          }
+    //          else if(x==rows-1 && y==0) {
+    //             if(y+1 < cols && a[x][y+1] != 1)
+    //             {
+    //               if(x-1>=0 && a[x-1][y] != 1)
+    //               {
+    //                   if(i == 3){
+    //                     System.out.println("4");
+    //                 }
+    //                  count++;
+    //               }
+    //             }
+    //          }
+    //           else if(x == 0){
+    //               if(x+1<rows && a[x+1][y] != 1 )
+    //               {
+    //                   if(y-1>=0 && a[x][y-1] != 1)
+    //                   {
+    //                       if(y+1 < cols && a[x][y+1] != 1)
+    //                       {
+    //                 //           if(i == 3){
+    //                 //     System.out.println("5");
+    //                 // }
+    //                           count++; 
+    //                       }
+    //                   }
+    //               }
+    //           }
+    //          else if(y == 0){
+    //             if(x-1>=0 && a[x-1][y] != 1)
+    //             {
+    //                 if(y+1 < cols && a[x][y+1] != 1)
+    //                 {
+    //                     if(x+1<rows && a[x+1][y] != 1 )
+    //                     {
+    //                         if(i == 3){
+    //                     System.out.println("6");
+    //                 }
+    //                         count++;
+    //                     }
+    //                 }
+    //             }
+    //          }
+    //          else if(x == rows-1){
+    //                 if(i == 3){
+    //                     System.out.println(y);
+    //                     // System.out.println(x);
+    //                 }
+    //               if(y+1 < cols && a[x][y+1] != 1)
+    //               {
+    //                  if(x-1>=0 && a[x-1][y] != 1)
+    //                  {
+    //                      if(y-1>=0 && a[x][y-1] != 1)
+    //                      {
+    //                          if(i == 3){
+    //                     System.out.println("7");
+    //                 }
+    //                          count++;
+    //                      }
+    //                  }   
+    //               }
+    //          }else if(y == cols-1){
+    //             if(x+1<rows && a[x+1][y] != 1 )
+    //             {
+    //               if(x-1>=0 && a[x-1][y] != 1)
+    //                  {
+    //                      if(y-1>=0 && a[x][y-1] != 1)
+    //                      {
+    //                          count++;
+    //                      }
+    //                  }   
+    //             }
+    //          }
+            
+    //          else if(x+1<rows && a[x+1][y] != 1 )
+    //           {
+    //               if(y+1 < cols && a[x][y+1] != 1)
+    //               {
+    //                  if(x-1>=0 && a[x-1][y] != 1)
+    //                  {
+    //                      if(y-1>=0 && a[x][y-1] != 1)
+    //                      {
+    //                          count++;
+    //                      }
+    //                  }   
+    //               }
+    //           }
+              
+              
+              
+    //           arr.add(count);
+                  
+    //       }
+    //      return arr;
+    // }
+    
+     int[][] arr=new int[rows][cols];
+
+        List<Integer> sol=new ArrayList<>();
+
+        int ans=0;
+
+        for(int i=0; i<operators.length; i++)
+
+        {
+
+            int row=operators[i][0];
+
+            int col=operators[i][1];
+
+            if(arr[row][col]!=1)
+
+            {
+
+                arr[row][col]=1;
+
+                sol.add(countnumber(arr,rows,cols));
+
+            }
+
+            else
+
+            {
+
+                sol.add(sol.get(sol.size()-1));
+
+            }
+
+        }
+
+        return sol;
+
+    }
+
+    public static int countnumber(int[][] arr,int row,int col)
+
+    {
+
+        int count=0;
+
+        int[][] temp=new int[row][col];
+
+        for(int i=0; i<row; i++)
+
+        {
+
+            for(int j=0; j<col; j++)
+
+            {
+
+                temp[i][j]=arr[i][j];
+
+            }
+
+        }
+
+        for(int i=0; i<row; i++)
+
+        {
+
+            for(int j=0; j<col; j++)
+
+            {
+
+                if(temp[i][j]==1)
+
+                {
+
+                    count++;
+
+                    dfs(temp,i,j,row,col);
+
+                }
+
+            }
+
+        }
+
+        return count;
+
+    }
+
+    public static void dfs(int[][] arr,int i,int j,int row,int col)
+
+    {
+
+        if(i<0 || j<0 || i>row-1 || j>col-1 || arr[i][j]!=1)return;
+
+        
+
+        if(arr[i][j]==1)
+
+        {
+
+            arr[i][j]=0;
+
+            dfs(arr,i+1,j,row,col);
+
+            dfs(arr,i-1,j,row,col);
+
+            dfs(arr,i,j+1,row,col);
+
+            dfs(arr,i,j-1,row,col);
+
+        }
+    }   
+}
