@@ -52,3 +52,41 @@ class Solution {
     }
 
 }
+
+
+
+
+
+
+class Solution {
+    // int maxlen = 0 ;
+    public int longestSubstring(String s, int k) {
+         int maxlen = findlength(0,s.length(),s,k);
+         return maxlen;
+    }
+
+    public int findlength(int start , int end, String s, int k){
+        int left;
+        int right;
+        int freq[] = new int[26];
+         int maxlen = 0;
+        for(int i =0 ;i<s.length() ; i++){
+            freq[s.charAt(i)-'a']++;
+        }
+
+        for(int i = start ; i < end ;i++){
+
+            if(freq[s.charAt(i)-'a'] < k){
+                 left = findlength(start,i,s,k);
+                 right = findlength(i+1,end,s,k);
+                maxlen = Math.max(left,right);
+                 return maxlen;
+            }
+
+         
+        }
+
+        return end - start;
+    }
+
+}
