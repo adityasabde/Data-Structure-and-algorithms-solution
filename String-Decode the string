@@ -1,0 +1,80 @@
+
+
+
+An encoded string (s) is given, the task is to decode it. The encoding pattern is that the occurance of the string is given at the starting of the string and each string is enclosed by square brackets.
+
+
+
+
+
+
+
+Input: s = 3[b2[ca]]
+Output: bcacabcacabcaca
+Explaination: 2[ca] means 'ca' is repeated 
+twice which is 'caca' which concatenated with 
+'b' becomes 'bcaca'. This string repeated 
+thrice becomes the output.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution{
+
+         int i=0;
+
+        public String decodedString(String s){
+
+            // code here
+
+            StringBuilder s1=new StringBuilder();
+
+            while(i<s.length()&&s.charAt(i)!=']'){
+
+                if(Character.isDigit(s.charAt(i))){
+
+                    int k=0;
+
+                    while(i<s.length()&&Character.isDigit(s.charAt(i))){
+
+                        k=k*10+s.charAt(i++)-'0';
+
+                    }
+
+                    i++;
+
+                    String l=decodedString(s);
+
+                    while(k-->0){
+
+                        s1.append(l);
+
+                    }
+
+                    i++;
+
+                }
+
+                else{
+
+                    s1.append(s.charAt(i++));
+
+                }
+
+            }
+
+            return s1.toString();
+
+        }
+
+    }
