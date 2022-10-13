@@ -1,0 +1,154 @@
+
+Input: nums = [1,3,-1,-3,5,3,6,7], k = 3
+Output: [3,3,5,5,6,7]
+Explanation: 
+Window position                Max
+---------------               -----
+[1  3  -1] -3  5  3  6  7       3
+ 1 [3  -1  -3] 5  3  6  7       3
+ 1  3 [-1  -3  5] 3  6  7       5
+ 1  3  -1 [-3  5  3] 6  7       5
+ 1  3  -1  -3 [5  3  6] 7       6
+ 1  3  -1  -3  5 [3  6  7]      7
+
+
+
+
+
+
+
+
+
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+    int demo[] = new int[nums.length-k+1];
+
+// First approch
+
+    // ArrayList<Integer> maxarr = new ArrayList<>();
+
+    // int max = Integer.MIN_VALUE;
+    //    for(int i = 0 ; i < k ; i++){
+    //        if(max < nums[i]){
+    //             max = nums[i]; 
+    //        }
+    //    }
+    //    int start = 0;
+    //    int end = k-1;
+    //    maxarr.add(max);
+       
+    // //    int j =1;
+    //    while(end < nums.length){
+    //         start++;
+    //         end++;
+    //       if(nums[start-1] == max){
+             
+    //          int j = start; 
+    //          int max2 = Integer.MIN_VALUE;
+    //          while(j <= end){
+    //              if(max2 < nums[j]){
+    //                  max2 = nums[j];
+    //              }
+    //          }
+    //          max = max2;
+    //         if(max < nums[end]){
+    //            maxarr.add(nums[end]);
+    //            max = nums[end];
+    //         }else{
+    //            maxarr.add(max);
+    //        }
+
+    //       }else{
+         
+    //         if(max < nums[end]){
+    //            maxarr.add(nums[end]);
+    //            max = nums[end];
+    //         }else{
+    //            maxarr.add(max);
+    //         }
+    //       }           
+            
+    //    }
+    //      int ans[] = new int[nums.length-k+1];
+    // //    System.out.println(maxarr);
+    //     for(int i = 0; i <= nums.length-k ; i++){
+    //       ans[i] = maxarr.get(i);
+    //    }
+
+
+// Naive Approch
+    //   for(int i =0 ;i<nums.length-k+1 ;i++){
+    //       int max = Integer.MIN_VALUE;
+    //       for(int j = i ; j< i+k ; j++){
+    //           if(max < nums[j]){
+    //               max = nums[j];
+    //           }
+    //       }
+    //       demo[i]=max;
+    //   }
+
+// Approch 3 failed TLE
+    // PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+    // for(int i =0 ;i<k;i++){
+    //     pq.add(nums[i]);
+    // }
+    // demo[0] = pq.peek();
+    // pq.remove(nums[0]);
+
+    // for(int i = k;i<nums.length;i++){
+        
+    //     pq.add(nums[i]);
+    //     demo[i-k+1] = pq.peek();
+    //     pq.remove(nums[i-k+1]);
+    // }
+
+// approch 4 failed
+    //   int i =0 ;
+    //   int j = k-1;
+    // ArrayList<Integer> arr1 = new ArrayList<>();
+    //   while(j<nums.length){
+    //        int max= nums[i];
+    //       for(int p=i;p<=j;p++ ){
+    //           if(max<nums[p]){
+    //               max = nums[p];
+    //           }
+    //       }
+    //       arr1.add(max);
+    //       i++;
+    //       j++;
+    //   }
+      
+    //     for(int p =0 ;p< arr1.size() ; p++){
+    //         demo[p] = arr1.get(p);
+    //     }
+
+    //    return demo;
+
+
+if (nums.length == 0 || k <= 0) {
+			return new int[0];
+		}
+		int n = nums.length;
+		int[] r = new int[n-k+1];
+		int ri = 0;
+		// store index
+		Deque<Integer> q = new ArrayDeque<>();
+		for (int i = 0; i < nums.length; i++) {
+			// remove numbers out of range k
+			while (!q.isEmpty() && q.peek() < i - k + 1) {
+				q.poll();
+			}
+			// remove smaller numbers in k range as they are useless
+			while (!q.isEmpty() && nums[q.peekLast()] < nums[i]) {
+				q.pollLast();
+			}
+			// q contains index... r contains content
+			q.offer(i);
+			if (i >= k - 1) {
+				r[ri++] = nums[q.peek()];
+			}
+		}
+		return r;
+
+    }
+}
