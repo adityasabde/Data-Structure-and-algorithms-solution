@@ -1,0 +1,51 @@
+
+
+
+Input: time = "?5:00"
+Output: 2
+Explanation: We can replace the ? with either a 0 or 1, producing "05:00" or "15:00". Note that we cannot replace it with a 2, since the time "25:00" is invalid. In total, we have two choices.
+
+Input: time = "??:??"
+Output: 1440
+Explanation: There are 24 possible choices for the hours, and 60 possible choices for the minutes. In total, we have 24 * 60 = 1440 choices.
+
+
+
+class Solution {
+    public int countTime(String time) {
+       int count = 1;
+        
+        for(int i =0 ;i<time.length() ;i++){
+            if(time.charAt(i) == '?' &&  i == 0){
+                if(time.charAt(i+1) != '?'){
+    	            String s = "";
+                    s += time.charAt(i+1);
+                    int x = Integer.parseInt(s);
+                    if(x > 3){
+                        count *= 2; 
+                    }else{
+                        count *= 3;
+                    }
+                }
+               else{
+                   count *= 3; 
+                }
+                
+            }else if(time.charAt(i)=='?' && i == 1){
+               if(time.charAt(i-1) == '2'){
+                 count *= 4;
+               }else if(time.charAt(i-1) == '?'){
+                 count = 24;
+               }else{
+                 count *= 10;
+               }
+            }else if(time.charAt(i) == '?' && i == 3){
+                 count *= 6;
+            }else if(time.charAt(i) == '?' && i == 4){
+                 count *= 10;
+            }
+        }
+        
+        return count;
+    }
+}
