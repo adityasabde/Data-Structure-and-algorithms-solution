@@ -1,0 +1,40 @@
+
+
+
+
+Input:
+N = 5
+List = {2,5,6,2,1}
+Output:
+{1,2,5,6,2}
+Explanation:
+In the given linked list, the last element is 1,
+after moving the last element to the front the
+linked list will be {1,2,5,6,2}.
+
+
+
+
+
+
+
+class Solution {
+    public static Node moveToFront(Node head) {
+        Node n = head;
+        if(n.next == null || n == null){
+            return head;
+        }
+        
+        while(n.next.next != null){
+            n = n.next;
+        }
+        
+        Node f = head;
+        head = n.next;
+        n.next = null;
+        head.next = f;
+        
+        return head;
+    }
+}
+        
