@@ -1,0 +1,101 @@
+
+
+
+
+
+Input:
+6
+aaaabb
+
+Output:
+a
+4
+
+Explanation:
+'a' occur 4 times and b occur 2 times, hence
+our answer will be 'a'.
+
+
+Input:
+6
+abccba
+
+Output:
+c
+2
+
+Explanation:
+a,b and c , all of these occur two times, 
+but continuous occurence of c is 2, but 
+for a and b their continuous occurence is 1, 
+hence our answer is c with frequency two.
+
+
+
+class Solution
+{
+    public String[] count(int n,String s)
+    {
+        // String ans []  = new String[2];
+        // int index = 0;
+        // int max = Integer.MIN_VALUE;
+        
+        // HashMap<Integer,Integer> map = new HashMap<>();
+        
+        // for(int i =0 ;i<s.length();i++){
+        //       int count = 1 ;
+        //       int x = i;
+        //       while(i+1 < s.length() && s.charAt(i) == s.charAt(i+1)){
+        //           i++;
+        //           count++;
+                      
+        //       }
+        //       map.put(x,count);
+             
+        // }
+      
+        // for(Map.Entry<Integer,Integer> entry : map.entrySet()){
+        //     if(max < entry.getValue()){
+        //         max = entry.getValue();
+        //         index = entry.getKey();
+        //     }
+        // }
+        
+        // String ch = "";
+        // ch += s.charAt(index);
+        // ans[0] = ch;
+        // ans[1] = Integer.toString(max);
+
+        // return ans;
+       
+       String ans []  = new String[2];
+       char prev = s.charAt(0);
+       int count = 1 ;
+       int maxcount = 0 ;
+       char charans = s.charAt(0);
+       for(int i =1 ;i<s.length();i++){
+           if(s.charAt(i) == prev)count++;
+           else{
+               if(count > maxcount){
+                 maxcount = count;
+                 charans = prev;
+               }
+               
+               count = 1;
+               prev = s.charAt(i);
+           }
+       }
+       
+       if(count > maxcount){
+           maxcount = count;
+           charans = prev;
+       }
+       
+       String ch = "";
+       ch += charans;
+       ans[0] = ch;
+       ans[1] = Integer.toString(maxcount);
+       
+       return ans;
+    }
+}
