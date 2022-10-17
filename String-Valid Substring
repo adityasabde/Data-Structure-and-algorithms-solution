@@ -1,0 +1,159 @@
+Given a string S consisting only of opening and closing parenthesis 'ie '('  and ')', find out the length of the longest valid(well-formed) parentheses substring.
+NOTE: Length of the smallest valid substring ( ) is 2.
+
+
+Input: S = "(()("
+Output: 2
+Explanation: The longest valid 
+substring is "()". Length = 2.
+
+
+
+Input: S = "()(())("
+Output: 6
+Explanation: The longest valid 
+substring is "()(())". Length = 6.
+
+
+
+
+class Solution {
+    static int findMaxLen(String S) {
+//         int  length = 0;
+        
+//         Stack <Character> st = new Stack<>();
+//         int i = 0 ;
+//         while(i < s.length()){
+//             if(s.charAt(i)== '('){
+//               st.push(s.charAt(i));    
+//             }
+//             else{
+//                 if(!st.isEmpty() && st.peek() == '('){
+//                     st.pop();
+//                 }else if(st.isEmpty()){
+//                     st.push(s.charAt(i));
+//                 }
+//             }
+//             i++;
+//         } 
+        
+//         if(st.isEmpty()){
+//             return s.length();
+//         }else{
+//             return s.length() - st.size();
+//         }
+//     }
+// }
+
+
+
+
+
+
+
+
+
+//         int open=0,close=0;
+
+//         int max=0;
+
+//         for(int i=0;i<S.length();i++){
+
+//             if(S.charAt(i)=='('){
+
+//                 open++;
+
+//             }
+
+//             else{
+
+//                 close++;
+
+//             }
+
+//             if(open==close){
+
+//                 int len=open+close;
+
+//                 max=Math.max(len,max);
+
+//             }
+
+//             else if(close>open){
+
+//                 open=close=0;
+
+//             }
+
+//         }
+
+        
+
+//         open=close=0;
+
+//         for(int i=S.length()-1;i>=0;i--){
+
+//             if(S.charAt(i)=='('){
+
+//                 open++;
+
+//             }
+
+//             else{
+
+//                 close++;
+
+//             }
+
+//             if(open==close){
+
+//                 int len=open+close;
+
+//                 max=Math.max(len,max);
+
+//             }
+
+//             else if(open>close){
+
+//                 open=close=0;
+
+//             }
+
+//         }
+
+//         return max;
+
+       if(S == null || S.length()< 2){
+           return 0;
+       }
+
+       Stack<Integer> st= new Stack<>(); 
+       
+       for(int i=0;i<S.length();i++){
+           if(S.charAt(i) == '('){
+               st.push(i);
+           }
+           else{
+               if(!st.isEmpty() && S.charAt(st.peek()) == '('){
+                   st.pop();
+               }
+               else{
+                   st.push(i);
+               }
+           }
+       }
+        
+       int max = 0;
+       int end = S.length();
+       
+       while(!st.isEmpty())
+      {
+          int ele = st.pop();
+          max = Math.max(max , end - ele -1);
+          end = ele;
+      }
+      
+      return Math.max(end ,max);
+    }
+    
+}
