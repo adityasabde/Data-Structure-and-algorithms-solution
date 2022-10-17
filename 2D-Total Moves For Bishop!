@@ -1,0 +1,47 @@
+Given the position of a Bishop (A, B) on an 8 * 8 chessboard.
+
+Your task is to count the total number of squares that can be visited by the Bishop in one move.
+
+The position of the Bishop is denoted using row and column number of the chessboard.
+
+
+
+
+
+Input 1:
+
+ A = 4
+ B = 4
+
+
+public class Solution {
+    public int solve(int A, int B) {
+
+        
+        int row = A;
+        int col = B;
+        
+        int count = 0 ;
+        int min_row = row-1;
+        int max_row = 8-row;
+        int min_col = col-1;
+        int max_col = 8-col;
+        
+        //top right move  r = r +1 c = c + 1
+        int count1 = Math.min(max_row, max_col);
+        
+        //top left move  r = r -1  c = c + 1
+        int count2 = Math.min(min_row, max_col);
+        
+        //botton right  move r = r + 1 c = c - 1
+         int count3 = Math.min(max_row, min_col);
+         
+        //botton left move  r = r - 1 c = c - 1
+         int count4 = Math.min(min_row, min_col);
+         
+         count = count1 + count2 + count3 + count4;
+         
+         return count;
+        
+    }
+}
