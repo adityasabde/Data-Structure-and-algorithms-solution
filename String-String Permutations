@@ -1,0 +1,50 @@
+Given a string S. The task is to find all permutations of a given string.
+
+Input:
+S = ABC
+Output: ABC ACB BAC BCA CAB CBA 
+
+
+Input:
+S = ABSG
+Output: ABGS ABSG AGBS AGSB ASBG ASGB
+BAGS BASG BGAS BGSA BSAG BSGA GABS
+GASB GBAS GBSA GSAB GSBA SABG SAGB
+SBAG SBGA SGAB SGBA
+
+
+class Solution
+{
+    public static String swap(String s , int i, int j){
+          char[] chararr = s.toCharArray();
+          char temp = chararr[i];
+          chararr[i] = chararr[j];
+          chararr[j] = temp;
+           return String.valueOf(chararr); 
+      }
+   public static void solve(ArrayList<String> list , String s, int index){
+       if(index >= s.length()){
+           list.add(s);
+           return;
+       }
+       for(int j = index;j<s.length();j++){
+           s = swap(s,index,j);
+       
+       solve(list,s,index+1);
+         s = swap(s,index,j);
+       }
+   }
+   
+   
+   
+   public ArrayList<String> permutation(String S)
+   {
+       //Your code herearr
+       ArrayList<String> list = new ArrayList<>();
+       int index =0 ;
+       solve(list,S,index);
+       Collections.sort(list);
+       return list;
+   }
+	   
+}
