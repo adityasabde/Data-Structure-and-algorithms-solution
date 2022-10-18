@@ -1,0 +1,65 @@
+
+
+Give a N * N square matrix A, return all the elements of its anti-diagonals from top to bottom.
+
+Input: 
+N = 3 
+A = [[1, 2, 3],
+     [4, 5, 6],
+     [7, 8, 9]]
+Output: 
+1 2 4 3 5 7 6 8 9
+Explanation: 
+
+Hence, elements will be returned in 
+the order {1, 2, 4, 3, 5, 7, 6, 8, 9}.
+
+
+Input: 
+N = 2
+A = [[1, 2],
+     [3, 4]]
+Output:
+1 2 3 4
+Explanation: 
+
+Hence, elements will be returned in the 
+order {1, 2, 3, 4}.
+
+
+
+
+
+class Solution{
+    static ArrayList<Integer> downwardDigonal(int N, int A[][])
+    {
+        ArrayList<Integer> arr = new ArrayList<>();
+        int row = 0;
+        int col = 0;
+        
+        while(col<A[0].length){
+            int r = row;
+            int c = col;
+            while(r<N && c >=0 ){
+                arr.add(A[r][c]);
+                r++;
+                c--;
+            }
+            col++;
+        }
+        col--;
+        row++;
+        while(row <N){
+            int r = row ;
+            int c = col;
+            while(c>=0 && r<N){
+                arr.add(A[r][c]);
+                r++;
+                c--;
+            }
+            row++;
+        }
+         
+         return arr;
+      }
+}
