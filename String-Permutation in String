@@ -1,0 +1,82 @@
+Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise.
+
+In other words, return true if one of s1's permutations is the substring of s2.
+
+
+
+
+Input: s1 = "ab", s2 = "eidbaooo"
+Output: true
+Explanation: s2 contains one permutation of s1 ("ba").
+
+
+
+
+// class Solution {
+    
+//     public boolean checkInclusion(String s1, String s2) {
+//     //    ArrayList<String> arr = new ArrayList<>();
+//     //     solve(arr,s1,0);
+
+//     //     System.out.println(arr);
+//     //     for(int i =0 ;i<arr.size();i++){
+//     //         if(s2.contains(arr.get(i))){
+//     //             return true;
+//     //         }
+//     //     }
+//     //     return false;
+//        char ch1 [] = s1.toCharArray();
+//        char ch2 [] = s2.toCharArray();
+//        Arrays.sort(ch1);
+//        Arrays.sort(ch2);
+//        String news1 = String.valueOf(ch1);
+//        String news2 = String.valueOf(ch2);
+//     //    Collections.sort(s2);
+//        if(news2.contains(news1)){
+//            return true;
+//        }
+//        return false;
+//     }
+
+//     // public void solve(ArrayList<String> arr,String s1  , int index){
+//     //      if(s1.length() <= index){
+//     //         arr.add(s1);
+//     //         return;
+//     //      }
+    
+//     //      for(int i=index; i<s1.length();i++){
+//     //          s1 = swap(s1,index,i);
+//     //           solve(arr,s1,index+1);
+//     //          s1 = swap(s1,index,i);
+//     //      }
+         
+//     // }
+
+//     // public String swap(String s , int i , int j ){
+//     //     char ch[] = s.toCharArray();
+//     //     char c = ch[i];
+//     //     ch[i] = ch[j];
+//     //     ch[j] = c;
+
+//     //     return String.valueOf(ch);
+//     // }
+// }
+
+
+
+public class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        s1 = sort(s1);
+        for (int i = 0; i <= s2.length() - s1.length(); i++) {
+            if (s1.equals(sort(s2.substring(i, i + s1.length()))))
+                return true;
+        }
+        return false;
+    }
+    
+    public String sort(String s) {
+        char[] t = s.toCharArray();
+        Arrays.sort(t);
+        return new String(t);
+    }
+}
