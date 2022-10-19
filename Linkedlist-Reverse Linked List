@@ -1,0 +1,65 @@
+
+Input:
+LinkedList: 1->2->3->4->5->6
+Output: 6 5 4 3 2 1
+Explanation: After reversing the list, 
+elements are 6->5->4->3->2->1.
+
+
+
+
+
+
+//function Template for Java
+
+/* linked list node class:
+
+class Node {
+    int value;
+    Node next;
+    Node(int value) {
+        this.value = value;
+    }
+}
+
+*/
+
+class Solution
+{
+    //Function to reverse a linked list.
+    Node n1 = null;
+    Node reverseList(Node head)
+    {
+        // code here
+        // Node temp = head;
+        // Node pre = null;
+        // Node next = null;
+       
+        // while(temp != null){
+          
+        //   next = temp.next;
+        //     temp.next = pre;
+        //     pre = temp;
+        //     temp = next;
+        // }
+        
+        // head = pre;
+        // return head;
+        
+        func(null, head);
+        return n1;
+    }
+    
+    void func(Node prev , Node node){
+        if(node == null){
+            n1 = prev;
+            return;
+        }
+        
+        Node demo = node.next;
+        node.next = prev;
+        prev = node;
+        
+        func(prev,demo);
+    }
+}
