@@ -1,0 +1,77 @@
+
+
+
+
+
+
+
+
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    StringBuilder s1 = new StringBuilder();
+    StringBuilder s2 = new StringBuilder();
+    public boolean isPalindrome(ListNode head) {
+    
+    Approch -----------------------------------------  1 ----------------------------------------------------  recursion + string
+    
+        // str2(head);
+        // str1(head);
+        // System.out.println(s1);
+        // System.out.println(s2);
+        // if(s1.toString().equals(s2.toString())){
+        //     return true;
+        // }
+        // return false;
+
+Approch ---------------------------------------------  2  -------------------------------------------  recursion + stack 
+
+        ListNode node= head;
+        Stack< ListNode > st = new Stack<>();
+        while(node != null){
+            st.push(node);
+            node = node.next;
+        }
+        return func(st,head);
+    }
+
+    public boolean func(Stack<ListNode> st , ListNode node){
+        if(st.isEmpty() || node == null){
+            return true;
+        }
+
+        ListNode n = st.pop();
+        if(n.val != node.val){
+            return false;
+        }
+       return func(st,node.next);
+    }
+    
+    // public void str1(ListNode node){
+    //     if(node == null){
+    //         return;
+    //     }
+    //     str1(node.next);
+    //     s1.append(node.val);
+    // }
+
+    //  public void str2(ListNode node){
+    //     if(node == null){
+    //         return;
+    //     }
+    //     s2.append(node.val);
+    //     str2(node.next);
+        
+    // }
+
+}
