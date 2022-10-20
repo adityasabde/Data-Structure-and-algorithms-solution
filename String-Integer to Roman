@@ -1,0 +1,38 @@
+Input: num = 3
+Output: "III"
+Explanation: 3 is represented as 3 ones.
+
+
+Symbol       Value
+I             1
+V             5
+X             10
+L             50
+C             100
+D             500
+M             1000
+
+
+
+
+
+class Solution {
+    public String intToRoman(int num) {
+        int temp= 0 ;
+        int integer[]={1,4,5,9,10,40,50,90,100,400,500,900,1000};
+        String roman[] = {"I","IV","V","IX","X","XL","L","XC","C","CD","D","CM","M"};
+        String ans = "";
+        
+        for(int i = 12 ; i>=0 ; i--){
+            temp = num / integer[i];
+
+            for(int j = 0 ; j<temp ;j++){
+                ans += roman[i];
+            }
+
+            num = num % integer[i];
+        }
+
+        return ans;
+    }
+}
