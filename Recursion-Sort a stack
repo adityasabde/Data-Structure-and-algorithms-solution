@@ -1,0 +1,49 @@
+
+
+Input:
+Stack: 11 2 32 3 41
+Output: 41 32 11 3 2
+
+
+Input:
+Stack: 3 2 1
+Output: 3 2 1
+
+
+
+
+class GfG{
+	public Stack<Integer> sort(Stack<Integer> s)
+	{
+	    if(s.isEmpty() ){
+	        return s;
+	    }
+	    
+	    int x = s.pop();
+	    sort(s);
+	    if(s.isEmpty() || s.peek() < x){
+	        s.push(x);
+	    }else{
+	       s = position(s,x);
+	    }
+	    
+	    return s;   
+	}
+	
+	public Stack<Integer> position(Stack<Integer> s, int x){
+	    
+	    if(s.isEmpty() || s.peek() <= x){
+	        s.push(x);
+	        return s;
+	    }
+	    
+	    int y = s.peek();
+	    s.pop();
+	    s = position(s,x);
+	    s.push(y);
+	    return s;
+	   
+	}
+	
+	
+}
