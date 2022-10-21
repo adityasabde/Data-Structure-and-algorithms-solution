@@ -1,0 +1,41 @@
+Input:
+N = 3
+Output:
+((()))
+(()())
+(())()
+()(())
+()()()
+
+
+
+class Solution {
+    
+    public List<String> AllParenthesis(int n) 
+    { 
+        List<String> arr = new ArrayList<>();
+       function("", 0 , 0 ,arr , n);
+       return arr;
+    }
+    
+    
+    public void function(String ans , int o , int c, List<String> arr, int n){
+        
+        if(o == n && c == n){
+            arr.add(ans);
+            return;
+        }
+        
+        
+        // adding opaen parenthesis element
+        if(o < n){
+           function(ans+"(" , o+1 , c , arr , n);     
+        }
+        
+        // adding closed bracket
+        if(o  > c){
+            function(ans+")" , o , c + 1 , arr, n);
+        }
+       
+    }
+}
