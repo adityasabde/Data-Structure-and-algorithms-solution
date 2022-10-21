@@ -1,0 +1,90 @@
+
+Input:
+S = "ABC"
+Output: (A B C)(A BC)(AB C)(ABC)
+Explanation:
+ABC
+AB C
+A BC
+A B C
+These are the possible combination of "ABC".
+
+
+
+
+
+
+class Solution{
+    
+    ArrayList<String> permutation(String S){
+        String op ="";
+
+        op = String.valueOf(S.charAt(0));
+
+        String ip = S.substring(1,S.length()); 
+
+        ArrayList<String> sp = new ArrayList<String>();
+
+        solve(ip,op,sp);
+
+        Collections.sort(sp);
+
+        return sp;
+    }
+    
+       void solve(String ip,String op,ArrayList<String> sp)
+
+    {
+
+        if(ip.length()==0)
+
+        {
+
+            sp.add(op);
+
+            return;
+
+        }
+
+        String op1 = op + String.valueOf(ip.charAt(0));
+
+        String op2 = op+" "+String.valueOf(ip.charAt(0));
+
+        
+
+        ip = ip.substring(1,ip.length());
+
+        solve(ip,op1,sp);
+
+        solve(ip,op2,sp);
+
+        
+
+    }
+    
+}
+
+
+
+
+class Solution{
+    ArrayList<String> permutation(String S){
+        ArrayList<String> list = new ArrayList<>();
+        traverse(list, S, ""+S.charAt(0), 1);
+        return list;
+    }
+    
+    void traverse(ArrayList<String> list, String S, String resultStr, int index){
+        if(index>=S.length()) list.add(resultStr);
+        else{
+            String tempStr = resultStr;
+            resultStr += " "+S.charAt(index);
+            traverse(list, S, resultStr, index+1);
+            resultStr = tempStr;
+            resultStr += S.charAt(index);
+            traverse(list, S, resultStr, index+1);
+            resultStr = tempStr;
+        }
+    }
+}
+ 
