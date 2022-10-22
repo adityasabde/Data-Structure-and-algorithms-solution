@@ -1,0 +1,59 @@
+Given a Bucket having a capacity of N litres and the task is to determine that by how many ways you can fill it using two bottles of capacity of 1 Litre and 2 Litre only. Find the answer modulo 108.
+
+
+
+Input:
+3
+Output:
+3 
+Explanation:
+Let O denote filling by 1 litre bottle and
+T denote filling by 2 litre bottle.
+So for N = 3, we have :
+{OOO,TO,OT}. Thus there are 3 total ways.
+
+
+
+
+//User function Template for Java
+
+class Solution {
+    static int fillingBucket(int N) {
+    int dp[] = new int[N+1];
+    Arrays.fill(dp,-1);
+    int ans = dpfunction(dp, N);
+    // int mod = 100000000;
+    // if(N <= 2)return N;
+    // int first = 1;
+    // int second = 2;
+    // for(int i = 3; i<= N ;i++){
+    //     int next = second;
+    //     second = (second + first) % mod;
+    //     first = next;
+    // }
+    
+    // return second;
+    return ans;
+    
+    }
+    
+// using dp solve memorization    
+    static int dpfunction(int dp[] , int N){
+        if(N == 0){
+            return 1;
+        }
+        if(N < 0){
+            return 0;
+        }
+        // we are checkig array is having any value direct return
+        if(dp[N] != -1){
+            return dp[N];
+        }
+        int x = dpfunction(dp,N-1);
+        int y = dpfunction(dp,N-2);
+        
+        // storing the value in dp value;
+        dp[N] = (x + y)%100000000;
+        return dp[N];
+    }
+}
