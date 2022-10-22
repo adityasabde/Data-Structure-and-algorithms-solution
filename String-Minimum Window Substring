@@ -1,0 +1,81 @@
+
+Given two strings s and t of lengths m and n respectively, return the minimum window substring of s such that every character in t (including duplicates) is included in the window. If there is no such substring, return the empty string "".
+
+The testcases will be generated such that the answer is unique.
+
+A substring is a contiguous sequence of characters within the string.
+
+
+
+Input: s = "ADOBECODEBANC", t = "ABC"
+Output: "BANC"
+Explanation: The minimum window substring "BANC" includes 'A', 'B', and 'C' from string t.
+
+
+Input: s = "a", t = "a"
+Output: "a"
+Explanation: The entire string s is the minimum window.
+
+
+class Solution {
+    public String minWindow(String s, String t) {
+        int left = 0;
+        int right = 0;
+        HashMap<Character,Integer> map2 = new HashMap<>();
+       
+        for(int i =0 ;i<t.length();i++){
+            map2.put(t.charAt(i),map2.getOrDefault(t.charAt(i),0)+1);
+        }        
+        int j = -1;
+        int i = -1;
+        int mtc = 0;
+        int dmtc = t.length(); 
+        // int size = 0 ;
+        String ans = "";
+        HashMap<Character,Integer> map1 = new HashMap<>();
+        
+        while( true ){
+            boolean flag1 = false;
+            boolean flag2 = false;
+            // aquire
+            while(i < s.length()-1 && mtc < dmtc){
+                i++;
+                char ch = s.charAt(i);
+                map1.put(ch , map1.getOrDefault(ch,0)+1);
+                if(map1.getOrDefault(ch,0) <= map2.getOrDefault(ch,0)){
+                   mtc++;
+                }
+                flag1 = true;
+            }
+
+            // release
+            while(j<i && mtc == dmtc){
+                String sub = s.substring(j+1,i+1);
+                if(ans.length() == 0 || sub.length() < ans.length()){
+                    ans = sub;
+                    // size = ans.length();
+                }
+                j++;
+                char ch = s.charAt(j);
+                if(map1.get(ch) == 1){
+                    map1.remove(ch);
+                }else{
+                    map1.put(ch,map1.get(ch)-1);
+                }
+                if(map1.getOrDefault(ch,0) < map2.getOrDefault(ch,0)){
+                    mtc--;
+                }
+                
+               flag2 = true;
+            }
+          if(flag1 == false && flag2 == false){
+              break;
+          }
+
+        }
+         
+            
+     return ans;
+       
+    }
+}
