@@ -1,0 +1,163 @@
+A number is called a stepping number if all adjacent digits have an absolute difference of 1, e.g. '321' is a Stepping Number while 421 is not. Given two integers n and m, find the count of all the stepping numbers in the range [n, m].
+
+Input: n = 0, m = 21
+Output: 13
+Explanation: Stepping no's are 0 1 2 3 4 5
+6 7 8 9 10 12 21
+
+
+
+Input: n = 10, m = 15
+Output: 2
+Explanation: Stepping no's are 10, 12
+
+
+-----------------------------------------------------------------brut force --------------------------------------------------------------------
+// class Solution{
+//     int steppingNumbers(int n, int m){
+//         int count = 0;
+//         for(int i = n ;i <=m ;i++){
+//           if(function(i)){
+//               count++;
+//           }    
+//         }
+//         return count;
+//     }
+    
+//     boolean function(int x){
+//         ArrayList<Integer> arr = new ArrayList<>();
+//         while(x>0){
+//             int res = x % 10;
+//             arr.add(res);
+//             x = x-res;
+//             x = x/10;
+//         }
+        
+//         for(int i =1 ;i<arr.size();i++){
+//             if(Math.abs(arr.get(i)-arr.get(i-1)) != 1){
+//                 return false;
+//             }
+//         }
+//         return true;
+//     }
+// }
+
+
+------------------------------------------------------------------------ dfs ----------------------------------------------------------
+
+// class Solution{
+//     int steppingNumbers(int n, int m){
+//         Queue<Integer> q = new ArrayDeque<>();
+//         int cnt = 0;
+//         for(int i = 1;i<10;i++){
+//             q.offer(i);
+//         }
+//         if(n==0) cnt++;
+//         while(!q.isEmpty()){
+//             int node = q.poll();
+//             if(node>=n && node<=m){
+//                 cnt++;
+//             }
+//             int child,lastdigit = node%10;
+//             node*=10;
+//             if(lastdigit!=0){
+//                 child = node+lastdigit-1;
+//                 if(child<=m) q.offer(child);
+//             }
+//             if(lastdigit!=9){
+//                 child = node+lastdigit+1;
+//                 if(child<=m) q.offer(child);
+//             }
+//         }
+//         return cnt;
+//     }
+// }
+
+
+
+---------------------------------------------------------------approch dfs ----------------------------------------------------------------
+// java bfs solution
+
+class Solution{
+
+    int steppingNumbers(int n, int m){
+
+        // code here
+
+        Queue<Integer> q=new LinkedList<>();
+
+        Set<Integer> st=new HashSet<>();
+
+    for(int i=0;i<=9;i++)
+
+    {
+
+        q.add(i);
+
+        st.add(i);
+
+    }
+
+        int cnt=0;
+
+        while(q.size()>0)
+
+        {
+
+            int nd=q.poll();
+
+            
+
+            if(nd>=n&&nd<=m)
+
+            cnt++;
+
+            
+
+            if(nd>m)
+
+            continue;
+
+            
+
+            int rem=nd%10;
+
+            
+
+            if(rem<9)
+
+            {
+
+            int newNum1=nd*10+(rem+1);
+
+                if(!st.contains(newNum1))
+
+            q.add(newNum1);
+
+            
+
+            }
+
+            if(rem>0)
+
+            {
+
+            int newNum2=nd*10+(rem-1);
+
+            
+
+            if(!st.contains(newNum2))
+
+            q.add(newNum2);
+
+            }
+
+        }
+
+    return cnt;    
+
+    }
+
+    
+
+}
