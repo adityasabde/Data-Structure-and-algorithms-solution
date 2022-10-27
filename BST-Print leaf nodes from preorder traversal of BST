@@ -1,0 +1,69 @@
+
+Input:
+N = 3
+Arr = {3, 2, 4}
+Output: {2, 4}
+Explaination: 2, 4 are the leaf nodes.
+
+
+
+
+
+
+
+
+
+class Solution
+{
+    ArrayList<Integer> ans;
+    public int[] leafNodes(int arr[], int N)
+    {
+        ans=new ArrayList<>();
+        Node root=new Node();
+       for(int i=0;i<arr.length;i++){
+           root=build(root,arr[i]);
+       }
+       traverse(root);
+       int[] res=new int[ans.size()];
+       for(int i=0;i<ans.size();i++){
+           res[i]=ans.get(i);
+       }
+       return res;
+    }
+    
+    
+    private void traverse(Node root){
+        if(root==null) return;
+        
+        traverse(root.left);
+        if(root.left==null && root.right==null){
+            ans.add(root.data);
+        }
+        traverse(root.right);
+    }
+    
+    
+    private Node build(Node root,int element){
+        if(root==null){
+            root=new Node(element);
+        }
+        if(root.data<element){
+            root.right=build(root.right,element);
+        }
+        if(root.data>element){
+            root.left=build(root.left,element);
+        }
+        return root;
+    }
+    
+    
+    class Node{
+        int data;
+        Node left,right;
+        Node(){}
+        Node(int data){
+            this.data=data;
+            left=right=null;
+        }
+    }
+}
