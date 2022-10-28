@@ -1,0 +1,45 @@
+
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+
+
+
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+          
+       HashMap<String , List<String>> map = new HashMap<>();
+       for(String s : strs){
+           char ch[] = s.toCharArray();
+           Arrays.sort(ch);
+           String st = new String(ch);
+           if(!map.containsKey(st)){
+               map.put(st,new ArrayList<>());
+           }
+            map.get(st).add(s);
+           
+       }
+       return new ArrayList<>(map.values()); 
+    }
+    // public boolean anagram(String a , String t){
+    //      int freq[] = new int[26];
+    //     for(int i =0 ; i < s.length() ;i++){
+    //         freq[s.charAt(i) - 'a']++ ;
+    //     }
+    //     for(int i =0 ; i < t.length() ;i++){
+    //         if(freq[t.charAt(i) - 'a'] == 0){
+    //             return false;
+    //         }
+    //         freq[t.charAt(i) - 'a']-- ;
+    //     }
+
+    //      for(int i =0 ; i < s.length() ;i++){
+    //         if(freq[s.charAt(i)-'a'] != 0){
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // }
+
+}
