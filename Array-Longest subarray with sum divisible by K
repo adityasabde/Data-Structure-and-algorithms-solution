@@ -1,0 +1,53 @@
+Input:
+A[] = {2, 7, 6, 1, 4, 5}
+K = 3
+Output: 4
+Explanation:The subarray is {7, 6, 1, 4}
+with sum 18, which is divisible by 3.
+
+
+
+
+class Solution{
+    int longSubarrWthSumDivByK(int a[], int n, int k)
+    {
+    ----------------------------------------------------------------------- brut force -----------------------------------------------------------------------------
+    
+    //   int sum = a[0] ;
+    //   int max_len = 0;
+      
+    //   for(int i = 0 ; i<n ;i++){
+    //       sum = 0;
+    //       for(int j = i ; j < n ; j++){
+    //           sum += a[j];
+    //           if(sum % k == 0){
+    //               max_len = Math.max(max_len , j-i +1);
+    //           }
+    //       }
+    //   }
+    //   return max_len;
+    
+    ------------------------------------------------------------------- storing remainder and index in map -------------------------------------------------------------
+    
+        HashMap<Integer , Integer> map = new HashMap<>();
+        int cur_sum = 0;
+        int len = 0;
+        map.put(0,-1);
+        for(int i =0; i<n ; i++){
+            cur_sum += a[i];
+            
+            int rem = cur_sum % k;
+            
+            if(rem < 0){
+                rem += k;
+            }
+            if(map.containsKey(rem)){
+                len = Math.max(len , i - map.get(rem));
+            }else{
+                map.put(rem , i);
+            }
+        }
+        return len;
+    }
+ 
+}
