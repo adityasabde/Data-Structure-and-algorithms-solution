@@ -1,0 +1,73 @@
+Alice and Bob are traveling to Rome for separate business meetings.
+
+You are given 4 strings arriveAlice, leaveAlice, arriveBob, and leaveBob. Alice will be in the city from the dates arriveAlice to leaveAlice (inclusive), while Bob will be in the city from the dates arriveBob to leaveBob (inclusive). Each will be a 5-character string in the format "MM-DD", corresponding to the month and day of the date.
+
+Return the total number of days that Alice and Bob are in Rome together.
+
+You can assume that all dates occur in the same calendar year, which is not a leap year. Note that the number of days per month can be represented as: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31].
+
+
+Input: arriveAlice = "08-15", leaveAlice = "08-18", arriveBob = "08-16", leaveBob = "08-19"
+Output: 3
+Explanation: Alice will be in Rome from August 15 to August 18. Bob will be in Rome from August 16 to August 19. They are both in Rome together on August 16th, 17th, and 18th, so the answer is 3.
+
+
+
+class Solution {
+    public int countDaysTogether(String arriveAlice, String leaveAlice, String arriveBob, String leaveBob) {
+        
+        int[] dom = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        
+        int totaldays [] = new int [12];
+        int sum =0 ;
+        totaldays[0] = 0;
+      
+        for(int i =0 ; i<dom.length ; i++){
+            sum += dom[i];
+            if(i == 11){
+                break;
+            }
+            totaldays[i+1] = sum;
+        }
+        
+        for (int i = 0; i < 12; i++) {
+            System.out.println(totaldays[i]);
+        }
+        
+        int aam = Integer.parseInt(arriveAlice.substring(0,2));
+        int aa = Integer.parseInt(arriveAlice.substring(3,5));
+        
+        int lam = Integer.parseInt(leaveAlice.substring(0,2));
+        int la = Integer.parseInt(leaveAlice.substring(3,5));
+        
+        int abm = Integer.parseInt(arriveBob.substring(0,2));
+        int ab = Integer.parseInt(arriveBob.substring(3,5));
+        
+        int lbm = Integer.parseInt(leaveBob.substring(0,2));
+        int lb = Integer.parseInt(leaveBob.substring(3,5));
+        
+        int arrmax = Math.max(aa + totaldays[aam-1] , ab + totaldays[abm -1]);
+        int leamin = Math.min(la + totaldays[lam-1] , lb + totaldays[lbm -1]);
+
+        if(leamin - arrmax + 1 < 0 ){
+            return 0;
+        }
+        
+        return leamin - arrmax + 1 ;
+    }
+}
+
+
+
+
+
+
+  // int ans = 0;
+        // for (int i = 1; i <= 12; ++i) {
+        //     for (int j = 1; j <= dom[i-1]; ++j) {
+        //         String s = String.format("%02d-%02d",i,j);
+        //         if (s.compareTo(aa)>=0&&s.compareTo(la)<=0&&s.compareTo(ab)>=0&&s.compareTo(lb)<=0)
+        //             ++ans;
+        //     }
+        // }
+        // return ans;
