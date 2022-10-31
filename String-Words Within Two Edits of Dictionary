@@ -1,0 +1,70 @@
+You are given two string arrays, queries and dictionary. All words in each array comprise of lowercase English letters and have the same length.
+
+In one edit you can take a word from queries, and change any letter in it to any other letter. Find all words from queries that, after a maximum of two edits, equal some word from dictionary.
+
+Return a list of all words from queries, that match with some word from dictionary after a maximum of two edits. Return the words in the same order they appear in queries.
+
+ 
+ 
+ Input: queries = ["word","note","ants","wood"], dictionary = ["wood","joke","moat"]
+Output: ["word","note","wood"]
+Explanation:
+- Changing the 'r' in "word" to 'o' allows it to equal the dictionary word "wood".
+- Changing the 'n' to 'j' and the 't' to 'k' in "note" changes it to "joke".
+- It would take more than 2 edits for "ants" to equal a dictionary word.
+- "wood" can remain unchanged (0 edits) and match the corresponding dictionary word.
+Thus, we return ["word","note","wood"].
+
+
+
+
+
+class Solution {
+    public List<String> twoEditWords(String[] queries, String[] dictionary) {
+           List<String> al = new ArrayList<>();
+        
+           int i =0 ;
+
+          while(i < queries.length){
+              
+              String str = queries[i];
+              int  j = 0;
+             
+              
+              while(j < dictionary.length){
+                  
+                  int p = 0;
+                  String inner = dictionary[j];
+                  int count = 0;
+                   int flag = 0;
+                  System.out.println( queries[i] +" "+dictionary[j]);
+                  // System.out.println(  );
+                  
+                  while( p < inner.length() ){
+                      
+                      if(str.charAt(p) != inner.charAt(p)){
+                            count++;
+                      }
+                      if(count > 2){
+                          // System.out.println( queries[i] );
+                          flag = 1;
+                          break;
+                      }
+                      p++;
+                  
+                  }
+                  
+                  if(flag == 0){
+                      // System.out.println( str );
+                      al.add(str);
+                      break;
+                  }
+                  
+                  j++;
+              }
+              
+              i++;
+          }
+        return al;
+    }
+}
