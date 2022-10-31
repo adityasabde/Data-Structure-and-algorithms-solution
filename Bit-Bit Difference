@@ -1,0 +1,37 @@
+Input: A = 10, B = 20
+Output: 4
+Explanation:
+A  = 01010
+B  = 10100
+As we can see, the bits of A that need 
+to be flipped are 01010. If we flip 
+these bits, we get 10100, which is B.
+
+
+class Solution{
+    
+    // Function to find number of bits needed to be flipped to convert A to B
+    public static int countBitsFlip(int a, int b){
+        String s1 = Integer.toBinaryString(a);
+        String s2 = Integer.toBinaryString(b);
+        // System.out.println(s1);
+        // System.out.println(s2);
+        while(s1.length() < s2.length()){
+            s1 = "0" + s1;
+        }
+        
+         while(s2.length() < s1.length()){
+            s2 = "0" + s2;
+        }
+        
+        int count =0;
+        for(int i= 0;i<s1.length();i++){
+            if(s1.charAt(i) != s2.charAt(i)){
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    
+}
