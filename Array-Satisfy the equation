@@ -1,0 +1,91 @@
+Given an array A[ ] of N of  integers, find the index of values that satisfy A + B = C + D where A,B,C & D are integers values in the array.
+Note: As there may be multiple pairs satisfying the equation return lexicographically smallest order of  A, B, C and D and return all as -1 if there are no pairs satisfying the equation.
+
+
+
+Input:
+N = 7
+A[] = {3, 4, 7, 1, 2, 9, 8}
+Output:
+0 2 3 5
+Explanation:
+A[0] + A[2] = 3+7 = 10
+A[3] + A[5] = 1+9 = 10
+
+
+
+
+---------------------------------------------imp---------------------------------------------------imp------------------imp------------------imp-----------
+
+//User function Template for Java
+ class pair{
+        int i ;
+        int j ;
+        pair(int a , int b){
+            i = a;
+            j = b;
+        }
+    }
+class Solution {
+   
+    static int[] satisfyEqn(int[] A, int N) {
+       HashMap<Integer , pair> map = new HashMap<>();
+       
+       int ans [] = new int[4];
+       Arrays.fill(ans , Integer.MAX_VALUE);
+       
+       for(int i =0 ; i<N-1;i++){
+           for(int j = i+1 ; j < N ; j++){
+               int sum = A[i] + A[j];
+               if(!map.containsKey(sum)){
+                   map.put(sum , new pair(i,j));
+                   continue;
+               }
+               pair p = map.get(sum);
+               if(p.i != i && p.j != j && p.i != j && p.j != i){
+                   int curr [] = new int [4];
+                   curr[0] = p.i;
+                   curr[1] = p.j;
+                   curr[2] = i;
+                   curr[3] = j;
+               
+                   if(ans[0] == Integer.MAX_VALUE){
+                       ans[0] = curr[0];
+                       ans[1] = curr[1];
+                       ans[2] = curr[2];
+                       ans[3] = curr[3];
+                   }else{
+                      boolean replace = false;
+                      for(int idx = 0 ; idx < 4;idx++ ){
+                          
+// lexicogrphically -- 0 1 2 3 4
+//                     1 2 3 4 5 --greater
+                          
+                          if(ans[idx] > curr[idx]){
+                              replace = true;
+                              break;
+                          }else if(ans[idx] < curr[idx){
+                              break;
+                          }
+                      }
+                      
+                      if(replace == true){
+                          for(int id =0 ;id<4;id++){
+                              ans[id] = curr[id];
+                          }
+                      }
+                      
+                   }
+                   
+               }
+           }
+       }
+       
+       if(ans[0] == Integer.MAX_VALUE){
+           Arrays.fill(ans,-1);
+       }
+       
+       return ans;
+    }
+   
+}
