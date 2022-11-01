@@ -1,0 +1,45 @@
+
+
+
+R = 3, C = 3
+M = [[1, 3, 5], 
+     [2, 6, 9], 
+     [3, 6, 9]]
+Output: 5
+Explanation: Sorting matrix elements gives 
+us {1,2,3,3,5,6,6,9,9}. Hence, 5 is median. 
+
+
+
+
+
+
+class Solution {
+    int median(int matrix[][], int R, int C) {
+        // HashSet<Integer> set = new LinkedHashSet<>();
+        // PriorityQueue<Integer> pq = new PriorityQueue<>();
+        int ans [] = new int[R*C];
+        int k =0 ;
+        for(int i =0 ;i<R;i++){
+            for(int j =0; j<C;j++){
+                ans[k++] = matrix[i][j];
+                if(k == R*C){
+                    break;
+                }
+            }
+        }
+       
+        
+       Arrays.sort(ans);
+        
+        int n = 0;
+        if(ans.length % 2==0){
+            n = (ans.length/2)+1;
+        }else{
+            n = ans.length/2;
+        }
+
+        return ans[n];
+        
+    }
+}
