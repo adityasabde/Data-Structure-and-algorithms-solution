@@ -1,0 +1,161 @@
+
+
+
+
+Input: s = "aab"
+Output: "aba"
+
+
+
+
+class Solution {
+    public String reorganizeString(String s) {
+       int n = s.length();
+       char ch[] = s.toCharArray();
+    //    HashMap <Character ,Integer> map = new HashMap<>();
+    //    for(int i =0 ;i<n;i++){
+    //        map.put(ch[i] , map.getOrDefault(ch[i],0)+1);
+    //    }  
+    //    System.out.println(map);
+    //    int idx = 0;
+    //    char ans [] = new char[n];
+    //    while(map.size() != 0){
+    //        char c = max(map,s.charAt(0));
+    //        System.out.println(c);
+    //         if(n%2 == 0){
+	//             if(map.get(c) > n/2  ){
+	//                return "";
+	//              }
+	//        }else{
+	//            if(map.get(c) > (n+1)/2  ){
+	//                return "";
+	//             }
+	//        }
+
+    //        if(idx>=n){
+    //            idx = 1;
+    //        }
+    //        int p = map.get(c);
+    //        while( idx < n && p > 0){
+    //           ans[idx] = c;
+    //           idx += 2;
+    //           p--;
+    //        }
+    //        map.remove(c);
+    //    }
+    // //   System.out.println(ans);
+    //   return String.valueOf(ans);
+      
+       HashMap<Character,Integer>map= new HashMap<>();
+       PriorityQueue <Character> pq = new PriorityQueue<>( (a,b)->{
+           return (map.get(a)).compareTo(map.get(b));
+       });
+
+       for(int i =0 ;i<n;i++){
+           map.put(ch[i],map.getOrDefault(ch[i],0)+1);
+       }
+       for(Map.Entry<Character,Integer> entry:map.entrySet()){
+            pq.add(entry.getKey());
+        }
+       System.out.println(map);
+      StringBuilder sb = new StringBuilder("");
+       while(!pq.isEmpty()){
+           char a = pq.poll();
+           
+           if(pq.isEmpty()){
+               if(map.get(a) > 1){
+                   return "";
+               }else{
+                   sb.append(a+"");
+               }
+                 break;
+           }
+            char b = pq.poll();
+            
+            sb.append(a+"");
+            map.put(a,map.get(a)-1);
+            sb.append(b+"");
+            map.put(b,map.get(b)-1);
+
+            if(map.get(a)!=0){
+                pq.add(a);
+            }
+            if(map.get(b)!=0){
+                pq.add(b);
+            }
+
+       }
+
+      return sb.toString();
+
+
+    }
+
+    //  public char max(HashMap <Character ,Integer> map , char ch){
+    //        int max = 0;
+    //        char c = ch;
+    //        for(Map.Entry<Character ,Integer> entry : map.entrySet()){
+    //            if(max<entry.getValue()){
+    //                max = entry.getValue();
+    //                c = entry.getKey();
+    //            }
+    //        }
+    //        return c;
+    //     }
+}
+
+
+// class Solution {
+//     public String reorganizeString(String s) {
+//         Map<Character,Integer> map = new HashMap<>();
+// 		// order all characters present in string in desending order of their count
+//         PriorityQueue<Character> pq = new PriorityQueue<>((a,b)->{
+//             return (map.get(b)).compareTo(map.get(a));
+//         });
+        
+//         int len = s.length();
+//         char ch;
+        
+//         for(int i=0;i<len;i++){
+//             ch = s.charAt(i);
+//             map.put(ch,map.getOrDefault(ch,0)+1);
+//         }
+        
+//         for(Map.Entry<Character,Integer> entry:map.entrySet()){
+//             pq.add(entry.getKey());
+//         }
+        
+//         StringBuffer sb = new StringBuffer("");
+		
+// 		//run till all characters are used to make new string
+//         while(!pq.isEmpty()){
+//             char a = pq.poll();
+//             if(pq.isEmpty()){
+
+//                 if(map.get(a)>1)
+//                     return "";
+//                 else
+//                     sb.append(a+"");
+//                 break;
+//             }
+//             char b = pq.poll();
+            
+// 			//1.use the characters a and b and descrease their count in map
+// 			//2.if count is still more than 0 after this then we need to add back to the queue.
+			
+//                 sb.append(a+"");
+//                 map.put(a,map.get(a)-1);
+//                 sb.append(b+"");
+//                 map.put(b,map.get(b)-1);
+            
+//             if(map.get(a)!=0)
+//                 pq.add(a);
+            
+//             if(map.get(b)!=0)
+//                 pq.add(b);
+//         }
+        
+//         return sb.toString();
+//     }
+// }
+// 
