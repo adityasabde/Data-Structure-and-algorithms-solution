@@ -1,0 +1,71 @@
+Given three stacks S1, S2, and S3 of the positive numbers, the task is to find the possible equal maximum sum of the stacks with the removal of top elements allowed. Stacks are represented as an array, and the first index of the array represents the top element of the stack.
+
+
+
+Input:
+N1 = 3, N2 = 4, N3 = 2
+S1 = {4,2,3}
+S2 = {1,1,2,3}
+S3= {1,4}
+Output:
+5
+Explanation:
+We can pop 1 element from the 1st stack, and 2
+elements from the 2nd stack. Now remaining elements
+yield the equal sum of the three stacks, that is 5.
+
+
+
+
+
+
+
+class Solution {
+    public static int maxEqualSum(int N1,int N2,int N3, int[] S1, int[] S2, int[] S3) {
+        int sum1 = 0;
+        int sum2 = 0;
+        int sum3 = 0;
+        
+        for(int i = 0;i<N1 ;i++){
+            sum1 += S1[i];
+        }
+        for(int i = 0;i<N2 ;i++){
+            sum2 += S2[i];
+        }
+        for(int i = 0;i<N3 ;i++){
+            sum3 += S3[i];
+        }
+        
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        while(sum1 != sum2 || sum2 != sum3){
+            if(i<N1 && sum1 >= sum2 && sum1 >=sum3){
+                sum1 -= S1[i];
+                i++;
+                if(i>=N1){
+                    return 0;
+                }
+                
+            }else if(j<N2 && sum2 >= sum1 && sum2 >= sum3){
+                sum2 -= S2[j];
+                j++;
+                if(j>=N2){
+                    return 0;
+                }
+            }else if(k<N3 && sum3 >= sum1 && sum3 >= sum2){
+                sum3 -= S3[k];
+                k++;
+                if(k>=N3){
+                    return 0;
+                }
+            }
+        }
+        
+        if(sum1 == sum2 && sum2 == sum3){
+            return sum1;
+        }
+        return 0;
+    }
+}
+        
