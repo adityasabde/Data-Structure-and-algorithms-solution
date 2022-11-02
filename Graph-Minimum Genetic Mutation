@@ -1,0 +1,73 @@
+------------------------------------------------------------------------------------------que-------------------------------------------------------------------------
+
+A gene string can be represented by an 8-character long string, with choices from 'A', 'C', 'G', and 'T'.
+
+Suppose we need to investigate a mutation from a gene string start to a gene string end where one mutation is defined as one single character changed in the gene string.
+
+For example, "AACCGGTT" --> "AACCGGTA" is one mutation.
+There is also a gene bank bank that records all the valid gene mutations. A gene must be in bank to make it a valid gene string.
+
+Given the two gene strings start and end and the gene bank bank, return the minimum number of mutations needed to mutate from start to end. If there is no such a mutation, return -1.
+
+Note that the starting point is assumed to be valid, so it might not be included in the bank.
+
+
+Input: start = "AACCGGTT", end = "AACCGGTA", bank = ["AACCGGTA"]
+Output: 1
+
+
+
+--------------------------------------------------------------------------approch ------------------------------------------------------------------------------
+
+
+Perform a BFS starting from node start. Keep track of the number of steps taken so far and return that number of steps when we find end. Only traverse to nodes that are in bank. Neighbors can be found by iterating over each node and replacing one of the characters with a character from "ACGT".
+
+To check if a node is in bank, we would normally first convert bank to a set to have O(1)O(1)O(1) checking. However, the problem's constraints state that 0 <= bank.length <= 10. With such a small constraint, it may actually be slower to use a set due to the overhead associated with hashing. Therefore, we will keep bank as an array.
+
+Initialize a queue queue and a set seen. The queue will be used for BFS and the set will be used to prevent visiting a node more than once. Initially, the queue and set should hold start.
+
+Perform a BFS. At each node, if node == end, return the number of steps so far. Otherwise, iterate over all the neighbors. For each neighbor, if neighbor is not in seen and neighbor is in bank, add it to queue and seen.
+
+If we finish the BFS and did not find end, then the task is impossible. Return -1.
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution {
+    public int minMutation(String start, String end, String[] bank) {
+       Queue <String> q = new LinkedList<>();
+       Set<String> seen = new HashSet<>();
+       q.add(start);
+       seen.add(start);
+       int step = 0;
+       while(!q.isEmpty()){
+           int size = q.size();
+           for(int i =0  ; i < size ;i++){
+               String node = q.remove();
+               if(node.equals(end)){
+                   return step;
+               }
+               char ch[]={'A','C','G','T'};
+               for(char c : ch){
+                   for(int j=0;j<node.length();j++){
+                       String neighbor = node.substring(0,j)+c+node.substring(j+1);
+                       if(!seen.contains(neighbor)&& Arrays.asList(bank).contains(neighbor)){
+                           seen.add(neighbor);
+                           q.add(neighbor);
+                       }
+                   }
+               }   
+           }
+            step++;
+       }
+       return -1;
+    }
+}
