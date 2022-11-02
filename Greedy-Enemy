@@ -1,0 +1,45 @@
+You live in Geek land. Geek land can be seen as a grid of shape N x M.Their are K enemy at K positions. Each enemy blocks the row and column to which it belongs. You have to find the largest continuous area that is not blocked.No two enemies share the same row or the same column.
+
+Input:
+N = 2
+M = 2
+K = 1
+enemy[]={{2,2}}
+Output:
+1
+Explanation:
+Since only (1,1) cell is free from the enemy hence answer is 1.
+
+
+class Solution {
+    public static int largestArea(int n,int m,int k,int[][] enemy) {
+       if(k == 0){
+           return m*n;
+       }
+       ArrayList<Integer> row = new ArrayList<>();
+       ArrayList<Integer> col = new ArrayList<>();
+        
+        row.add(0) ; col.add(0);
+        for(int i= 0;i<k;i++){
+            row.add(enemy[i][0]);
+             col.add(enemy[i][1]);
+        }
+        
+        row.add(n+1); col.add(m+1);
+        
+        Collections.sort(row); Collections.sort(col);
+        
+        int max_r = 0;
+        for(int i= 1;i<row.size();i++){
+            max_r = Math.max(max_r , row.get(i)-row.get(i-1)-1);
+        }
+        
+        int max_c = 0;
+        for(int i= 1;i<col.size();i++){
+            max_c = Math.max(max_c , col.get(i)-col.get(i-1)-1);
+        }
+        
+        return max_c*max_r;
+    }
+}
+ 
