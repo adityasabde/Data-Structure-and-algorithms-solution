@@ -1,0 +1,80 @@
+You are given an array of strings words. Each element of words consists of two lowercase English letters.
+
+Create the longest possible palindrome by selecting some elements from words and concatenating them in any order. Each element can be selected at most once.
+
+Return the length of the longest palindrome that you can create. If it is impossible to create any palindrome, return 0.
+
+A palindrome is a string that reads the same forward and backward.
+
+
+
+
+Input: words = ["lc","cl","gg"]
+Output: 6
+Explanation: One longest palindrome is "lc" + "gg" + "cl" = "lcggcl", of length 6.
+Note that "clgglc" is another longest palindrome that can be created.
+
+
+
+
+
+
+
+class Solution {
+    public int longestPalindrome(String[] words) {
+        int count =0;
+
+        HashMap<String ,Integer> map = new HashMap<>();
+
+        for(int i =0 ;i<words.length;i++){
+            map.put(words[i] , map.getOrDefault(words[i],0)+1);
+        }
+        
+
+        for(Map.Entry<String,Integer> s : map.entrySet()){
+            String reverse = func(s.getKey());
+
+            if(reverse.equals(s.getKey())){
+                int val = s.getValue();
+         // extracting the even number of equal letter like xx , yy        
+                if(val %2 !=0){
+                    val--;
+                }
+                count += val*2;
+                map.replace(reverse,map.get(reverse)-val);
+                
+            }else if(map.containsKey(reverse)){
+                int min = Math.min(s.getValue() , map.get(reverse));
+                count += 4*min;
+                map.replace(reverse , map.get(reverse)-min);
+                map.replace(s.getKey() ,s.getValue()-min);  
+                   
+                }
+            }
+ // checking reming one equal letter like xx , yy to put in middle of string
+            for(Map.Entry<String,Integer> s  : map.entrySet()){
+                String reverse = func(s.getKey());
+                if(s.getKey().equals(reverse) && s.getValue() >0){
+                    count += 2;
+                    break;
+                }
+            }
+
+           return count;
+            
+    }
+
+    String func(String s){
+        int i =0 ;
+        int j= s.length()-1;
+        char ch[] = s.toCharArray();
+        while(i<j){
+           char c = ch[i];
+           ch[i] = ch[j];
+           ch[j] = c;
+           i++;
+           j--;
+        }
+        return String.valueOf(ch);
+    }
+}
