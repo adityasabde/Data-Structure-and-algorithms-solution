@@ -1,0 +1,49 @@
+In a stock market, there is a product with its infinite stocks. The stock prices are given for N days, where price[i] denotes the price of the stock on the ith day.
+There is a rule that a customer can buy at most i stock on the ith day.
+If the customer has an amount of k amount of money initially. The task is to find out the maximum number of stocks a customer can buy. 
+
+
+Input:
+price[] = { 10, 7, 19 }
+k = 45
+Output: 4
+Explanation: A customer purchases 1 stock on day 1, 
+2 stocks on day 2 and 1 stock on day 3 for 
+10, 7 * 2 = 14 and 19 respectively. Hence, 
+total amount is 10 + 14 + 19 = 43 and number 
+of stocks purchased is 4.
+
+
+
+
+
+
+class Solution {
+    public static int buyMaximumProducts(int n, int k, int[] price) {
+       
+       List<int[]> list = new ArrayList<>();
+       
+        for(int i=0 ;i<n ;i++){
+            list.add(new int[]{i+1, price[i]});
+        }
+       
+       Collections.sort(list, (a,b) -> Integer.compare(a[1], b[1]));
+        int res = 0, p = 0;
+       
+        while(k > 0 && p < n){
+            int[] stock = list.get(p);
+            // no. of stocks buy with price stock[1]
+            int x = k/stock[1];
+            if(x > stock[0]){
+                res += stock[0];
+                k -= stock[0]*stock[1];
+            }else{
+                res += x;
+                k -= x*stock[1];
+            }
+            p++;
+        }
+       return res;
+    }
+}
+        
