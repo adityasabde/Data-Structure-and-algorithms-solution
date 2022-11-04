@@ -1,0 +1,44 @@
+Given a number N and its base b, convert it to decimal. The base of number can be anything such that all digits can be represented using 0 to 9 and A to Z. Value of A is 10, value of B is 11 and so on.
+
+
+Input: b = 2, N = 1100
+Output: 12
+Explaination: It is a binary number whose 
+decimal equivalent is 12.
+
+
+
+class Solution{
+    static int decimalEquivalent(String N, int b)
+    {
+        HashMap<Character,Integer> map = new HashMap<>();
+        map.put('A',10);
+        map.put('B',11);
+        map.put('C',12);
+        map.put('D',13);
+        map.put('E',14);
+        map.put('F',15);
+    int p = 1;
+    int ans = 0;
+    int x = 0;
+    
+  
+        for(int i =N.length()-1 ; i>=0;i--){
+            if(map.containsKey(N.charAt(i))){
+                x = map.get(N.charAt(i));
+            }else{
+                String s = "";
+                s += N.charAt(i);
+                x = Integer.valueOf(s);
+            }
+            // System.out.println(x);
+            if(x >= b){
+                return -1;
+            }
+            ans += x * p;
+            p = p*b;
+        }
+        
+        return ans;
+    }
+}
