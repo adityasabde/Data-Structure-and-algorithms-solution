@@ -1,0 +1,42 @@
+Given an array A[ ] of N numbers, your task is to find LCM of it modulo 1000000007
+
+
+Input:
+N = 4
+A = {1 , 2 , 8 , 3}
+Output:
+24
+Explanation:
+LCM of the given array is 24.
+24 % 1000000007 = 24
+
+
+
+
+
+class Solution{
+    static long lcmOfArray(int N, int A[]){
+        long ans = A[0] ;
+        long LCM = A[0];
+        for(int i =1 ; i<N ; i++){
+            ans = GCD(LCM , A[i]);
+            // System.out.println(ans);
+            LCM = ((LCM * A[i]) / ans)%1000000007;
+        }
+        
+        return LCM ;
+        
+    }
+    
+    static long GCD(long  a, long b){
+        if(a == 0){
+            return b;
+        }
+        
+        if(b == 0){
+            return a;
+        }
+        
+        return GCD(b , a%b);
+    }
+}
