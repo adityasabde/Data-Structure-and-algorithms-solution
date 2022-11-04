@@ -1,0 +1,31 @@
+Input:
+A = 5 , B = 10
+Output:
+10 5
+Explanation:
+LCM of 5 and 10 is 10, while
+thier GCD is 5.
+
+
+
+class Solution {
+    static Long[] lcmAndGcd(Long A , Long B) {
+       Long [] ans = new Long[2];
+       long gcd = 0;
+       long lcm = 0;
+       long on1 = A;
+       long on2 = B;
+       while(A % B != 0){
+           long rem = A % B;
+           A = B ;
+           B = rem;
+       }
+       
+       ans [1] = B;
+       
+       lcm = (on1 * on2 )/ans[1];
+       
+       ans[0] = lcm;
+       return ans;
+    }
+};
