@@ -1,0 +1,49 @@
+
+Given a number (n) and no. of digits (m) to represent the number, we have to check if we can represent n using exactly m digits in any base from 2 to 32.
+
+Input: n = 8, m = 2
+Output: Yes 
+Explanation: Possible in base 3 as 8 in base 3 is 22.  
+
+
+
+
+
+class Solution
+{
+    String baseEquiv(int n, int m)
+    {
+        boolean ans = false;
+        for(int i =2;i<32;i++){
+            ans =  baseconvert(n , i , m);
+            if(ans == true){
+                break;
+            }
+        }
+        String a = "Yes";
+        String b = "No";
+        
+        if(ans == true){
+            return a;
+        }
+        return b;
+    }
+    
+    boolean baseconvert(int num , int base , int dig){
+        long rev = 0;
+        long pow = 1;
+        int count = 0;
+        while(num>0){
+            int rem = num % base;
+            num = num / base;
+            // if new remainder comes that means new digit is from because we multiplying by 10 each and every remainder
+            count++;
+        }
+        if(count  == dig){
+            return true;
+        }
+        return false;
+        
+    }
+    
+}
