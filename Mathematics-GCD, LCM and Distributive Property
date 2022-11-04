@@ -1,0 +1,20 @@
+Input: x = 15, y = 20, z = 100
+Output: 60
+Explanation: GCD(LCM(15,20), LCM(15,100))
+=GCD(60,300)=60.
+
+
+class Solution{
+   static long findValue(int x, int y, int z){
+       return (gcd(lcm(x,y),lcm(x,z)));
+       //complete the function here
+   }
+   static long lcm(long a, long b){
+       return((a*b)/gcd(a,b));
+   }
+   static long gcd(long a, long b){
+       if(a==0) {return b;}
+       if(b==0) {return a;}
+       return gcd( b , a%b);
+   }
+}
