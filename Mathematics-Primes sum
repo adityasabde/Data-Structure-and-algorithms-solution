@@ -1,0 +1,39 @@
+
+
+Input: N = 34
+Output: "Yes" 
+Explanation: 34 can be expressed as 
+sum of two prime numbers.
+
+
+
+
+
+class Solution {
+    
+    static String isSumOfTwo(int N){
+        boolean [] isprime = new boolean[N+1];
+        Arrays.fill(isprime, true);
+        isprime[0] = false;
+        isprime[1] = false;
+        for(int i =2 ;i*i<=N;i++){
+             for(int j = i*2 ; j<=N ; j+=i){
+                 isprime[j] = false;
+             }
+        }
+        // for(int i =0 ;i<N+1;i++){
+        //     // System.out.println(isprime[i]);
+        // }
+        for(int i = 0;i<N+1;i++){
+            if(isprime[i] == true){
+                int idx = N - i;
+                    
+                if(isprime[idx] == true){
+                    // System.out.println(idx);
+                    return "Yes";
+                }
+            }
+        }
+        return "No";
+    }
+}
