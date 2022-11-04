@@ -1,0 +1,45 @@
+Input:
+N = 5
+Output:
+5
+Explanation:
+5 has 1 prime factor 
+i.e 5 only.
+
+
+
+
+
+
+
+class Solution{
+    static long largestPrimeFactor(int N) {
+        // int arr[] = new int[N];
+        ArrayList<Integer> arr = new ArrayList<>();
+        if(N==1){
+            return -1;
+        }
+        for(int i=2;i<=N;i++){
+           if(N%i == 0){
+                arr.add(i);   
+           }
+        }
+            //  System.out.println(arr);
+        int max = -1;
+        for(int x : arr){
+            int j = 2;
+            while(j<x){
+                if(x%j == 0){
+                    break;
+                }
+                j++;
+            }
+            // System.out.println(j);
+            if(j == x){
+                max = Math.max(j,max);
+            }
+        }
+        
+        return max;
+    }
+}
