@@ -1,0 +1,58 @@
+
+Input: rowIndex = 3
+Output: [1,3,3,1]
+
+
+
+
+
+
+
+
+
+
+class Solution {
+//     public List<Integer> getRow(int rowIndex) {
+//         List<Integer> arr = new ArrayList<>();
+//         for(int i =0 ;i<rowIndex+1;i++){
+//             arr.add(fact(rowIndex , i));
+//         } 
+//         return arr;
+//     }
+//     int fact(int n , int r){
+//         int res = 1;
+//         if(n-r < r){
+//             r = n-r;
+//         }
+//         for(int i =0 ;i<r;i++){
+//             res *= (n-i);
+//             res /= (i+1);
+//         }
+
+//         return res;
+//     }
+
+
+public int nCr(int n, int r) {
+    long res = 1;
+
+  if(n-r < r){
+            r = n-r;
+        }
+    for (int i = 0; i < r; i++) {
+      res *= (n - i);
+      res /= (i + 1);
+    }
+
+    return (int) res;
+  }
+public List<Integer> getRow(int rowIndex) {
+	List<Integer> list = new ArrayList<>();
+
+	for (int i = 0; i < rowIndex + 1; i++) {
+	  list.add(nCr(rowIndex, i));
+	}
+	return list;
+}
+
+}
