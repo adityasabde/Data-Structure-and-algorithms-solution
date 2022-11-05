@@ -1,0 +1,70 @@
+One day Jim came across array arr[] of N numbers. He decided to divide these N numbers into different groups. Each group contains numbers in which sum of any two numbers should not be divisible by an integer K. Print the size of the group containing maximum numbers.
+
+Input:
+N = 4, K = 8
+arr[] = {1, 7, 2, 6}
+Output:
+2
+Explanation:
+The  group of numbers which can be formed
+are: (1),(2),(7),(6),(1,2),(1,6),(7,2),(7,6).
+So,the maximum possible size of the group is 2.
+
+
+
+
+
+
+
+class Solution {
+    static int maxGroupSize(int[] arr, int n, int k) {
+        // int max =0;
+        // int len = 0;
+        // int sum =0 ;
+        // for(int i=0;i<n ;i++){
+            
+        //     for(int j = i+1;j<n;j++){
+             
+        //         int flag = 0;
+        //         for(int p = i;p<=j;p++){
+                   
+        //             for(int q = p+1 ;q<=j;q++){
+        //                  if((arr[p]+arr[q]) % k == 0){
+        //                     flag = 1;
+        //                     break;
+        //                  }
+        //             }
+        //           if(flag == 1){
+        //               break;
+        //           }
+        //         }
+        //         if(flag == 0){
+        //             len = j-i+1;
+        //             max = Math.max(max , len);
+        //         }
+        //     }
+        // }
+        
+        // return max;
+        
+        int ans =0 ;
+        int rem[] = new int[k];
+        for(int i = 0 ;i<n;i++){
+            rem[arr[i]%k]++;
+        }
+        
+        for(int i =0 ;i<=k/2;i++){
+            if(i == 0 || i == k -i){
+                if(rem[i] != 0){
+                     ans++;
+                }
+               
+            }
+            else{
+                ans += Math.max(rem[i] , rem[k-i]);
+            }
+        }
+        
+        return ans;
+    }
+};
