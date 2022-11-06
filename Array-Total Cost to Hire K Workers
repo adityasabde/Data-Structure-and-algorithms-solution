@@ -1,0 +1,159 @@
+
+You are given a 0-indexed integer array costs where costs[i] is the cost of hiring the ith worker.
+
+You are also given two integers k and candidates. We want to hire exactly k workers according to the following rules:
+
+You will run k sessions and hire exactly one worker in each session.
+In each hiring session, choose the worker with the lowest cost from either the first candidates workers or the last candidates workers. Break the tie by the smallest index.
+For example, if costs = [3,2,7,7,1,2] and candidates = 2, then in the first hiring session, we will choose the 4th worker because they have the lowest cost [3,2,7,7,1,2].
+In the second hiring session, we will choose 1st worker because they have the same lowest cost as 4th worker but they have the smallest index [3,2,7,7,2]. Please note that the indexing may be changed in the process.
+If there are fewer than candidates workers remaining, choose the worker with the lowest cost among them. Break the tie by the smallest index.
+A worker can only be chosen once.
+Return the total cost to hire exactly k workers.
+
+ 
+
+Example 1:
+
+Input: costs = [17,12,10,2,7,2,11,20,8], k = 3, candidates = 4
+Output: 11
+Explanation: We hire 3 workers in total. The total cost is initially 0.
+- In the first hiring round we choose the worker from [17,12,10,2,7,2,11,20,8]. The lowest cost is 2, and we break the tie by the smallest index, which is 3. The total cost = 0 + 2 = 2.
+- In the second hiring round we choose the worker from [17,12,10,7,2,11,20,8]. The lowest cost is 2 (index 4). The total cost = 2 + 2 = 4.
+- In the third hiring round we choose the worker from [17,12,10,7,11,20,8]. The lowest cost is 7 (index 3). The total cost = 4 + 7 = 11. Notice that the worker with index 3 was common in the first and last four workers.
+The total hiring cost is 11.
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution {
+
+
+
+    public long totalCost(int[] costs, int k, int c) {
+        int n = costs.length;
+     long tcost = 0L;
+      PriorityQueue <Integer> pq1 = new PriorityQueue<>();
+      PriorityQueue <Integer> pq2 = new PriorityQueue<>();
+      int l =0 ;
+      int r = n-1;
+      for( l =0;l<c ;l++){
+          pq1.add(costs[l]);
+       
+      }
+      for( r = n-1; r>=n-c && r>=l ; r--){
+          pq2.add(costs[r]);
+        
+      }
+      int round = 0;
+      while(l <= r && k > round){
+          
+          if(pq1.peek() <= pq2.peek()){
+               tcost += pq1.peek();
+               pq1.poll();
+               pq1.add(costs[l]);
+               l++;
+          }else{
+              tcost += pq2.peek();
+               pq2.poll();
+               pq2.add(costs[r]);
+               r--;
+          }
+          round++;
+      }
+
+
+     if(k >round){
+      
+         if(pq1.size()==0) tcost += pq2.poll();
+         else if(pq2.size()==0) tcost += pq1.poll();
+         else if(pq1.peek() <= pq2.peek()) tcost += pq1.poll();
+         else tcost += pq2.poll();
+            round++;
+     }
+
+      
+    //   long totalCost = 0L;
+    //     int round = 0;
+        
+    //     int l = 0;
+    //     int r = costs.length - 1;
+        
+    //     PriorityQueue<Integer> left = new PriorityQueue<>();
+    //     PriorityQueue<Integer> right = new PriorityQueue<>();
+        
+    //     for (l = 0; l < candidates; l++) left.add(costs[l]);
+    //     for (r = costs.length - 1; r >= costs.length - candidates && r >= l; r--) right.add(costs[r]);
+    //     while (l <= r && round < k) {
+    //         if (left.peek() <= right.peek()) {
+    //             totalCost += left.poll();
+    //             left.add(costs[l]);
+    //             l++;
+    //         } else {
+    //             totalCost += right.poll();
+    //             right.add(costs[r]);
+    //             r--;
+    //         }
+    //         round++;
+    //     }
+    //     while (round < k) {
+    //         if (left.size() == 0) totalCost += right.poll();
+    //         else if (right.size() == 0) totalCost += left.poll();
+    //         else if (left.peek() <= right.peek()) totalCost += left.poll();
+    //         else totalCost += right.poll();
+    //         round++;
+    //     }
+
+    //     return totalCost;
+
+
+
+
+    // ArrayList<Integer> arr = new ArrayList<>();
+//         for(int p =0 ;p<k ;p++){
+//              int i =0 ;
+//              int j = arr.size() -1 ;
+//              long fmin = arr.get(0);
+//             long lmin = arr.get(arr.size() - 1 );        
+//             int idx1 = 0;
+//             int idx2 = j;
+            
+//             // System.out.println(arr);
+//             while( i<arr.size() && i < candidates){
+//                 if(fmin > arr.get(i)){
+//                     fmin = arr.get(i);
+//                     idx1 = i;
+//                 }
+//                 i++;
+//             }
+            
+//              while(j >= 0 && j >= arr.size()-candidates){
+//                  if(lmin > arr.get(j)){
+//                     lmin = arr.get(j);
+//                     idx2 = j;
+//                 }
+//                  j--;
+//             }
+            
+//              long ans = Math.min(lmin , fmin);
+//             // System.out.println( lmin + " " + " "+ fmin + " " +ans);
+//             if(ans == fmin){
+//                 arr.remove(idx1);
+//             }else{
+//                 arr.remove(idx2);
+//             }
+             
+//              tcost += ans;
+//          }   
+        return tcost;
+    }
+}
+
