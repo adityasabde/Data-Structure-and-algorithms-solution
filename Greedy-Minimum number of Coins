@@ -1,0 +1,102 @@
+Given an infinite supply of each denomination of Indian currency { 1, 2, 5, 10, 20, 50, 100, 200, 500, 2000 } and a target value N.
+Find the minimum number of coins and/or notes needed to make the change for Rs N. You must return the list containing the value of coins required. 
+
+
+Example 1:
+
+Input: N = 43
+Output: 20 20 2 1
+Explaination: 
+Minimum number of coins and notes needed 
+to make 43. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution{
+    static List<Integer> minPartition(int N)
+    {
+        // ArrayList<Integer>ans = new ArrayList<>();
+        
+        ArrayList<Integer> ans = new ArrayList<>();
+        ArrayList<Integer> curr = new ArrayList<>();
+        curr.add(1);
+        curr.add(2);
+        curr.add(5);
+        curr.add(10);
+        curr.add(20);
+        curr.add(50);
+        curr.add(100);
+        curr.add(200);
+        curr.add(500);
+        curr.add(2000);
+        
+        int j = curr.size()-1;
+        int k = curr.size()-1;
+        
+        while(N>=1){
+            j = curr.size()-1;
+            while(j>=0){
+                if(N>=curr.get(j)){
+                    ans.add(curr.get(j));
+                    k = j;
+                    break;
+                }
+                j--;
+            }
+            N = N-curr.get(k);
+        }
+        return ans;
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    //   int x =0;
+    //   while(n != 0)
+    //   {
+    //       for(int i =1;i<arr.length;i++){
+    //             if(n < arr[i]){
+    //               x= arr[i-1];
+    //           }
+    //       }
+           
+    //       if(x == 0){
+    //           x = arr[arr.length -1];
+    //       }
+    //       n = n- x;
+    //       int m =1;
+    //       while(n > x ){
+    //           n -= x;
+    //           m++;
+    //       }
+           
+    //       while(m!=0){
+    //           ans.add(x);
+    //           m--;
+    //       } 
+    //   } 
+    //   return ans;
+    }
+    
+  
+}
