@@ -1,0 +1,50 @@
+
+You are given a string s and an integer k. You can choose one of the first k letters of s and append it at the end of the string..
+
+Return the lexicographically smallest string you could have after applying the mentioned step any number of moves.
+
+ 
+
+Example 1:
+
+Input: s = "cba", k = 1
+Output: "acb"
+Explanation: 
+In the first move, we move the 1st character 'c' to the end, obtaining the string "bac".
+In the second move, we move the 1st character 'b' to the end, obtaining the final result "acb".
+
+
+
+
+
+
+
+
+class Solution {
+    public String orderlyQueue(String s, int k) {
+        ArrayList<String> arr = new ArrayList<>();
+        
+        int i = 0;
+        char ca[] = s.toCharArray();
+        if(k ==1){
+            while(i<s.length()){
+                int idx = 0;
+                    char replace = ca[idx];
+                    int d = idx+1;
+                    while(d<ca.length){
+                        ca[d-1] = ca[d];
+                        d++;
+                    }
+                    ca[ca.length -1] = replace;
+                arr.add(String.valueOf(ca));
+                i++;
+              }
+            }else{
+                Arrays.sort(ca);
+                return String.valueOf(ca);
+            }
+    
+        Collections.sort(arr);
+        return arr.get(0);
+    }
+}
