@@ -1,0 +1,39 @@
+Given an array intervals where intervals[i] = [li, ri] represent the interval [li, ri), remove all intervals that are covered by another interval in the list.
+
+The interval [a, b) is covered by the interval [c, d) if and only if c <= a and b <= d.
+
+Return the number of remaining intervals.
+
+ 
+
+Example 1:
+
+Input: intervals = [[1,4],[3,6],[2,8]]
+Output: 2
+Explanation: Interval [3,6] is covered by [2,8], therefore it is removed.
+Example 2:
+
+Input: intervals = [[1,4],[2,3]]
+Output: 1
+
+
+
+
+class Solution {
+    public int removeCoveredIntervals(int[][] intervals) {
+        Arrays.sort(intervals , (a,b)->Integer.compare(a[0],b[0]));
+        int curr[] = new int[]{-1,-1};
+        int result = 0;
+        // we checking condition where it not intercept each other then increment count
+        
+        for(int i =0;i<intervals.length;i++){
+            if(intervals[i][0] > curr[0] && intervals[i][1] > curr[1] ){
+                result++;
+                curr[0] = intervals[i][0];   
+            }
+            curr[1] = Math.max(intervals[i][1] , curr[1]);
+        }
+       
+        return result;
+    }
+}
