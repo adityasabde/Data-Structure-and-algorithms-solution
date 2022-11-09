@@ -1,0 +1,61 @@
+Given an array arr of size n containing non-negative integers, the task is to divide it into two sets S1 and S2 such that the absolute difference between their sums is minimum and find the minimum difference
+
+
+Example 1:
+
+Input: N = 4, arr[] = {1, 6, 11, 5} 
+Output: 1
+Explanation: 
+Subset1 = {1, 5, 6}, sum of Subset1 = 12 
+Subset2 = {11}, sum of Subset2 = 11   
+
+Example 2:
+Input: N = 2, arr[] = {1, 4}
+Output: 3
+Explanation: 
+Subset1 = {1}, sum of Subset1 = 1
+Subset2 = {4}, sum of Subset2 = 4
+
+
+
+
+
+
+
+
+
+class Solution
+{
+
+	public int minDifference(int arr[], int n) 
+	{ 
+	     
+	    int sum =0 ;
+	    int addsum =0 ;
+	   for(int i =0;i<n;i++){
+	       sum += arr[i];
+	   }
+	   int dp[][] = new int[n][sum];
+	   
+	   for(int i =0 ;i<n;i++){
+	       Arrays.fill(dp[i],-1);
+	   }
+	   int ans = func(sum , addsum , 0 , arr, dp );
+	   return ans;
+	} 
+	
+	public int func(int sum , int addsum , int i  , int arr[] , int dp[][]){
+	    if(i == arr.length){
+	        return Math.abs(addsum - sum);
+	    }
+	    if(dp[i][addsum] != -1){
+	        return dp[i][addsum];
+	    }
+	   
+	    int x = func(sum-arr[i] , addsum+arr[i],i+1 , arr,dp);
+	    
+	    int y = func(sum , addsum , i+1, arr, dp);
+	    
+	    return dp[i][addsum] = Math.min(x,y);
+	}
+}
