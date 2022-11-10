@@ -1,0 +1,94 @@
+Given an array of non-negative integers, and a value sum, determine if there is a subset of the given set with sum equal to given sum. 
+
+
+Example 1:
+
+Input:
+N = 6
+arr[] = {3, 34, 4, 12, 5, 2}
+sum = 9
+Output: 1 
+Explanation: Here there exists a subset with
+sum = 9, 4+3+2 = 9.
+
+
+
+
+
+class Solution{
+
+
+    static Boolean isSubsetSum(int N, int arr[], int sum){
+    boolean dp[][] = new boolean[N+1][sum +1];
+   
+    for(int i = 0 ; i<dp.length ; i++){
+        for(int j =0 ;j< dp[0].length ; j++){
+            if(i==0 && j == 0){
+                dp[i][j] = true;
+            }else if(i == 0){
+                dp[i][j] = false;
+            }else if(j == 0){
+                dp[i][j] = true;
+            }else{
+                if(dp[i-1][j] == true){
+                    dp[i][j] = true;
+                }else{
+                    int val = arr[i-1];
+                    if(j>= val){
+                       if(dp[i-1][j-val] == true){
+                           dp[i][j] = true;
+                       }
+                    }
+                }
+            }
+        }
+    }
+   
+//   dp table
+//   arr[ 4, 2 ,7 ,1 ,3 ]
+//   sum = 9
+   
+//       0  1  2  3  4  5  6  7  8  9
+//   0   T  F  F  F  F  F  F  F  F  F
+//   4   T  F  F  F  T  F  F  F  F  F
+//   2   T  F  T  F  T  F  T  F  F  F
+//   7   T  F  T  F  T  F  F  T  F  T
+//   1   T  T  T  T  T  T  T  T  T  T
+//   3   T  T  T  T  T  T  T  T  T  T
+   
+   
+   
+   
+   
+      
+   
+   return dp[N][sum];
+    
+    // for(int i =0 ;i<N;i++){
+    //     Arrays.fill(dp[i] , false);
+    // }
+    //   return sumfunc(arr , 0 , sum , dp );
+    }
+    
+    // static boolean sumfunc(int arr[] ,int i , int sum ,boolean dp[][]){
+    
+    //     if(sum == 0){
+    //         return true;
+    //     }
+    //     if(i == arr.length || sum < 0){
+    //         return false;
+    //     }
+    //     if(dp[i][i] != false){
+    //         return dp[i][i];
+    //     }
+        
+    //     boolean x = sumfunc(arr , i+1 , sum - arr[i] , dp);
+    //     boolean y = sumfunc(arr , i+1 ,  sum , dp);
+        
+    //     if(x || y){
+    //         return dp[i][i] = true;
+    //     }else{
+    //         return dp[i][i] =  false;
+    //     }
+    // }
+}
