@@ -1,0 +1,107 @@
+Given a positive number X. Find the largest Jumping Number which is smaller than or equal to X. 
+Jumping Number: A number is called Jumping Number if all adjacent digits in it differ by only 1. All single-digit numbers are considered as Jumping Numbers. For example 7, 8987 and 4343456 are Jumping numbers but 796, 677 and 89098 are not.
+
+ 
+
+Example 1:
+
+Input:
+X = 10
+Output:
+10
+Explanation:
+10 is the largest Jumping Number
+possible for X = 10.
+Example 2:
+
+Input:
+X = 50
+Output:
+45
+Explanation:
+45 is the largest Jumping Number
+possible for X = 50.
+ 
+
+
+
+
+
+
+
+
+class Solution {
+    static int ans ;
+    static long jumpingNums(long x) {
+        //  boolean flag == false;
+        if(x<=9)return x;
+         ans =0;
+         for(int i =1 ;i<=9;i++){
+             DFS(x , i);
+         }
+         
+         return ans ;
+        
+    }
+    
+    static void DFS(long x , int start_pt){
+        Queue<Integer> q = new LinkedList<>();
+        q.add(start_pt);
+        
+        while(!q.isEmpty()){
+            
+            int curr = q.poll();
+            
+          
+            if(curr <= x){
+                ans  = Math.max(ans , curr);
+                
+                int rem = curr % 10;
+                  
+                int a = curr*10 + rem - 1;
+                int b = curr*10 + rem + 1;
+                
+                if(rem == 0){
+                    if(b<=x){
+                         q.add(b);
+                    }
+                   
+                }else if(rem == 9){
+                    if(a<=x){
+                         q.add(a);
+                    }
+                }else{
+                    q.add(a);
+                    q.add(b);
+                }
+            }
+        }
+    }
+    
+    
+     static void BFS(long x , long curr){
+        // Queue<Integer> q = new LinkedList<>();
+        // q.add(start_pt);
+        if(curr>x)return;
+        
+        if(curr<=x){
+            
+                ans  = Math.max(ans , curr);
+                
+                long rem = curr % 10;
+                  
+                long a = curr*10 + (rem - 1);
+                long b = curr*10 + (rem + 1);
+                
+                if(rem == 0){
+                  dfs(x,b);
+                   
+                }else if(rem == 9){
+                    dfs(x,a);
+                }else{
+                   dfs(x,a);
+                   dfs(x,b);
+                }
+            }
+        }
+};
