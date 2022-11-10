@@ -1,0 +1,161 @@
+
+
+Given two sequences, find the length of longest subsequence present in both of them. Both the strings are of uppercase.
+
+Example 1:
+
+Input:
+A = 6, B = 6
+str1 = ABCDGH
+str2 = AEDFHR
+Output: 3
+Explanation: LCS for input Sequences
+“ABCDGH” and “AEDFHR” is “ADH” of
+length 3.
+Example 2:
+
+Input:
+A = 3, B = 2
+str1 = ABC
+str2 = AC
+Output: 2
+Explanation: LCS of "ABC" and "AC" is
+"AC" of length 2
+
+
+
+
+
+
+
+class Solution
+
+{
+
+    //Function to find the length of longest common subsequence in two strings.
+
+    static int lcs(int x, int y, String s1, String s2)
+
+    {
+
+        // Matrix for Memoization
+
+        int[][] dp = new int[x+1][y+1];
+
+        
+
+        // Intialization
+
+        for(int i = 0; i < x + 1 ; i++ )
+
+        {
+
+            for(int j = 0; j < y + 1 ; j++ )
+
+            {
+
+                if(i == 0 || j == 0)
+
+                {
+
+                    dp[i][j] = 0;
+
+                }
+
+                else
+
+                {
+
+                    dp[i][j] = -1;
+
+                }
+
+            }
+
+        }
+
+        
+
+        
+
+        //Calling the recursive function
+
+        return fn(x,y,s1,s2,dp);
+
+        
+
+        
+
+    }
+
+    
+
+    static int fn(int x, int y, String s1, String s2, int[][] dp)
+
+    {
+
+         //Base Condition
+
+        // If size of either string becomes zero, then the number of common subsequences is 0
+
+        if(x == 0 || y == 0)
+
+        {
+
+            return 0;
+
+        }
+
+        // If the value has already been calculated, return it directly
+
+        if(dp[x][y] != -1)
+
+        {
+
+            return dp[x][y];
+
+        }
+
+        // Choices
+
+        // If both the characters are equal, then we have one subsequence. Add one to the result.
+
+        if(s1.charAt(x-1) == s2.charAt(y-1))
+
+        {
+
+            dp[x][y] = 1 + fn(x-1, y-1, s1, s2, dp);
+
+            return dp[x][y];
+
+        }
+
+        else
+
+        {
+
+            //Here we have 2 choices, Either deleted the last letter from X and compare with y fully,
+
+            // Or vice versa. We need the return the maximum in both cases, since its is the longest sequence.
+
+            dp[x][y] = Math.max( fn(x-1 , y, s1 , s2, dp) , fn(x, y-1 , s1 , s2, dp));
+
+            return dp[x][y];
+
+        }
+
+    }
+
+    
+
+}
+
+
+// Recursion tree
+
+        //                  ABCDG H   AEDFH R
+                         
+        //      ABCD G    AEDFH R          ABCDG H  AEDF H
+             
+        // ABC D  AEFGH R    ABCD G AEDF H     1 + (ABCD G  AED F)
+
