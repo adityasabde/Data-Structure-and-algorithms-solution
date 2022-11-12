@@ -1,0 +1,74 @@
+We have a string s of length n, which contains only UPPERCASE characters and we have a number k (always less than n). We can make at most k changes in our string. In one change, you can replace any s[i] (0<= i < n) with any uppercase character (from 'A' to 'Z'). After k changes, find the maximum possible length of the sub-string which have all same characters.
+
+Example 1:
+
+Input: s = "ABAB", k = 2
+Output: 4
+Explanation: Change 2 'B' into 'A'. 
+Now s = "AAAA"
+
+Example:
+
+Input: s = "ADBD", k = 1
+Output: 3
+Explanation: Change 'B' into 'D'.
+Now s = "ADDD"
+
+
+
+
+
+
+
+
+
+class Solution
+{
+    public int characterReplacement(String s, int k)
+    {
+    //   Brut force 
+     
+     calculating all substring
+    // int ans = k;
+    // int n = s.length();
+   
+    // for(int i =0 ;i<n-k ;i++ ){
+    //     int freq [] = new int[26];
+    //      int max_freq = 0;
+    //      for(int j=i ; j<n; j++){
+    //         freq[s.charAt(j) -'A']++;   
+         
+    //         max_freq = Math.max(max_freq , freq[s.charAt(j) - 'A']);
+            
+    //         if(j-i+1 - max_freq <= k){
+    //             ans  = Math.max(ans , j-i+1);
+    //         }
+    //      }
+         
+    // }
+    // return ans;
+    
+    // sliding window technique
+    
+    int n = s.length();
+    int freq [] = new int[26];
+    int st = 0;
+    int max_freq = 0;
+    int ans = 0;
+    
+    for(int e = 0 ; e<n ; e++){
+        
+        max_freq = Math.max(max_freq , ++freq[s.charAt(e) - 'A']);
+       
+        while(e - st +1 - max_freq > k){
+            // reduce the window size increment st++
+            freq[s.charAt(st) - 'A']--;
+            st++;
+        }
+        
+        ans  = Math.max(ans  , e-st+1);
+    }
+    return ans;
+             
+    }
+}
