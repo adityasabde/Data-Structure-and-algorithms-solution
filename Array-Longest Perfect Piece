@@ -1,0 +1,111 @@
+Given an array arr[] of N Numbers. A Perfect Piece is defined as a subarray such that the difference between the minimum and the maximum value in that range is at most 1. Find the Maximal Length Perfect Piece.
+
+ 
+
+Example 1:
+
+Input:
+N = 4
+arr[] = {8, 8, 8, 8}
+Output:
+4
+Explanation:
+The longest subarray is [1, 4]
+where maximum=8 and minimum = 8 and
+difference is 0, which is less than 1.
+Its length is 4.
+Example 2:
+
+Input:
+N = 11
+arr[] = {5, 4, 5, 5, 6, 7, 8, 8, 8, 7, 6}
+Output:
+5
+Explanation:
+The longest subarray is [6, 10]
+where maximum=8 and minimum = 7 and
+difference is 1. Its length is 5. 
+
+
+
+
+
+
+
+
+
+//User function Template for Java
+
+class Solution {
+    static int sumlength =0 ;
+    static int longestPerfectPiece(int[] arr, int N) {
+    //     int dp[][] = new int[N][N];
+    //     for(int i =0;i<N;i++){
+    //         Arrays.fill(dp[i],-1);
+    //     }
+    //   func(0 , 0 , arr , N,dp);
+    //   return sumlength;
+    
+     int maxLen = 0;
+
+        int l = 0;
+
+        int min = Integer.MAX_VALUE;
+
+        int max = Integer.MIN_VALUE;
+
+        for(int i = 0; i < N; i++) {
+
+            min = Math.min(min, arr[i]);
+
+            max = Math.max(max, arr[i]);
+
+            if(max - min <= 1) {
+
+                l++;
+
+            } else {
+
+                maxLen = Math.max(maxLen, l);
+
+                l = 1;
+
+                min = arr[i];
+
+                max = arr[i];
+
+            }
+
+        }
+
+        maxLen = Math.max(maxLen, l);
+
+        return maxLen;
+
+    
+    
+    
+    }
+    
+    // static void func(int i , int j , int arr[] , int n , int dp[][]){
+    //     if(j == n || i == n){
+    //         return;
+    //     }
+    //     if(dp[i][j] != -1){
+    //         sumlength = Math.max(sumlength ,dp[i][j]);
+    //     }
+    //     func(i , j+1 , arr , n,dp);
+        
+    //     PriorityQueue <Integer> pq1 = new PriorityQueue<>();
+    //     PriorityQueue <Integer> pq2 = new PriorityQueue<>(Collections.reverseOrder());
+    //     for(int p = i ; p <= j ; p++){
+    //         pq1.add(arr[p]);
+    //         pq2.add(arr[p]);
+    //     }
+    //     if(!pq1.isEmpty() && pq2.peek() - pq1.peek() <= 1 ){
+    //         sumlength = Math.max(sumlength , j-i+1);
+    //     }
+    //     func(i+1 , j , arr , n,dp);
+        
+    // } 
+};
