@@ -1,0 +1,60 @@
+Given a string S, return the sum of beauty of all its substrings.
+The beauty of a string is defined as the difference in frequencies between the most frequent and least frequent characters.
+
+For example, the beauty of string "aaac" is 3 - 1 = 2.
+Example 1:
+
+Input:
+S = "aaac"
+Output:
+3
+Explanation: The substrings with non - zero beauty are ["aaac","aac"] where beauty of "aaac" is 2 and beauty of "aac" is 1.
+ 
+
+Example 2:
+
+Input:
+S = "geeksforgeeks"
+Output:
+6
+
+
+
+
+
+
+
+class Solution {
+    public static int beautySum(String s) {
+       char ch[] =  s.toCharArray();
+
+      int ans = 0;
+       
+       for(int i=0;i<ch.length-2;i++){
+        //   we can use frequency array of 26 as well here
+          HashMap<Character,Integer> map = new HashMap<>();
+          for(int j=i ; j<ch.length;j++){
+              
+              map.put(ch[j],map.getOrDefault(ch[j],0)+1);
+              
+              if(map.size() > 1){
+                   int max = Integer.MIN_VALUE;
+                    int min = Integer.MAX_VALUE;
+                    
+                  for(Map.Entry<Character,Integer> entry:map.entrySet()){
+                     if(max < entry.getValue()){
+                         max = entry.getValue();
+                     }
+                     if(min > entry.getValue()){
+                         min = entry.getValue();
+                     }
+                  }
+                  ans += max - min;
+              }
+          }  
+       }
+       return ans;
+
+    }
+}
+        
