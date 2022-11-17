@@ -1,0 +1,39 @@
+
+
+Given an array of n distinct elements. Find the minimum number of swaps required to sort the array in strictly increasing order.
+
+
+Example 1:
+
+Input:
+nums = {2, 8, 5, 4}
+Output:
+1
+Explaination:
+swap 8 with 4.
+Example 2:
+
+Input:
+nums = {10, 19, 6, 3, 5}
+Output:
+2
+Explaination:
+swap 10 with 3 and swap 19 with 5.
+
+
+
+
+
+
+
+
+
+
+// copy array then sort the array and store the 
+// the indexes in map for each element in sorted array
+// now we have initial and final position
+// just check if element is at correct position or not
+// if not then send it to correct position using swap
+// if after swaping new number at our index is not at 
+// it's correct position then again send it to it's correct
+// position using swap and do this for all indexes
