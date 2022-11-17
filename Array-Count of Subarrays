@@ -1,0 +1,78 @@
+
+Given an array of N positive integers  Arr1, Arr2 ............ Arrn. The value of each contiguous subarray of given array is the maximum element present in that subarray. The task is to return the number of subarrays having value strictly greater than K.
+
+Example 1:
+
+Input:
+N = 3, K = 2
+Arr[] = {3, 2, 1}
+Output: 3
+Explanation: The subarrays having value
+strictly greater than K are: [3], [3, 2]
+and [3, 2, 1]. Thus there are 3 such
+subarrays.
+Example 2:
+
+Input:
+N = 4, K = 1
+Arr[] = {1, 2, 3, 4}
+Output: 9
+Explanation: There are 9 subarrays having
+value strictly greater than K.
+
+
+
+
+
+
+
+
+class Solution {
+
+    long countSubarray(int arr[], int n, int k) {
+        
+// brut force approch        
+        
+    //   int count =0;  
+    //   for(int i =0; i<n;i++){
+          
+    //       int max = arr[i];
+          
+    //       for(int j = i; j<n;j++){
+              
+    //           max = Math.max(max , arr[j]);
+              
+    //           if(max > k){
+    //               count++;
+    //           }
+              
+    //       }
+    //   }
+    //     return count;
+
+
+// efficient approch
+    // firstly count all subarray by foemula then calculate not required area and minus it from ans 
+    long ans = ((long)n * (long)(n + 1))/2;
+    int i =0 ;
+    long not_req =0;
+    while(i<n){
+        if(k < arr[i]){
+            i++;
+            continue;
+        }
+        long count = 0;
+        while(i<n && arr[i] <= k){
+            i++;
+            count++;
+        }
+        
+         not_req += (count * (count + 1))/2;
+        
+    }
+    
+    long final_ans = ans - not_req;
+    return final_ans;
+        
+    }
+}
