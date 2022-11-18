@@ -1,0 +1,57 @@
+Given a list of word lists of size  M * N. The task is to return all sentences possible taking one word from a list at a time via recursion. 
+
+Example 1:
+Input:
+
+L = {{"you", "we"},
+     {"have", "are"},
+Output: 
+{{you have}
+{you are}
+{we have}
+{we are}}
+Explanation:
+Consider every every word from the list and form
+sentences with every other words, taking one word from a list .
+
+Note: You need to maintain the order of the sentences.
+
+
+
+
+
+
+
+
+class Solution {
+
+    public static ArrayList<ArrayList<String>> sentences(String[][] a) {
+
+         ArrayList<ArrayList<String>>ans=new ArrayList<ArrayList<String>>();
+
+         int r=a.length;
+
+         int c=a[0].length;
+
+        make(a,0,r,c,"",ans);
+
+         return ans;
+
+        }
+
+       public static void make(String[][] a , int d1 , int r ,int c , String temp, ArrayList<ArrayList<String>>ans){
+          if(d1 == r){
+              ArrayList<String> al = new ArrayList<>();
+              al.add(temp.trim());
+              ans.add(al);
+              return;
+          } 
+          
+          for(int i =0 ;i<c;i++){
+              String  s  = temp + a[d1][i] + " ";
+              make(a , d1+1 , r ,c , s , ans);
+          }
+       }
+
+}
+        
