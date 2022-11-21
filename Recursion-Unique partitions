@@ -1,0 +1,56 @@
+Given a positive integer n, generate all possible unique ways to represent n as sum of positive integers.
+
+Note: The generated output is printed without partitions. Each partition must be in decreasing order. Printing of all the partitions is done in reverse sorted order. 
+
+Example 1:
+
+Input: n = 3
+Output: 3 2 1 1 1 1
+Explanation: For n = 3, 
+{3}, {2, 1} and {1, 1, 1}.
+ 
+
+
+
+
+
+
+
+
+/User function Template for Java
+
+class Solution
+{
+    public ArrayList<ArrayList<Integer>> UniquePartitions(int n)
+    {
+        ArrayList<ArrayList<Integer>> arr = new ArrayList<>();
+        int a[] = new int[n];
+        for(int i =0 ;i<n;i++){
+            a[i] = i+1;
+        }
+        
+        ArrayList<Integer> al = new ArrayList<>();
+        func(arr , n-1 , n , al ,a);
+        return arr;
+        
+    }
+    
+    void func(  ArrayList<ArrayList<Integer>> arr  , int idx ,int s , 
+    ArrayList<Integer> al , int a[] ){
+       
+       if(idx<0 || s<0){
+           return;
+       }
+       
+       al.add(a[idx]);
+        if(s-a[idx] == 0){
+            arr.add(new ArrayList<>(al));
+        }
+        
+        func(arr , idx , s-a[idx] ,al , a );
+        
+        al.remove(al.size() -1);
+        func(arr , idx-1 ,s , al , a);
+        
+    }
+}
