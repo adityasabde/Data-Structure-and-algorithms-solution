@@ -1,0 +1,68 @@
+Given an array of size n, a triplet (a[i], a[j], a[k]) is called a Magic Triplet if a[i] < a[j] < a[k] and i < j < k.  Count the number of magic triplets in a given array.
+ 
+
+Example 1:
+
+Input: arr = [3, 2, 1]
+Output: 0
+Explanation: There is no magic triplet.
+
+
+
+
+
+
+
+
+
+//User function Template for Java
+
+class Solution{
+    public int countTriplets(int[] nums){
+        // int ans = 0;
+        // for(int i =0 ;i<nums.length ;i++){
+        //   for(int j = i+1; j<nums.length; j++){
+        //       if(nums[i]<nums[j]){
+        //           int x = func(nums , j+1 , nums[j], 0);
+        //           ans += x;
+        //       }
+        //   }
+        // }
+        // return ans;
+        
+        int ans =0;
+        for(int i = 1 ; i<nums.length-1;i++){
+            int x = nums[i];
+            int countless = 0;
+            int countgreater = 0;
+            for(int j = 0; j<i; j++){
+                if(nums[j] < x){
+                    countless++;
+                }
+            }
+            
+            for(int k = i+1 ; k < nums.length ;k++ ){
+                if(nums[k] > x){
+                    countgreater++;
+                }
+            }
+            
+            ans += countless*countgreater;
+        }
+        
+        return ans;
+    }
+    
+    // public int func(int nums[] ,int i ,int x, int count){
+    //     if(i == nums.length){
+    //         return count; 
+    //     }
+    //     if(nums[i] > x){
+    //         count++;
+    //     }
+        
+    //     return func(nums , i+1 , x, count );
+        
+      
+    // }
+}
