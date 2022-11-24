@@ -1,0 +1,57 @@
+Given an array of positive integers. Find the maximum length of Bitonic subsequence. 
+A subsequence of array is called Bitonic if it is first strictly increasing, then strictly decreasing.
+ 
+
+Example 1:
+
+Input: nums = [1, 2, 5, 3, 2]
+Output: 5
+Explanation: The sequence {1, 2, 5} is
+increasing and the sequence {3, 2} is 
+decreasing so merging both we will get 
+length 5.
+
+
+
+
+
+
+//User function Template for Java
+
+class Solution
+{
+    public int LongestBitonicSequence(int[] arr)
+    {
+        // Code here
+        int n=arr.length;
+        int [] lis=new int[n];//longest increasing subsequence ending at arr[i]
+        
+        for(int i=0;i<n;i++){
+            int max=0;
+            for(int j=i-1;j>=0;j--){
+                if(arr[j]<arr[i]){
+                    max=Math.max(max,lis[j]);
+                }
+            }
+            lis[i]=1+max;
+        }
+        
+        int [] lds=new int[n];//longest decreasing subsequence starting from arr[i]
+        
+        for(int i=n-1;i>=0;i--){
+            int max=0;
+            for(int j=i+1;j<n;j++){
+                if(arr[j]<arr[i]){
+                    max=Math.max(max,lds[j]);
+                }
+            }
+            lds[i]=1+max;
+        }
+        
+        int ans=lis[0]+lds[0]-1;
+        for(int i=1;i<n;i++){
+            ans=Math.max(ans,lis[i]+lds[i]-1);
+        }
+        return ans;
+    }
+}
