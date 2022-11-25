@@ -1,0 +1,192 @@
+Given a Binary Tree, find its Boundary Traversal. The traversal should be in the following order: 
+
+Left boundary nodes: defined as the path from the root to the left-most node ie- the leaf node you could reach when you always travel preferring the left subtree over the right subtree. 
+Leaf nodes: All the leaf nodes except for the ones that are part of left or right boundary.
+Reverse right boundary nodes: defined as the path from the right-most node to the root. The right-most node is the leaf node you could reach when you always travel preferring the right subtree over the left subtree. Exclude the root from this as it was already included in the traversal of left boundary nodes.
+Note: If the root doesn't have a left subtree or right subtree, then the root itself is the left or right boundary. 
+
+Example 1:
+
+Input:
+        1 
+      /   \
+     2     3  
+    / \   / \ 
+   4   5 6   7
+      / \
+     8   9
+   
+Output: 1 2 4 8 9 6 7 3
+Explanation:
+
+
+ 
+
+Example 2:
+
+Input:
+            1
+           /
+          2
+        /  \
+       4    9
+     /  \    \
+    6    5    3
+             /  \
+            7     8
+
+Output: 1 2 4 6 5 7 8
+
+
+
+
+
+//User function Template for Java
+
+// class Node  
+// { 
+//     int data; 
+//     Node left, right; 
+   
+//     public Node(int d)  
+//     { 
+//         data = d; 
+//         left = right = null; 
+//     } 
+// }
+
+class Solution
+{
+	ArrayList <Integer> boundary(Node root)
+	{
+	     ArrayList<Integer> ans = new ArrayList<>();
+	      
+	     ans.add(root.data);
+	     
+	     if(root.left == null && root.right == null)return ans;
+	     
+	    if(root == null){
+	        return new ArrayList<>(ans);
+	    }
+	  
+	    if(root.left != null){
+	          leftfunc(ans , root.left);
+	    }
+	    
+	    funcleaf(ans , root);
+	    
+	    if(root.right != null){
+	        rightfunc(ans , root.right);
+	    }
+	    
+	    return new ArrayList<>(ans);
+	    
+	  
+	    
+	}
+	
+	void leftfunc(ArrayList<Integer> ans , Node node){
+	    if( node.left == null && node.right == null){
+	        return;
+	    }
+	    
+	    ans.add(node.data);
+	    if(node.left != null){
+	         leftfunc(ans , node.left);
+	    }else{
+	         leftfunc(ans , node.right);
+	    }
+	   
+	}
+	
+	void rightfunc(ArrayList<Integer> ans , Node node){
+	    if(node.left == null && node.right == null){
+	        return;
+	    }
+	   
+	     if(node.right != null){
+	          rightfunc(ans , node.right);
+	    }else{
+	         rightfunc(ans , node.left);
+	    }
+	     ans.add(node.data);
+	   
+	}
+	
+	void funcleaf(ArrayList<Integer> ans , Node node){
+	    if(node == null){
+	        return;
+	    }
+	    
+	    funcleaf(ans , node.left);
+	       if(node.left == null &&  node.right == null ){
+	         ans.add(node.data);
+	       }
+	    funcleaf(ans , node.right);
+	    
+	}
+	
+}
+
+
+
+
+// class Solution
+// {
+// 	ArrayList <Integer> boundary(Node node)	{
+	    
+// 	  ArrayList<Integer> ans = new ArrayList<>();
+	  
+// 	  if(node==null) return ans;
+	  
+// 	  if(node.left==null && node.right==null){
+// 	      ans.add(node.data);
+// 	      return ans;
+// 	  }
+	  
+// 	  Node root = node;
+// 	  ans.add(root.data);
+// 	  root = root.left;
+	  
+// 	  while(root!=null){
+//     	  if(root.left==null && root.right==null) break;
+//         	  ans.add(root.data);
+//         	  if(root.left!=null){
+//         	      root = root.left;
+//         	  }
+//         	  else {
+//         	      root = root.right;
+//         	  }
+//       }
+// 	  root = node;
+	  
+// 	  Inorder(root,ans);
+	  
+// 	  ArrayList<Integer>list = new ArrayList<>();
+// 	  Node curr = node.right;
+	  
+// 	  while(curr!=null){
+// 	      if(curr.left == null && curr.right == null) break;
+// 	      list.add(curr.data);
+// 	      if(curr.right!=null)
+// 	      {curr = curr.right;}
+// 	      else {
+// 	          curr = curr.left;
+// 	      }
+// 	  }
+// 	  int n = list.size();
+// 	  for(int i =n-1; i>=0; i--){
+// 	      ans.add(list.get(i));
+// 	  }
+// 	  return ans;
+// 	}
+	
+//  void Inorder(Node root,ArrayList<Integer> ans){
+// 	    if(root==null)return;
+// 	    Inorder(root.left,ans);
+// 	    if(root.left == null && root.right == null){
+// 	        ans.add(root.data);
+// 	    }
+// 	    Inorder(root.right,ans);
+// 	}
+// }
