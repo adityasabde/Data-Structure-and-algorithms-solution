@@ -133,15 +133,13 @@ class Tree
     //Function to check whether a binary tree is balanced or not.
     boolean isBalanced(Node root)
     {
-	    if(root == null){
-	        return true;
-	    }
+	
+	   int x = func(root);   
+	  if(x == -1){
+	      return false;
+	  }
 	    
-	    if(Math.abs(func(root.left) - func(root.right)) >1 ){
-	        return false;
-	    }
-	    
-	    return isBalanced(root.left) && isBalanced(root.right);
+	    return true; 
     }
     
     int func(Node root){
@@ -151,6 +149,15 @@ class Tree
         
         int l = func(root.left);
         int r = func(root.right);
+         if(l == -1){
+	        return -1;
+	    }
+	    if(r == -1){
+	        return -1;
+	    }
+        if(Math.abs(l-r )> 1){
+            return -1;
+        }
         
         return Math.max(l , r) +1;
     }
