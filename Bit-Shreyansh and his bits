@@ -1,0 +1,142 @@
+
+
+Shreyansh has an integer N. He is really curious about the binary representation of integers. He sees that any given integer has a number of set bits. Now he wants to find out that how many positive integers, strictly less than N, have the same number of set bits as N.
+He is a little weak in maths. Help him find the number of integers.
+Note : Since N takes large values, brute force won't work.
+
+ 
+
+Example 1:
+
+Input:
+N = 8
+Output: 3
+Explanation:
+Binary representation of 8 : 1000
+So the integers less than 8 with 
+same number of set bits are : 4, 2, 1
+Hence, the result is 3.  
+
+
+
+
+
+
+//User function Template for Java
+
+class Solution{
+    long dp[][];
+    
+    long count(long n)
+    {
+        if(n == 1){
+                return 0;
+            }
+      dp = new long[64][64];
+      for(int i = 0 ;i<64 ;i++){
+          Arrays.fill(dp[i], -1);
+      }
+      int ones = 0 ;
+      int position = 0;
+      long ans = 0;
+      while(n != 0){
+          if((n%1) == 1){
+              ones++;
+             long x = ncr(position , ones);
+              ans = ans + x;
+          }
+        
+          position++;
+            n = n>>1;
+      }
+      return ans;
+    }
+    
+    long ncr(int n , int r){
+              if(n == 0 || n < r)
+
+            return 0;
+
+        long result = 1;
+
+        if(r > n-r){
+
+            r = n - r;
+
+        }
+          long res = 1;
+            for(int i = 0; i < r; i++){
+                res *= (n - i);
+                res /= (i + 1);
+            }
+            return res;
+    }
+}
+
+// class Solution{  
+
+//     long count(long n)
+
+//     {
+
+//         // Code Here
+
+//         long result = 0;
+
+//         int setBits = 0;
+
+//         for(int i = 0; i < 64; i++){
+
+//             if((n & 1) == 1){
+
+//                 setBits++;
+
+//                 long csb_res = csb(i, setBits);
+
+//                 result = result + csb_res;
+
+//             }
+
+//             n = n >> 1;
+
+//         }
+
+//         return result;
+
+//     }
+
+    
+
+//     public static long csb(long n, long k){
+
+            
+
+//         if(n == 0 || n < k)
+
+//             return 0;
+
+//         long result = 1;
+
+//         if(k > n-k){
+
+//             k = n - k;
+
+//         }
+
+        
+
+//         for(int i = 0; i < k; i++){
+
+//             result *= (n-i);
+
+//             result /= (i + 1);
+
+//         }
+
+            
+
+//         return result;
+
+//     }
+
+// }
