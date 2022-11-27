@@ -25,16 +25,44 @@ Your Ta
 
 
 
-//User function Template for Java
-
 class Solution {
     String addBinary(String A, String B) {
         
-        java.math.BigInteger a=new java.math.BigInteger(A,2);
-        java.math.BigInteger b= new java.math.BigInteger(B,2);
-         a=a.add(b);
-         return a.toString(2);
+        // java.math.BigInteger a=new java.math.BigInteger(A,2);
+        // java.math.BigInteger b= new java.math.BigInteger(B,2);
+        //  a=a.add(b);
+        //  return a.toString(2);
+        
+        
+        int i = A.length()-1;
+        int j = B.length()-1;
+        StringBuilder res = new StringBuilder();
+        int carry = 0;
+        
+        while(i>=0 || j>=0){
+            
+            int sum = ((i >= 0) ? A.charAt(i)-'0' : 0) + ((j>=0) ? B.charAt(j)-'0' : 0) + carry;
+            carry = sum /2;
+            res.append(sum%2) ;
+            
+            i-- ; j--;
+        }
+        
+        if(carry == 1){
+            res.append(carry) ;
+        }
      
+     
+     int idx = 0;
+    //  res.reverse();
+     for(idx = res.length()-1 ; idx >=0 ;idx--){
+         
+         if(res.charAt(idx) != '0'){
+             break;
+         }
+     }
+     res.delete(idx+1 , res.length());
+     return res.reverse().toString();
      
 //      class Solution {
 
