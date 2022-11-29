@@ -1,0 +1,68 @@
+Given a Binary Tree, check if all leaves are at same level or not.
+
+Example 1:
+
+Input: 
+            1
+          /   \
+         2     3
+
+Output: 1
+
+Explanation: 
+Leaves 2 and 3 are at same level.
+
+
+
+//User function Template for Java
+
+/* A Binary Tree node
+class Node
+{
+    int data;
+    Node left, right;
+
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+}
+*/
+
+class Solution
+{
+   
+    boolean check(Node root)
+    {
+        ArrayList<Integer> arr=new ArrayList<Integer>();
+
+       abc(root,0,arr); 
+
+       for(int i=0;i<arr.size()-1;i++){
+
+           if(arr.get(i)!=arr.get(i+1)){
+
+               return false;
+
+           }
+
+       }
+
+       return true;
+    }
+    
+    void abc(Node root,int count,ArrayList<Integer> arr){
+    
+          if(root==null) return ;
+
+        if(root.left!=null || root.right!=null ){
+            abc(root.left,count+1,arr);
+            abc(root.right,count+1,arr);
+        }
+        else{
+            arr.add(count);
+        }
+    }
+
+}
