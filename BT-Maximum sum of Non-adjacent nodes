@@ -1,0 +1,81 @@
+Given a binary tree with a value associated with each node, we need to choose a subset of these nodes such that sum of chosen nodes is maximum under a constraint that no two chosen node in subset should be directly connected that is, if we have taken a node in our sum then we can’t take its any children or parents in consideration and vice versa.
+
+                                               
+
+Example 1:
+
+Input:
+     11
+    /  \
+   1    2
+Output: 11
+Explanation: The maximum sum is sum of
+node 11.
+Example 2:
+
+Input:
+        1
+      /   \
+     2     3
+    /     /  \
+   4     5    6
+Output: 16
+Explanation: The maximum sum is sum of
+nodes 1 4 5 6 , i.e 16. These nodes are
+non adjacent.
+
+
+
+
+
+
+
+
+//User function Template for Java
+/*class Node
+{
+    int data;
+    Node left, right;
+    
+    Node(int data)
+    {
+        this.data = data;
+        this.left = null;
+        this.right = null;
+    }
+}*/
+
+class Solution
+{
+    
+    static int getMaxSum(Node root)
+    {
+        HashMap<Node , Integer> dp = new HashMap<>();
+        
+        int x = solve(root , dp);
+        return x;
+    }
+    
+   static int solve(Node root ,HashMap<Node , Integer> dp ){
+        if(root == null) return 0;
+        
+        if(dp.containsKey(root)){
+            return dp.get(root);
+        }
+        
+        int inc = root.data;
+        if(root.left != null){
+            inc += solve(root.left.left , dp);
+            inc += solve(root.left.right , dp);
+        }
+        if(root.right != null){
+            inc += solve(root.right.left , dp);
+            inc += solve(root.right.right , dp);
+        }
+        
+        int exc = solve(root.left , dp) + solve(root.right , dp);
+        
+        dp.put(root , Math.max(inc , exc));
+        return dp.get(root);
+    }
+}
