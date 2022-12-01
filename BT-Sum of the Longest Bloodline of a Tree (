@@ -1,0 +1,82 @@
+Given a binary tree of size N. Your task is to complete the function sumOfLongRootToLeafPath(), that find the sum of all nodes on the longest path from root to leaf node.
+If two or more paths compete for the longest path, then the path having maximum sum of nodes is being considered.
+
+Example 1:
+
+Input: 
+        4        
+       / \       
+      2   5      
+     / \ / \     
+    7  1 2  3    
+      /
+     6
+Output: 13
+Explanation:
+        4        
+       / \       
+      2   5      
+     / \ / \     
+    7  1 2  3 
+      /
+     6
+
+The highlighted nodes (4, 2, 1, 6) above are 
+part of the longest root to leaf path having
+sum = (4 + 2 + 1 + 6) = 13
+
+
+
+
+
+
+
+
+
+
+//User function Template for Java
+
+/*
+node class of binary tree
+class Node {
+    int data;
+    Node left, right;
+    
+    public Node(int data){
+        this.data = data;
+    }
+}
+*/
+class Solution{
+ 
+    public int sumOfLongRootToLeafPath(Node root)
+    {
+        int ans []  = summation(root);
+        return ans[0];
+    }
+    
+    public int[] summation(Node root ){
+       if(root == null){
+           int[] a= new int[2];
+           a[0] = 0;
+           a[1] = 0;
+           return a;
+        } 
+        
+        int ans [] = summation(root.left);
+        ans[0] += root.data;
+        ans[1] += 1;
+        
+         int ans2 [] = summation(root.right);
+        ans2[0] += root.data;
+        ans2[1] += 1;
+        
+        if(ans[1] < ans2[1])return ans2;
+        else if(ans[1] > ans2[1])return ans;
+        else{
+            if(ans[0] < ans2[0]){
+                return ans2;
+            }else return ans;
+        }
+    }
+}
