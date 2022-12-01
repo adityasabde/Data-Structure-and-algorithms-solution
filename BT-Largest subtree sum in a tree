@@ -1,0 +1,81 @@
+Given a binary tree. The task is to find subtree with maximum sum in the tree and return its sum.
+
+Example 1:
+
+Input:
+              1
+            /   \
+           2      3
+          / \    / \
+         4   5  6   7
+Output: 28
+Explanation: 
+As all the tree elements are positive,
+the largest subtree sum is equal to
+sum of all tree elements.
+
+Example 2:
+Input:
+               1
+            /    \
+          -2      3
+          / \    /  \
+         4   5  -6   2
+Output: 7
+Explanation: 
+Subtree with largest sum is : 
+  -2
+ /  \ 
+4    5
+Also, entire tree sum is also 7.
+
+
+
+
+
+
+
+
+
+/*
+
+Definition for Binary Tree Node
+class Node
+{
+    int data;
+    Node left;
+    Node right;
+    
+    Node(int data)
+    {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}
+*/
+
+class Solution {
+    
+    
+    public static int findLargestSubtreeSum(Node root) {
+         int max = Integer.MIN_VALUE ;
+        int ans  = sum(root , max);
+        max = Math.max(max , ans);
+        return max;
+    }
+    
+    public static int sum(Node root , int max){
+       if(root == null)return 0;
+        if(root.left == null && root.right == null)return root.data; 
+        
+        int x = sum(root.left , max);
+        max  = Math.max(x , max);
+        int y = sum(root.right , max);
+        max = Math.max(y , max);
+        
+        max = Math.max(max , x+y+root.data);
+        return x+ y + root.data;
+    }
+}
+        
