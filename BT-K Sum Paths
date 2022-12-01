@@ -1,0 +1,110 @@
+Given a binary tree and an integer K. Find the number of paths in the tree which have their sum equal to K.
+A path may start from any node and end at any node in the downward direction.
+
+
+Example 1:
+
+Input:      
+Tree = 
+          1                               
+        /   \                          
+       2     3
+K = 3
+Output: 2
+Explanation:
+Path 1 : 1 + 2 = 3
+Path 2 : only leaf node 3
+Example 2:
+
+Input: 
+Tree = 
+           1
+        /     \
+      3        -1
+    /   \     /   \
+   2     1   4     5                        
+        /   / \     \                    
+       1   1   2     6    
+K = 5                    
+Output: 8
+Explanation:
+The following paths sum to K.  
+3 2 
+3 1 1 
+1 3 1 
+4 1 
+1 -1 4 1 
+-1 4 2 
+5 
+1 -1 5 
+
+
+
+
+
+//User function Template for Java
+
+// class Solution
+// {
+//     int count = 0 ;
+//     public int sumK(Node root,int k)
+//     {
+//         ArrayList<Integer> ans = new ArrayList<>();
+//         solve(root ,k , ans);
+//         return count;
+//     }
+    
+//     void solve(Node root , int k , ArrayList<Integer> ans ){
+//       if(root == null)return;
+        
+//       ans.add(root.data);
+//       int sum = 0;
+//       for(int i = ans.size() -1 ; i>=0 ; i--){
+//           sum += ans.get(i);
+//           if(sum == k){
+//               count++;
+//           }
+//       }
+       
+//       solve(root.left , k , ans);
+       
+//       solve(root.right , k , ans);
+       
+//       ans.remove(ans.size() - 1);
+//     }
+// }
+
+
+
+
+class Solution
+{
+    int count =0;
+    private void solve(Node root,int k,ArrayList<Integer> list){
+        if(root==null)return;
+        
+        //we have to write code only for root 
+        list.add(root.data);
+        //check the path which have sum equal to k
+        int sum=0;
+        //we will backtrack(leaf node to root) so loop will run in reverse order
+        for(int i =list.size()-1;i>=0;i--){
+            sum+= list.get(i);
+            if(sum==k)
+                count++;
+        }
+        //it is faith that left child know how to find the number of paths
+        solve(root.left,k,list);
+        //it is faith that right child know how to find the number of paths   
+        solve(root.right,k,list);
+        //remove the last node
+        list.remove(list.size()-1);
+    }
+
+    public int sumK(Node root,int k)
+    {
+        ArrayList<Integer> list = new ArrayList<>();
+        solve(root,k,list);
+        return count;
+    }
+}
