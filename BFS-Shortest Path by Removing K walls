@@ -1,0 +1,89 @@
+Given a 2-D binary matrix of size n*m, where 0 represents an empty space while 1 represents a wall you cannot walk through. You are also given an integer k.
+You can walk up, down, left, or right. Given that you can remove up to k walls, return the minimum number of steps to walk from the top left corner (0, 0) to the bottom right corner (n-1, m-1).
+Note: If there is no way to walk from the top left corner to the bottom right corner, return -1.
+
+
+Example 1:
+
+Input: n = 3, m = 3, k = 1
+mat = {{0, 0, 0},
+       {0, 0, 1},
+       {0, 1, 0}}
+Output:
+4
+Explanation:
+We can remove any one of the walls and
+reach the bottom in 4 moves.  
+Example 2:
+
+Input:
+n = 2, m = 2, k = 0
+mat[] = {{0, 1},
+         {1, 0}}
+Output:
+-1
+Explanation:
+There's no way of reaching the bottom
+corner without removing any walls.
+
+
+
+
+
+
+
+
+
+
+//User function Template for Java
+class Node{
+    int i , j , k , dist;
+    Node(int i , int j , int  k, int dist){
+        this.i = i;
+        this.j = j;
+        this.k = k;
+        this.dist = dist;
+    }
+}
+
+class Solution {
+    
+ 
+    
+    static int shotestPath(int[][] mat, int m, int n, int k) {
+        
+        int dx [] = new int[]{0 , 0  ,1 , -1};
+        int dy[] = new int[]{1, -1 , 0 , 0};
+    
+        int ans  = Integer.MAX_VALUE;
+        
+        boolean vis[][][] = new boolean[m][n][k+1];
+        Queue <Node> q = new LinkedList<>();
+        
+        q.add(new Node(0 ,0 , 0 , 0));
+        vis[0][0][0] = true;;
+        
+        while(!q.isEmpty()){
+            Node curr = q.poll();
+            
+            if(curr.i == m-1 && curr.j == n-1 ){
+                ans = Math.min(ans , curr.dist);
+                return ans;
+            }
+            
+            for(int i =0 ;i<4;i++){
+                int newx = curr.i + dx[i];
+                int newy = curr.j+ dy[i];
+                
+                if(newx>=0 && newx<m && newy >=0 && newy <n){
+                    int newk = curr.k + mat[newx][newy];
+                    if(newk<= k && !vis[newx][newy][newk] ){
+                        q.add(new Node(newx , newy , newk , curr.dist +1));
+                        vis[newx][newy][newk] = true;
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+};
