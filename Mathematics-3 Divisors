@@ -1,0 +1,83 @@
+You are given a list of q queries and for every query, you are given an integer N.  The task is to find how many numbers(less than or equal to N) have number of divisors exactly equal to 3.
+
+Example 1:
+
+Input:
+q = 1
+query[0] = 6
+Output:
+1
+Explanation:
+There is only one number 4 which has
+exactly three divisors 1, 2 and 4 and
+less than equal to 6.
+Example 2:
+
+Input:
+q = 2
+query[0] = 6
+query[1] = 10
+Output:
+1
+2
+Explanation:
+For query 1 it is covered in the
+example 1.
+query 2: There are two numbers 4 and 9
+having exactly 3 divisors and less than
+equal to 10.
+
+
+
+
+
+
+
+//User function Template for Java
+class Solution{
+    static ArrayList<Integer> threeDivisors(ArrayList<Long> query, int q){
+        int N = 0;
+        for(Long que : query){
+            N = (int)Math.max(Math.sqrt(que) , N);
+        }
+        
+        
+        boolean prime [] = new boolean[N+1];
+        ArrayList<Integer> ans = new ArrayList<>();
+        isprime(prime);
+       
+        for(int i =0 ; i <query.size() ; i++ ){
+            long x = query.get(i);
+            if(x<4){
+                ans.add(0);
+            }
+            else{
+                int count =0 ;
+                for(int j = 1; j <= Math.sqrt(x) ; j++){
+                    if(prime[j] == true){
+                        count++;
+                    }
+                }
+                ans.add(count);
+            }
+        }
+        return ans;
+        
+    }
+    
+    
+    
+    public static void isprime(boolean prime[]){
+        Arrays.fill(prime , true);
+        prime[0] = false;
+        prime[1] = false;
+        for(int i = 2 ;i < prime.length ;i++){
+            
+            if(prime[i] == true){
+                for(int j = 2*i ; j<prime.length; j+=i){
+                    prime[j] = false;
+                }
+            }
+        }
+    } 
+}
