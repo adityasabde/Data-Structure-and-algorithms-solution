@@ -1,0 +1,65 @@
+
+Given an n x n array of integers matrix, return the minimum sum of any falling path through matrix.
+
+A falling path starts at any element in the first row and chooses the element in the next row that is either directly below or diagonally left/right. Specifically, the next element from position (row, col) will be (row + 1, col - 1), (row + 1, col), or (row + 1, col + 1).
+
+ 
+
+Example 1:
+
+
+Input: matrix = [[2,1,3],[6,5,4],[7,8,9]]
+Output: 13
+Explanation: There are two falling paths with a minimum sum as shown.
+Example 2:
+
+
+Input: matrix = [[-19,57],[-40,-5]]
+Output: -59
+Explanation: The falling path with a minimum sum is shown.
+
+
+
+
+
+
+
+
+
+
+class Solution {
+    public int minFallingPathSum(int[][] matrix) {
+         int r = matrix.length;
+         int c = matrix[0].length;
+         int dp[][] = new int[r][c];
+
+        for(int i =0;i<r;i++){
+            Arrays.fill(dp[i] , -1);
+        }
+
+         int ans = Integer.MAX_VALUE;
+         for(int i =0 ;i<c;i++){
+             ans = Math.min(ans , rec(0 , i , matrix , dp));
+         }
+
+         return ans;
+    }
+
+
+
+    public int rec(int i , int j , int arr[][] , int dp[][]){
+        int r = arr.length;
+        int c = arr[0].length;
+        if(i==r)return 0;
+
+        if(j<0 || j>=c) return Integer.MAX_VALUE;
+
+        if(dp[i][j] != -1)return dp[i][j];
+
+        int op1 = rec(i+1 , j+1 , arr ,dp);
+        int op2 = rec(i+1 , j , arr , dp);
+        int op3 = rec(i+1 , j-1 , arr , dp);
+
+        return dp[i][j] = arr[i][j] + Math.min(op1 , Math.min(op2 , op3));
+    }
+}
