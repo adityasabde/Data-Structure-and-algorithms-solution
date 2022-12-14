@@ -1,0 +1,96 @@
+You are given a binary string str. In a single operation, you can choose two indices L and R such that 1 ≤ L ≤ R ≤ N and complement the characters between L and R i.e strL, strL+1, …, strR. By complement, we mean change character 0 to 1 and vice-versa.
+
+You task is to perform ATMOST one operation such that in final string number of 1s is maximised. If there is no need to completement, i.e., string contains all 1s, return -1. Else, return the two values denoting L and R. If there are multiple solutions, return the lexicographically smallest pair of L and R.
+
+Example 1:
+
+Input:
+N = 3
+str = "111"
+Output: -1
+Explanation: As all characters are '1', 
+so don't need to complement any.
+
+
+
+
+
+
+
+/ User function Template for Java
+
+class Solve {
+
+ 
+
+    Vector<Integer> findRange(String str, int n) {
+
+        // code here
+
+        int max=0,sum=0;
+
+        int arr[] = new int[n+1];
+
+        for(int i=0;i<n;i++){
+
+            if(str.charAt(i)=='0')arr[i] = 1;
+
+            else arr[i] = -1;
+
+        }
+
+        
+
+        int max_ending_here = 0;
+
+        int max_so_far = 0;
+
+        int _start = 0;
+
+        int start = 0;
+
+        int end = -1;
+
+    
+
+        for(int i=0; i<arr.length; i++) {
+
+            max_ending_here = max_ending_here + arr[i];
+
+            if (max_ending_here < 0) {
+
+                max_ending_here = 0;
+
+                _start = i+1;
+
+            }
+
+    
+
+            if (max_ending_here > max_so_far) {
+
+                max_so_far = max_ending_here;
+
+                start = _start;
+
+                end = i;
+
+            }
+
+        }
+
+        Vector<Integer> v = new Vector<Integer>();
+
+        if( max_so_far==0){v.add(-1); return v;}
+
+        v.add(start+1);
+
+        v.add(end+1);
+
+        return  v;
+
+        
+
+    }
+
+}
