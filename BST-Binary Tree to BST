@@ -1,0 +1,76 @@
+Given a Binary Tree, convert it to Binary Search Tree in such a way that keeps the original structure of Binary Tree intact.
+ 
+
+Example 1:
+
+Input:
+      1
+    /   \
+   2     3
+Output: 1 2 3
+
+
+
+
+
+
+
+
+
+
+//User function Template for Java
+
+/*Structure of the node class is
+class Node
+{
+    int data;
+    Node left, right;
+    Node(int item){
+        data = item;
+        left = right = null;
+    }
+} */
+
+
+class Solution
+{
+    // The given root is the root of the Binary Tree
+    // Return the root of the generated BST
+    Node binaryTreeToBST(Node root)
+    {
+       ArrayList<Integer> arr = new ArrayList<>();
+       data(arr , root);
+       Node n = new Node(root.data);
+       for(int i = 0 ; i<arr.size();i++){
+           if(arr.get(i) != root.data){
+               n = dfs(arr.get(i) , n);
+           }
+       }
+       return n ;
+    }
+    
+    Node dfs(int key , Node head){
+        if(head == null){
+            Node n =  new Node(key);
+            return n;
+        }
+        
+        if(key<head.data){
+            head.left = dfs(key , head.left);
+        }
+        else{
+            head.right = dfs(key , head.right);
+        }
+        
+        return head;
+    }
+    
+    void data(ArrayList<Integer> arr , Node root)
+    {
+        if(root == null)return;
+        data(arr , root.left);
+        arr.add(root.data);
+        data(arr, root.right);
+    }
+}
+ 
