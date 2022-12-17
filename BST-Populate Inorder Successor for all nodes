@@ -1,0 +1,51 @@
+Given a Binary Tree, write a function to populate next pointer for all nodes. The next pointer for every node should be set to point to inorder successor.
+
+Example 1:
+
+Input:
+           10
+       /  \
+      8    12
+     /
+    3
+  
+
+Output: 3->8 8->10 10->12 12->-1
+Explanation: The inorder of the above tree is :
+3 8 10 12. So the next pointer of node 3 is 
+pointing to 8 , next pointer of 8 is pointing
+to 10 and so on.And next pointer of 12 is
+pointing to -1 as there is no inorder successor 
+of 12.
+
+
+
+
+//User function Template for Java
+
+/*
+class Node {
+    int data;
+    Node left, right,next;
+    
+    public Node(int data){
+        this.data = data;
+    }
+}
+*/
+class Solution{
+    Node prev = null;
+    public void populateNext(Node root){
+        if(root == null) return;
+        
+        populateNext(root.left);
+        if(prev == null){
+            prev = root;
+        }else{
+            prev.next = root;
+            prev = root;
+        }
+        
+        populateNext(root.right);
+    }
+}
