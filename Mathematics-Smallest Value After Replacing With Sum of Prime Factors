@@ -1,0 +1,73 @@
+You are given a positive integer n.
+
+Continuously replace n with the sum of its prime factors.
+
+Note that if a prime factor divides n multiple times, it should be included in the sum as many times as it divides n.
+Return the smallest value n will take on.
+
+ 
+
+Example 1:
+
+Input: n = 15
+Output: 5
+Explanation: Initially, n = 15.
+15 = 3 * 5, so replace n with 3 + 5 = 8.
+8 = 2 * 2 * 2, so replace n with 2 + 2 + 2 = 6.
+6 = 2 * 3, so replace n with 2 + 3 = 5.
+5 is the smallest value n will take on.
+
+
+
+class Solution {
+    public int smallestValue(int n) {
+        boolean isprime [] = new boolean[100001];
+        prime(isprime);
+        if(isprime[n]){
+            return n;
+        }
+        int flag = 0;
+          while(!isprime[n]){
+            int sum = 0;
+              int temp = n ;
+            for(int i = 2; i < temp ; i++) {
+                while(n%i == 0) {
+                    sum  += i;  
+                    n = n/i;
+                }
+                
+                if(n <= 2){
+                    break;
+                }
+               
+            }
+              if(sum == 0){
+                 break;
+              }
+              if(sum == temp){
+                  flag = temp;
+                  break;
+              }
+              n= sum;
+            
+          }    
+        
+        if(flag != 0){
+            return flag;
+        }
+          return n;
+        }
+
+    
+    public void prime (boolean isprime[]){
+        isprime[0] = false;
+        isprime[1] = false;
+        
+        for(int i = 2 ; i*i < isprime.length ;i++){
+            for(int j = 2 * i ; j < isprime.length; j = j + i){
+                isprime[j] = false;
+            }
+        }
+        
+    }
+}
