@@ -1,0 +1,60 @@
+Given an integer N. Find maximum LCM (Least Common Multiple) that can be obtained from four numbers less than or equal to N.
+Note: Duplicate numbers can be used.
+
+Example 1:
+
+Input:
+N = 4
+Output: 12
+Explanation:
+The four numbers can be [4,4,3,2] or
+[4,4,4,3], etc. It can be shown that 12 is
+the maximum LCM of four numbers that can
+be obtained from numbers less than or equal 
+to 4.
+Example 2:
+
+Input:
+N = 5
+Output: 60
+Explanation:
+The four numbers can be [5,5,4,3] or
+[5,4,3,2], etc. 60 is the maximum that can
+be obtained.
+
+
+
+
+
+
+
+
+// User function Template for Java
+
+class Solution {
+    long maxGcd(int N) {
+       // code here
+    long x = (N*(N-1)) / gcd(N , N-1);
+    long y = ((N-1)*(N-2)) / gcd((N-1) , (N-2));
+    
+    long z = (x*y) / gcd(x , y);
+    
+    long num = N * (N-1);
+    
+    int count = 0;
+    for(int i=N-2 ;i>=1 ;i--){
+        if(gcd(num , i) == 1){
+            num *= i;
+            count++;
+        }
+        
+        if(count == 2)break;
+    }
+        return Math.max(z , num);
+    }
+    
+    long gcd(long a ,  long b){
+        if(b == 0)return a;
+        return gcd(b , a%b);
+    }
+}
