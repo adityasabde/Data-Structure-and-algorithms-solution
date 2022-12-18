@@ -1,0 +1,80 @@
+Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for which this is possible, keep answer[i] == 0 instead.
+
+ 
+
+Example 1:
+
+Input: temperatures = [73,74,75,71,69,72,76,73]
+Output: [1,1,4,2,1,1,0,0]
+Example 2:
+
+Input: temperatures = [30,40,50,60]
+Output: [1,1,1,0]
+Example 3:
+
+Input: temperatures = [30,60,90]
+Output: [1,1,0]
+
+
+
+
+
+
+
+
+class Solution {
+    public int[] dailyTemperatures(int[] temp) {
+        int ans[] = new int[temp.length];
+
+        //  Brut force   
+
+        // ans[temperatures.length -1 ]= 0 ;
+        // for(int i = 0; i < temperatures.length ; i++  ){
+        //     int j = i+1;
+        //     int count = 1 ;
+        //     while(j < temperatures.length){
+        //         if(temperatures[i] >= temperatures[j]){
+        //             count++;
+        //         }else{
+        //             break;
+        //         }
+        //         j++;
+        //     }
+        //     if(j == temperatures.length){
+        //         ans[i] = 0;
+        //     }else{
+        //         ans[i] = count;
+        //     }
+        // }
+        // return ans;
+
+        // using stack
+
+        Stack<Integer> st = new Stack<>();
+        for(int i = temp.length -1 ; i>=0; i--){
+            if(st.isEmpty()){
+                st.push(i);
+            }else{
+                if(temp[st.peek()] <= temp[i]){
+                    int count =0 ;
+                    while(!st.isEmpty() && temp[st.peek()] <= temp[i]  ){
+                        count++;
+                        st.pop();
+                    }
+
+                    if(st.isEmpty()){
+                        ans[i] = 0;
+                    }else{
+                        ans[i] = st.peek() - i;
+                    }
+                    st.push(i);
+                }
+                else{
+                    st.push(i);
+                    ans[i] = 1;
+                }
+            }
+        }
+        return ans;
+    }
+}
