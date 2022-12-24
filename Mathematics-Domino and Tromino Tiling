@@ -1,0 +1,52 @@
+You have two types of tiles: a 2 x 1 domino shape and a tromino shape. You may rotate these shapes.
+
+
+Given an integer n, return the number of ways to tile an 2 x n board. Since the answer may be very large, return it modulo 109 + 7.
+
+In a tiling, every square must be covered by a tile. Two tilings are different if and only if there are two 4-directionally adjacent cells on the board such that exactly one of the tilings has both squares occupied by a tile.
+
+ 
+
+Example 1:
+
+
+Input: n = 3
+Output: 5
+Explanation: The five different ways are show above.
+Example 2:
+
+Input: n = 1
+Output: 1
+
+
+
+
+
+
+
+
+
+
+class Solution {
+    public int numTilings(int n) {
+        ArrayList<Integer> arr = new ArrayList<>();
+
+        arr.add(0);
+        arr.add(1);
+        arr.add(2);
+        arr.add(5);
+
+        int mod = 1000000007;
+
+        if(n <= 3){
+            return arr.get(n);
+        }
+        else{
+            for(int i = 4 ; i<=n ;i++){
+                int x =  ( ( 2*arr.get(i-1) )%mod + arr.get(i-3)%mod )%mod;
+                arr.add( x );
+            }
+        }   
+        return arr.get(n);
+    }
+}
