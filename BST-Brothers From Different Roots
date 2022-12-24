@@ -1,0 +1,87 @@
+Given two BSTs containing N1 and N2 distinct nodes respectively and given a value x. Your task is to complete the function countPairs(), that returns the count of all pairs from both the BSTs whose sum is equal to x.
+
+
+Example 1:
+
+Input:
+BST1:
+       5
+     /   \
+    3     7
+   / \   / \
+  2   4 6   8
+
+BST2:
+       10
+     /    \
+    6      15
+   / \    /  \
+  3   8  11   18
+
+x = 16
+Output:
+3
+Explanation:
+The pairs are: (5, 11), (6, 10) and (8, 8)
+ 
+
+Example 2:
+
+Input:
+BST1:
+  1
+   \
+    3
+   /
+  2
+BST2:
+    3
+   / \
+  2   4
+ /     
+1
+
+x = 4
+Output:
+3
+Explanation:
+The pairs are: (2, 2), (3, 1) and (1, 3)
+
+
+
+
+
+
+
+
+class Solution
+{
+    static HashSet<Integer> set;
+    static int count;
+	public static int countPairs(Node root1, Node root2, int x)
+	{
+	    count  = 0;
+		set = new HashSet<>();
+		func(root1);
+		search(root2 , x);
+		return count;
+	}
+	
+	public static void search(Node root , int x){
+	    if(root == null) return;
+	    
+	    search(root.left , x);
+	    if(set.contains(x - root.data)){
+	        count++;
+	    }
+	    search(root.right , x);
+	}
+	
+	public static void func(Node root){
+	    if(root == null) return;
+	    
+	    func(root.left);
+	    set.add(root.data);
+	    func(root.right);
+	}
+}
