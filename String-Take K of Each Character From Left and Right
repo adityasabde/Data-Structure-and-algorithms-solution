@@ -1,0 +1,97 @@
+You are given a string s consisting of the characters 'a', 'b', and 'c' and a non-negative integer k. Each minute, you may take either the leftmost character of s, or the rightmost character of s.
+
+Return the minimum number of minutes needed for you to take at least k of each character, or return -1 if it is not possible to take k of each character.
+
+ 
+
+Example 1:
+
+Input: s = "aabaaaacaabc", k = 2
+Output: 8
+Explanation: 
+Take three characters from the left of s. You now have two 'a' characters, and one 'b' character.
+Take five characters from the right of s. You now have four 'a' characters, two 'b' characters, and two 'c' characters.
+A total of 3 + 5 = 8 minutes is needed.
+It can be proven that 8 is the minimum number of minutes needed.
+Example 2:
+
+Input: s = "a", k = 1
+Output: -1
+Explanation: It is not possible to take one 'b' or 'c' so return -1.
+
+
+
+
+
+
+
+
+class Solution {
+    public boolean isStatisfy(int freq[] , int k){
+        return freq[0]>=k && freq[1] >= k && freq[2] >= k;
+    }
+    
+    public boolean isValid(String s , int k , int ct){
+        int freq [] = new int[3];
+        int l = s.length();
+        for(int i =0;i<ct;i++){
+            freq[s.charAt(i) - 'a']++;
+        }
+        
+        if(isStatisfy(freq, k)){
+            return true;
+        }
+        
+        int left = ct -1;
+        int right = l-1;
+        while(left>=0){
+            freq[s.charAt(left--) - 'a']--;
+            freq[s.charAt(right--) - 'a']++;
+            if(isStatisfy(freq , k)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public int takeCharacters(String s, int k) {
+        
+//         int left = 0;
+//         int right = s.length() - 1; 
+//         int map[] = new int[3];
+//         int min = 0;
+		
+//         for (; left < s.length() && (map[0] < k | map[1] < k | map[2] < k) ; min = ++left) {
+// 			map[s.charAt(left) - 'a']++;
+// 		}
+        
+// 		for (; left > 0; min = Math.min(min, s.length() - right + left - 1)) {
+// 			for (map[s.charAt(--left) - 'a']-- ; right >= 0 && map[s.charAt(left) - 'a'] < k; right--) {
+// 				map[s.charAt(right) - 'a']++;
+// 			}
+// 		}
+		
+//         return map[0] < k | map[1] < k | map[2] < k ? -1 : min;
+        
+        
+        int ans  = Integer.MAX_VALUE;
+        int l = s.length();
+        int low = 0;
+        int high = l;
+        while(low <= high){
+            int mid = (low + high) / 2;
+            if(isValid(s , k , mid)){
+                ans = Math.min(ans , mid);
+                high = mid - 1 ;
+            }
+            else{
+                low = mid + 1 ;    
+            }
+        }
+        if(ans == Integer.MAX_VALUE){
+            return -1;
+        }
+        
+        return ans;
+    }
+}
