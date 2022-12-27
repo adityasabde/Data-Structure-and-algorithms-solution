@@ -1,0 +1,26 @@
+
+problem statement
+
+https://www.codingninjas.com/codestudio/contests/codestudio-weekend-contest-53/7079253/problems/23064?leftPanelTab=0
+
+
+
+
+
+
+public class Solution {
+    static int aString(int x, int y, String s) {
+        char ch[] = s.toCharArray();
+        int count = 0 ;
+        if(ch[0] == 'b')count =1 ;
+        
+        for(int i =1; i<s.length() ;i++){
+            if(ch[i] == 'b' && ch[i-1] == 'a'){
+                count++;
+            }
+        }
+        
+        if(count  == 0)return 0;
+        return y + (count -1) * Math.min(x , y);
+    }
+}
