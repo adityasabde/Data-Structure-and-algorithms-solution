@@ -1,0 +1,23 @@
+
+https://www.codingninjas.com/codestudio/contests/codestudio-weekend-contest-53/7079253/problems/23500
+
+
+
+
+
+public class Solution {
+    static int arrayDivisibility(int n, int []x, int []y) {
+        int count = 0;
+        for(int i =0 ;i<n ; i++){
+          if(y[i] > x[i]){
+             count += Math.min (  x[i] % y[i]  , y[i] - x[i]);
+          }
+          else{
+             int rem = x[i] % y[i];
+             count += Math.min(rem , y[i] - rem); 
+          }     
+        }
+        
+        return count;
+    }
+}
