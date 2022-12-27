@@ -1,0 +1,36 @@
+
+Problem statement
+
+https://www.codingninjas.com/codestudio/contests/codestudio-weekend-contest-53/7079253/problems/22878
+
+important 
+
+
+public class Solution {
+    static int maxGroups(int []a) {
+        int sufixmin [] = new int[a.length];
+        int min = Integer.MAX_VALUE;
+        for(int i = a.length -1 ; i >=0 ;i--){
+            if(min >= a[i]){
+                min = a[i];
+                sufixmin[i] = min;
+            }else{
+                sufixmin[i] = sufixmin[i+1];
+            }
+        }
+        int count = 1;
+        int currmax = a[0];
+        for(int i =0 ;i<a.length -1 ;i++){
+            currmax = Math.max(currmax , a[i]);
+            if(sufixmin[i+1] >= currmax){
+                count++;
+            }
+        }
+        
+        return count;
+    }
+}
+
+
+
+
