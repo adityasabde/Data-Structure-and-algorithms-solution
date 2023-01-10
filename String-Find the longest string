@@ -1,0 +1,119 @@
+Given an array of strings arr[]. You have to find the longest string which is lexicographically smallest and also all of its prefix strings are already present in the array.
+
+ 
+
+Example 1:
+
+Input: ab a abc abd
+Output: abc
+Explanation: We can see that length of the longest 
+string is 3. And there are two string "abc" and "abd"
+of length 3. But for string "abc" , all of its prefix
+"a" "ab" "abc" are present in the array. So the
+output is "abc".
+Example 2:
+
+Input: ab a aa abd abc abda abdd abde abdab
+Output: abdab
+Explanation: We can see that each string is fulfilling
+the condition. For each string, all of its prefix 
+are present in the array.And "abdab" is the longest
+string among them. So the ouput is "abdab".
+
+
+
+class Solution {
+    public static String longestString(int n, String[] arr) {
+        HashSet<String> set = new HashSet<>();
+        
+        for( String s : arr){
+            set.add(s);
+        }
+        
+        String ans = "";
+        for(String s : arr){
+            if(s.length() < ans.length()){
+                continue;
+            }
+            else {
+                if(AllPrefix(s , set)){
+                    if(s.length() > ans.length()){
+                        ans = s;
+                    }
+                    else {
+                        if(s.compareTo(ans) < 0 ){
+                            ans = s;
+                        }
+                    }
+                }
+            }
+        }
+        return ans;
+     
+    }
+    
+    public static boolean AllPrefix(String s , HashSet<String>set){
+        for(int i =1 ;i<s.length();i++){
+            String str = s.substring(0 , i);
+            if(!set.contains(str)){
+                return false;
+            }
+        }
+        return true;
+    }
+}
+        
+
+
+
+
+second Approch using trie
+
+
+public static class TrieNode{
+        TrieNode[] node;
+        boolean isWord=false;
+        TrieNode() {
+            node = new TrieNode[26];
+        }
+    }
+    
+    public static void addWord(TrieNode root,String s) {
+        int idx;
+        for(int i=0;i<s.length();i++) {
+            idx = s.charAt(i)-'a';
+            if(root.node[idx]==null) root.node[idx] = new TrieNode();
+            root = root.node[idx];
+        }
+        root.isWord=true;
+    }
+    
+    public static boolean isValid(TrieNode root,String s) {
+        int idx;
+        for(int i=0;i<s.length();i++) {
+            idx = s.charAt(i)-'a';
+            // if(root.node[idx]==null) return false;
+            root = root.node[idx];
+            if(!root.isWord) return false;
+        }
+        return true;
+    }
+    
+    public static String longestString(int n, String[] arr) {
+        // code here
+        TrieNode root = new TrieNode();
+        for(String s : arr) {
+            addWord(root,s);
+        }
+        String ans ="";
+        for(String s : arr) {
+            if(isValid(root,s)) {
+                if(ans.length()<s.length()) {
+                    ans=s;
+                } else if(ans.length()==s.length()) {
+                    if(ans.compareTo(s)>0) ans=s;
+                }
+            }
+        }
+        return ans;
+    }
