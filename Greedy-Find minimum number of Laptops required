@@ -1,0 +1,43 @@
+There are N jobs and the start and finish time of the jobs are given in arrays start[] and end[] respectively. Each job requires one laptop and laptops can't be shared. Find the minimum number of laptops required given that you can give your laptop to someone else when you are not doing your job.
+
+
+Example 1:
+
+Input:
+N = 3
+start[] = {1, 2, 3}
+end[] = {4, 4, 6}
+Output:
+3
+Explanation:
+We can clearly see that everyone's supposed to
+be doing their job at time 3. So, 3 laptops
+will be required at minimum.
+
+
+
+
+
+
+class Solution {
+    public int minLaptops(int n, int[] s, int[] e) {
+        Arrays.sort(s);
+        Arrays.sort(e);
+        int count =0 ;
+        int i =0 ;
+         int j =0 ;
+         int ans = 0;
+         while(i<n && j <n){
+             if(s[i] < e[j]){
+                 i++;
+                 count++;
+             }
+             else {
+                 j++;
+                 count--;
+             }
+             ans  = Math.max(ans , count);
+         }
+         return ans ;
+    }
+}
