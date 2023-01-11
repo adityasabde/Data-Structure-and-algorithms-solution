@@ -1,0 +1,88 @@
+Given a binary tree, count the number of Single Valued Subtrees. A Single Valued Subtree is one in which all the nodes have same value. 
+
+Example 1
+
+Input :
+              5
+             / \
+            1   5
+           / \   \
+          5   5   5
+Output : 4
+Explanation : 
+There are 4 subtrees with single values. Three leaf nodes and the subtree whose root is the right child of the root. 
+Example 2:
+
+Input:
+              5
+             / \
+            4   5
+           / \   \
+          4   4   5   
+Output: 5
+Explanation: 
+There are five subtrees with single values.
+
+
+
+
+
+
+
+
+class Solution
+
+{
+
+    int count=0;
+
+    public int singlevalued(Node root)
+
+    {
+
+    check(root);
+
+    return count;
+
+    }
+
+    public int check(Node root)
+
+    {
+
+        if(root==null)
+
+        return -9999;
+
+        
+
+        if(root.left==null && root.right==null)
+
+        {
+
+            count++;
+
+            return root.data;
+
+        } 
+
+     int left=(root.left!=null)?check(root.left):root.data;
+
+        int right=(root.right!=null)?check(root.right):root.data;
+
+        if(root.data==left && root.data==right)
+
+    {
+
+        count++;
+
+        return root.data;
+
+    }
+
+    else return -9999;
+
+    }
+
+}
+
