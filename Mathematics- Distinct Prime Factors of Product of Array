@@ -1,0 +1,66 @@
+Given an array of positive integers nums, return the number of distinct prime factors in the product of the elements of nums.
+
+Note that:
+
+A number greater than 1 is called prime if it is divisible by only 1 and itself.
+An integer val1 is a factor of another integer val2 if val2 / val1 is an integer.
+ 
+
+
+
+
+
+
+
+
+class Solution {
+    boolean prime [] = new boolean[10001];
+    public int distinctPrimeFactors(int[] nums) {
+    
+        
+        
+        isPrime();
+        HashSet<Integer> set  = new HashSet<>();
+        for(int i =0 ;i<nums.length ;i++){
+            if(prime[nums[i]])
+            {
+                 System.out.println(nums[i]);
+                set.add(nums[i]);
+            }
+            else{
+                ArrayList<Integer> a = findprimefact(nums[i]);
+                 System.out.println(nums[i]  + " " + a);
+                for(int j = 0 ;j<a.size();j++){
+                    set.add(a.get(j));
+                }
+            }
+        }
+        System.out.println(set);
+        return  set.size();
+    }
+    public ArrayList<Integer> findprimefact(int n)
+    {
+        ArrayList<Integer> a = new ArrayList<>();
+        for(int i =2 ; i<=n/2 ; i++)
+        {
+           if(n%i == 0 && prime[i]){
+               a.add(i);
+           }
+        }
+        return a;
+    }
+    
+    public void isPrime(){
+        Arrays.fill(prime , true);
+        prime[0] = false;
+        prime[1] = false;
+        for(int i = 2 ;i <= 10000 ;i++)
+        {
+            for(int j = i*2 ; j <= 10000/2 ; j+=i)
+            {
+                prime[j] = false;        
+            }
+        }
+       
+    }
+}
