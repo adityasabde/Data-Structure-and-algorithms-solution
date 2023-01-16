@@ -1,0 +1,50 @@
+You are given a string s consisting of digits from 1 to 9 and an integer k.
+
+A partition of a string s is called good if:
+
+Each digit of s is part of exactly one substring.
+The value of each substring is less than or equal to k.
+Return the minimum number of substrings in a good partition of s. If no good partition of s exists, return -1.
+
+Note that:
+
+The value of a string is its result when interpreted as an integer. For example, the value of "123" is 123 and the value of "1" is 1.
+A substring is a contiguous sequence of characters within a string.
+
+
+
+
+
+class Solution {
+    public int minimumPartition(String s, int k) {
+        int i=0;
+        int count = 0;
+        int n = s.length();                                                    
+        StringBuilder str = new StringBuilder();
+        while(i<n)
+        {
+                // System.out.println(str);
+            str.append(s.charAt(i));
+            if(str.length() >0 && Long.parseLong(str.toString()) > k)
+            {
+            
+                // str.deleteCharAt(str.length()-1);
+                
+                count++;
+                str.setLength(0);
+                str.append(s.charAt(i));
+                if(str.length() >0 && Integer.parseInt(str.toString()) > k){
+                    return - 1;
+                }
+            }
+           i++;
+            
+        }
+        if(str.length() > 0 && Integer.parseInt(str.toString()) <= k){
+            count++;
+        }
+        else if(str.length() > 0 && Integer.parseInt(str.toString()) > k || count == 0)return -1;
+        
+        return count;
+    }
+}
