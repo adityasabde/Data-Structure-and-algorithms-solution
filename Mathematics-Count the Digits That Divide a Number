@@ -1,0 +1,15 @@
+class Solution {
+    public int countDigits(int num) {
+        int count = 0;
+        int ans = num;
+        while(num>0){
+            int rem = num % 10;
+            if(ans % rem == 0){
+                count++;
+            }
+            num /= 10;
+        }
+        
+        return count;
+    }
+}
