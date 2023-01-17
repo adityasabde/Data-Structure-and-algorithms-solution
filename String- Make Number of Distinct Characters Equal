@@ -1,0 +1,83 @@
+You are given two 0-indexed strings word1 and word2.
+
+A move consists of choosing two indices i and j such that 0 <= i < word1.length and 0 <= j < word2.length and swapping word1[i] with word2[j].
+
+Return true if it is possible to get the number of distinct characters in word1 and word2 to be equal with exactly one move. Return false otherwise.
+
+ 
+
+Example 1:
+
+Input: word1 = "ac", word2 = "b"
+Output: false
+Explanation: Any pair of swaps would yield two distinct characters in the first string, and one in the second string.
+Example 2:
+
+Input: word1 = "abcc", word2 = "aab"
+Output: true
+Explanation: We swap index 2 of the first string with index 0 of the second string. The resulting strings are word1 = "abac" and word2 = "cab", which both have 3 distinct characters.
+Example 3:
+
+Input: word1 = "abcde", word2 = "fghij"
+Output: true
+Explanation: Both resulting strings will have 5 distinct characters, regardless of which indices we swap.
+
+
+
+
+
+
+class Solution {
+    public boolean isItPossible(String word1, String word2) {
+        HashMap<Character , Integer> map1 = new  HashMap<>();
+        char ch1[] = word1.toCharArray();
+        char ch2[] = word2.toCharArray();
+        
+        for(char ch : ch1){
+            map1.put(ch , map1.getOrDefault(ch , 0 )+ 1);
+        }
+          HashMap<Character , Integer> map2 = new  HashMap<>();
+         for(char ch : ch2){
+            map2.put(ch , map2.getOrDefault(ch , 0 )+ 1);
+        }
+        
+        for(char i = 'a' ; i <= 'z' ; i++)
+        {
+            for(char j = 'a' ; j <= 'z' ; j++)
+            {
+                if(map1.getOrDefault(i , 0) > 0 && map2.getOrDefault(j , 0) > 0 )
+                {
+                    // swap the to character 
+                   map1.put(j , map1.getOrDefault(j , 0) +1);
+                   map1.put(i , map1.get(i) - 1);
+                    if(map1.get(i) == 0){
+                        map1.remove(i);
+                    }
+                    
+                  map2.put(i , map2.getOrDefault(i , 0) +1);
+                  map2.put(j , map2.get(j)- 1 );
+                    if(map2.get(j) == 0){
+                        map2.remove(j);
+                    }
+                    
+                    // check distinct char are equal
+                    if(map1.size() == map2.size())return true;
+                    
+                    map1.put(i , map1.getOrDefault(i , 0) +1);
+                   map1.put(j , map1.get(j) - 1);
+                    if(map1.get(j) == 0){
+                        map1.remove(j);
+                    }
+                    
+                  map2.put(j , map2.getOrDefault(j , 0) +1);
+                  map2.put(i , map2.get(i)- 1 );
+                    if(map2.get(i) == 0){
+                        map2.remove(i);
+                    }
+                }
+            }
+        }
+      
+        return false;
+    }
+}
