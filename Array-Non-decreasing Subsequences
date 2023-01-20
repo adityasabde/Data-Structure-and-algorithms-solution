@@ -1,0 +1,91 @@
+Given an integer array nums, return all the different possible non-decreasing subsequences of the given array with at least two elements. You may return the answer in any order.
+
+ 
+
+Example 1:
+
+Input: nums = [4,6,7,7]
+Output: [[4,6],[4,6,7],[4,6,7,7],[4,7],[4,7,7],[6,7],[6,7,7],[7,7]]
+Example 2:
+
+Input: nums = [4,4,3,2,1]
+Output: [[4,4]]
+ 
+
+Constraints:
+
+1 <= nums.length <= 15
+-100 <= nums[i] <= 100
+
+
+
+
+
+
+
+
+
+
+
+// class Solution {
+    
+//     public List<List<Integer>> findSubsequences(int[] nums) {
+//         List<List<Integer>> al = new  ArrayList<>();
+
+//         HashSet<List<Integer>> set = new LinkedHashSet<>();
+//         List<Integer> arr = new ArrayList<>();
+//         func(nums , 0 , arr , -1 , set);
+
+//         for(List<Integer> a : set){
+//             al.add(a);
+//         }
+//         return al;
+//     }
+
+//     public void func(int nums[] , int i , List<Integer> arr , int prev  , HashSet<List<Integer>> set ){
+//         if(i == nums.length)
+//         {
+//             if(arr.size()>=2){
+//                 set.add(new ArrayList<Integer> (arr));
+//             } 
+//             return;
+//         }
+             
+//         if(prev == -1 || nums[i] >= nums[prev]){
+//             arr.add(nums[i]);
+//             prev = i;
+//             func(nums , i+1 , arr , prev , set);
+//             arr.remove(arr.size()-1);
+//         }      
+//         func(nums , i+1 , arr, prev ,set );
+//     }
+// }
+
+
+class Solution {
+    public void solve(int[] nums,int i,List<Integer> ds,HashSet<List<Integer>> res,int prev)
+    {
+        if(i==nums.length)
+        {
+            if(ds.size()>=2)
+                res.add(new ArrayList<Integer> (ds));
+            return;
+        }
+        if(prev==-1 || nums[i]>=nums[prev])
+        {
+            ds.add(nums[i]);
+            solve(nums,i+1,ds,res,i);
+            ds.remove(ds.size()-1);
+        }
+        solve(nums,i+1,ds,res,prev);
+    }
+    public List<List<Integer>> findSubsequences(int[] nums) {
+        HashSet<List<Integer>> res=new LinkedHashSet<>();
+        List<Integer> ds=new ArrayList<>();
+        solve(nums,0,ds,res,-1);
+        List<List<Integer>> ans=new ArrayList<>();
+        for(List<Integer> arr : res)
+            ans.add(new ArrayList<Integer>(arr));
+        return ans;
+    }
+}
