@@ -1,0 +1,34 @@
+
+class Solution {
+    public static String removePair(String s) {
+        Stack<Character> st = new Stack<>();
+        char ch[] = s.toCharArray();
+        for(char c : ch)
+        {
+            if(st.isEmpty())
+            {
+                st.push(c);
+            }
+            else
+            {
+                if(st.peek() == c)
+                {
+                    st.pop();
+                }
+                else
+                {
+                    st.push(c);
+                }
+            }
+        }
+         if(st.isEmpty())return "-1";
+        String ans = "";
+        while(!st.isEmpty()){
+            ans  = st.pop() + ans ;
+        }
+        
+       
+        return ans;
+    }
+}
+        
