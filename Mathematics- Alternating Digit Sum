@@ -1,0 +1,34 @@
+
+
+
+class Solution {
+    public int alternateDigitSum(int n) {
+        int flag = 0;
+        int sum = 0;
+        int num = n;
+        
+        ArrayList<Integer> arr = new ArrayList<>();
+        
+        while(n>0)
+        {
+          int rem = n%10;
+          arr.add(rem);
+          n /= 10;  
+        }
+        
+        for(int i = arr.size()-1;i>=0;i--){
+             int rem = arr.get(i);
+            if(flag == 0) {
+                sum += rem;
+                flag = 1;
+            }
+            else
+            {
+                sum += (-1) * rem;
+                flag = 0;
+            }
+            
+        }
+        return sum;
+    }
+}
