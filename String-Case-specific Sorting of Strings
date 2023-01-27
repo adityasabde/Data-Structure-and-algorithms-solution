@@ -1,0 +1,116 @@
+Given a string S consisting of only uppercase and lowercase characters. The task is to sort uppercase and lowercase letters separately such that if the ith place in the original string had an Uppercase character then it should not have a lowercase character after being sorted and vice versa.
+
+Example 1:
+
+Input:
+N = 12
+S = defRTSersUXI
+Output: deeIRSfrsTUX
+Explanation: Sorted form of given string
+with the same case of character as that
+in original string is deeIRSfrsTUX
+Example 2:
+
+Input:
+N = 6
+S = srbDKi
+Output: birDKs
+Explanation: Sorted form of given string
+with the same case of character will
+result in output as birDKs.
+Your Task:
+You only need to complete the function caseSort that takes a string str and length of the string n and returns sorted string.
+
+Expected Time Complexity: O(Nlog(N)).
+Expected Auxiliary Space: O(N).
+
+Constraints:
+1 ≤ N ≤ 105
+
+
+
+
+
+
+
+class Solution
+{
+    //Function to perform case-specific sorting of strings.
+    // public static String caseSort(String str)
+    // {
+    //     ArrayList<Character> arr1 = new ArrayList<>();
+    //     ArrayList<Character> arr2 = new ArrayList<>();
+        
+    //     for(int i =0 ;i<str.length();i++){
+    //         if(Character.isUpperCase(str.charAt(i))){
+    //             arr2.add(str.charAt(i));
+    //         }
+    //         else
+    //         {
+    //             arr1.add(str.charAt(i));
+    //         }
+    //     }
+        
+    //     Collections.sort(arr1);
+    //     Collections.sort(arr2);
+        
+    //     StringBuilder ans = new StringBuilder();
+    //     int j = 0;
+    //     int k = 0;
+    //     for(int i=0;i < str.length();i++){
+    //         if(k < arr2.size() && Character.isUpperCase(str.charAt(i))){
+    //             ans.append(arr2.get(k++));
+    //         }
+    //         else if(j < arr1.size() ){
+    //             ans.append(arr1.get(j++));
+    //         }
+    //     }
+        
+    //     return ans.toString();
+    // }
+    
+    
+     public static String caseSort(String str)
+
+    {
+
+        char [] arr = str.toCharArray();
+
+        Arrays.sort(arr);
+
+        int lowCh = 0, UpCh = 0;
+
+        while(lowCh < str.length() && arr[lowCh] >= 'A' && arr[lowCh] <= 'Z') lowCh++;
+
+        
+
+        StringBuilder sb = new StringBuilder(str);
+
+        for(int i=0; i< str.length(); i++){
+
+            char ch = str.charAt(i);
+
+            if(ch >= 'a' && ch <= 'z') {
+
+                sb.setCharAt(i,arr[lowCh]);
+
+                lowCh++;
+
+            }else{
+
+                sb.setCharAt(i,arr[UpCh]);
+
+                UpCh++;
+
+            }
+
+        }
+
+        return sb.toString();
+
+    }
+}
+
+
+//  defRTSersUXI
+//  deeIRSfrsTUX
