@@ -1,0 +1,75 @@
+A top secret message containing letters from A-Z is being encoded to numbers using the following mapping:
+
+'A' -> 1
+'B' -> 2
+...
+'Z' -> 26
+You are an FBI agent. You have to determine the total number of ways that message can be decoded, as the answer can be large return the answer modulo 109 + 7.
+Note: An empty digit sequence is considered to have one decoding. It may be assumed that the input contains valid digits from 0 to 9 and If there are leading 0s, extra trailing 0s and two or more consecutive 0s then it is an invalid string.
+
+Example 1:
+
+Input: str = "123"
+Output: 3
+Explanation: "123" can be decoded as "ABC"(123),
+"LC"(12 3) and "AW"(1 23).
+Example 2:
+
+Input: str = "90"
+Output: 0
+Explanation: "90" cannot be decoded as it's an invalid string and we cannot decode '0'.
+
+
+
+
+
+
+
+//User function Template for Java
+
+// class Solution
+// {
+//     public int CountWays(String str)
+//     {
+//       return noways(0 , str);
+//     }
+    
+//     public int noways(int i , String s)
+//     {
+//         if(i >= s.length()) return 1;
+//         else if(s.charAt(i) == '0')return 0;
+//         else if(i == s.length()-1)return 1;
+//         else if(s.charAt(i)=='1' || (s.charAt(i)=='2' && (s.charAt(i+1) >= 48 && s.charAt(i+1)<=54)))
+//             return noways(i+1 , s) + noways(i+1 , s);
+//         else return noways(i+1 , s);
+//     }
+    
+    
+// }
+
+
+class Solution
+{
+    static int mod = 1000000007;
+    public int CountWays(String str)
+    {
+        
+        int[] dp = new int[str.length()+1];
+        dp[str.length()] = 1;
+        for(int i = str.length() - 1; i >= 0; i--){
+            int x1 = 0;
+            if(str.charAt(i) != '0'){
+                x1 = dp[i+1];
+            }
+            int x2 = 0;
+            if(str.charAt(i) != '0' && i+1 < str.length()){
+                int ele = Integer.parseInt(str.substring(i,i+2));
+                if(ele > 9 && ele < 27){
+                    x2 = dp[i+2];
+                }
+            }
+            dp[i] = (x1+x2) % mod;
+        }
+        return dp[0];
+    }
+}
