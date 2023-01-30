@@ -1,0 +1,11 @@
+
+class Solution {
+    public static int solve(int a, int b) {
+        int x = a & b;
+        if(a == b) return 0;
+        if((a & b) == b )return 1;
+        if((b & a) == a) return 1;
+        return 2;
+    }
+}
+        
