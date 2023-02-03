@@ -1,0 +1,64 @@
+In an alien language, surprisingly, they also use English lowercase letters, but possibly in a different order. The order of the alphabet is some permutation of lowercase letters.
+
+Given a sequence of words written in the alien language, and the order of the alphabet, return true if and only if the given words are sorted lexicographically in this alien language.
+
+ 
+
+Example 1:
+
+Input: words = ["hello","leetcode"], order = "hlabcdefgijkmnopqrstuvwxyz"
+Output: true
+Explanation: As 'h' comes before 'l' in this language, then the sequence is sorted.
+Example 2:
+
+Input: words = ["word","world","row"], order = "worldabcefghijkmnpqstuvxyz"
+Output: false
+Explanation: As 'd' comes after 'l' in this language, then words[0] > words[1], hence the sequence is unsorted.
+Example 3:
+
+Input: words = ["apple","app"], order = "abcdefghijklmnopqrstuvwxyz"
+Output: false
+Explanation: The first three characters "app" match, and the second string is shorter (in size.) According to lexicographical rules "apple" > "app", because 'l' > '∅', where '∅' is defined as the blank character which is less than any other character (More info).
+
+
+
+
+
+
+
+
+class Solution {
+    public boolean isAlienSorted(String[] words, String order) {
+        HashMap<Character , Integer> map = new HashMap<>();
+        for(int i =0 ;i<order.length() ;i++){
+            map.put(order.charAt(i) , i);
+        }
+
+        for(int i =0 ;i<words.length-1 ;i++){
+            for(int j = i+1 ; j<words.length ;j++){
+                String s1 = words[i];
+                String s2 = words[j];
+                int flag =  0;
+                 for(int k = 0 ;k < Math.min(s1.length() , s2.length()) ;k++ ){
+                     if(s1.charAt(k) != s2.charAt(k)){
+                           flag = 1;
+                         if(map.get(s1.charAt(k)) > map.get(s2.charAt(k))){
+                             return false;
+                         }
+                         else{
+                            break;
+                         }
+                     }
+                 }
+                 if(flag == 0){
+                     if(s1.length() > s2.length()){
+                         System.out.println(s1.length() + " " + s2.length());
+                         return false;
+                     }
+                 }
+
+            }
+        }
+        return true;
+    }
+}
