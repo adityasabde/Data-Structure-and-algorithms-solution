@@ -1,0 +1,27 @@
+class Solution {
+    public int[] shuffle(int[] nums, int n) {
+        int ans [] = new int[2*n];
+        int j = n ;
+        int i = 0;
+        int flag = 0;
+        int k =0;
+        while(i<n && j < 2*n){
+            if(flag == 0){
+                System.out.println(nums[i]);
+                ans[k] = nums[i];
+                i++;
+                flag = 1;
+            }
+            else
+            {
+                System.out.println(nums[j]);
+                ans[k] = nums[j];
+                j++;
+                flag = 0;
+            }
+            k++;
+        }
+        ans[2*n -1] = nums[nums.length -1];
+        return ans;
+    }
+}
