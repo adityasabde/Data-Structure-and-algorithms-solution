@@ -1,0 +1,69 @@
+Given a grid of size n*m (n is the number of rows and m is the number of columns in the grid) consisting of '0's (Water) and '1's(Land). Find the number of islands.
+
+Note: An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically or diagonally i.e., in all 8 directions.
+
+Example 1:
+
+Input:
+grid = {{0,1},{1,0},{1,1},{1,0}}
+Output:
+1
+Explanation:
+The grid is-
+0 1
+1 0
+1 1
+1 0
+All lands are connected.
+
+
+
+
+
+
+
+
+class Solution {
+    // Function to find the number of islands.
+    public int numIslands(char[][] grid) {
+       int m = grid.length;
+       int n = grid[0].length;
+       int count = 0;
+       boolean visited[][] =new boolean [m][n];
+       for(int i =0 ;i < grid.length ; i++)
+       {
+           for(int j =0 ;j<grid[0].length ;j++)
+           {
+               if(grid[i][j] == '1' && !visited[i][j])
+               {
+                   count++;
+                //   visited[i][j] = true;
+                   dfs(grid , visited , i , j);
+                    
+               }
+           }
+       }
+       return count;
+    }
+    
+    public void dfs(char grid[][] , boolean visited[][] , int i , int j )
+    {
+        if(i<0 || i==grid.length || j<0 || j==grid[0].length || visited[i][j] ||  grid[i][j] == '0')
+        {
+            return ;
+        }
+        
+        int xdir [] = {-1, -1, 0, 1, 1, 1, 0, -1};
+        int ydir [] = {0, 1, 1, 1, 0, -1, -1, -1};
+        visited[i][j] = true;
+        for(int k = 0; k<8 ; k++)
+        {
+            int x = i + xdir[k];
+            int y = j + ydir[k];
+                dfs(grid , visited , x , y);
+            
+        }
+        
+    }
+    
+}
