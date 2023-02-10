@@ -1,0 +1,52 @@
+Bob is very fond of balloons. Once he visited an amusement park with his mother. The mother told Bob that she would buy him a balloon only if he answer her problem right. She gave Bob a string S [contains only lowercase characters] and asked him to use the characters of string to form as many instances of the word "balloon" as possible. Return the maximum number of instances that can be formed.
+
+Help Bob to solve the problem.
+
+Note: You can use each character in the string at most once.
+
+Example 1:
+
+Input:
+S: nlaebolko
+Output: 1
+Explanation:
+Here, the number of occurence of 'b' = 1
+of occurence of 'a' = 1
+of occurence of 'l' = 2
+of occurence of 'o' = 2
+of occurence of 'n' = 1
+So, we can form 1 "balloon" using the letters.
+ 
+ 
+ 
+ 
+// User function Template for Java
+
+class Solution {
+    public int maxInstance(String s) {
+       HashMap<Character , Integer> map = new HashMap<>();
+       char ch[] = s.toCharArray();
+       
+       for(int i =0 ;i<ch.length;i++)
+       {
+           if(ch[i] == 'b' || ch[i]=='a' || ch[i]=='l' || ch[i]=='o' || ch[i]=='n')
+           {
+               map.put(ch[i] , map.getOrDefault(ch[i] , 0) + 1);
+           }
+       }
+       
+    //   System.out.println(map);
+        int mincount = Integer.MAX_VALUE;
+       for(Map.Entry<Character , Integer> entry : map.entrySet()){
+           if(entry.getKey() == 'l' || entry.getKey() == 'o'){
+                mincount = Math.min(mincount , entry.getValue() / 2);
+           }
+           else{
+                mincount = Math.min(mincount , entry.getValue());
+           }
+          
+       }
+       
+       return mincount;
+    }
+}
