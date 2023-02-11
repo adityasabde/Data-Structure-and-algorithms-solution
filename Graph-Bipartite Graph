@@ -1,0 +1,151 @@
+Given an adjacency list of a graph adj  of V no. of vertices having 0 based index. Check whether the graph is bipartite or not.
+ 
+
+Example 1:
+
+Input: 
+
+Output: 1
+Explanation: The given graph can be colored 
+in two colors so, it is a bipartite graph.
+Example 2:
+
+Input:
+
+Output: 0
+Explanation: The given graph cannot be colored 
+in two colors such that color of adjacent 
+vertices differs. 
+ 
+
+
+
+
+
+
+
+
+
+// class Solution
+// {
+//     public boolean isBipartite(int V, ArrayList<ArrayList<Integer>>adj)
+//     {
+//         boolean visited [] = new boolean[adj.size()];
+//       for(int i =0 ;i<adj.size();i++){
+//           if( !visited[i] ){
+//               if(bfs(adj , visited , i)){
+//                   return true;
+//               }
+//           }
+//       }
+//       return false;
+//     }
+    
+    
+//     public boolean bfs(ArrayList<ArrayList<Integer>>adj , boolean visited[] , int src){
+//         Queue<int []> q = new LinkedList<>();
+//         int color[] = new int [adj.size()];
+//         Arrays.fill(color , -1);
+        
+//         q.add(new int[]{src , 0});
+//         visited[src] = true;
+//         color[0] = 0;
+        
+//         while(!q.isEmpty()){
+//             int arr [] = q.poll();
+            
+//             int node = arr[0];
+//             int prevcolor = arr[1];
+            
+//             for(int  i = 0 ;i<adj.get(node).size();i++){
+//                 if(!visited[adj.get(node).get(i)]){
+//                   if(prevcolor == 0){
+//                       q.add(new int[]{adj.get(node).get(i) , 1});
+//                       color[i] = 1;
+//                   }else{
+//                       q.add(new int[]{adj.get(node).get(i) , 0});
+//                       color[i] = 0;
+//                   }
+//                 }
+//                 else{
+//                     if(prevcolor == color[adj.get(node).get(i)]){
+//                         return false;
+//                     }
+//                 }
+//             }
+//         }
+//         return true;
+//     }
+// }
+
+class Solution
+{
+    public boolean isBipartite(int V, ArrayList<ArrayList<Integer>>adj)
+    {
+          int color[] = new int[V];
+          for(int i =0; i<V; i++){  // makes a color arr and filled value with -1; becuause i will take 
+
+              color[i]=-1;   // two color which 0 and 1;
+
+          }
+
+          for(int i = 0; i<V; i++){
+
+              if(color[i]==-1){
+
+                  if(bfs(i,color,0,adj)==false){ // it is check for all components of graph;
+
+                      return false;
+
+                  };
+
+              }
+
+          }
+          return true;   
+
+     }
+
+     boolean bfs(int vertex, int[] color, int col, ArrayList<ArrayList<Integer>> adj){
+
+         Queue<Integer> q = new LinkedList<>();
+
+         q.add(vertex);
+
+          
+
+          color[vertex] = col;
+
+          while(q.size()>0){
+
+               vertex = q.remove();
+
+             
+
+              for(Integer neighbor: adj.get(vertex)){
+
+                  if(color[neighbor]==-1){
+
+                      // give oppositive color to neighbor
+
+                color[neighbor]=1-color[vertex];
+
+                      q.add(neighbor);
+
+                  }
+
+                  else if(color[neighbor]==color[vertex]){
+
+                      return false;
+
+                  }
+
+                }
+
+           }
+
+           return true;
+
+     }
+
+}
