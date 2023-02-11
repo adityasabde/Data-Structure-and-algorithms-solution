@@ -1,0 +1,98 @@
+Given a Directed Graph with V vertices (Numbered from 0 to V-1) and E edges, check whether it contains any cycle or not.
+
+
+Example 1:
+
+Input:
+
+
+
+Output: 1
+Explanation: 3 -> 3 is a cycle
+
+Example 2:
+
+Input:
+
+
+Output: 0
+Explanation: no cycle in the graph
+
+
+
+
+
+
+class Solution {
+    // Function to detect cycle in a directed graph.
+    public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
+        // boolean visited[] = new boolean[adj.size()];
+        // Arrays.fill(visited , false);
+        
+        // for(int  i = 0 ;i<adj.size();i++)
+        // {
+        //     if(!visited[i] &&  detectcycle( i  , adj  , visited )){
+        //         return true;
+        //     }
+        // }
+        // return false;
+        
+        boolean visited [] = new boolean [adj.size()];
+        boolean res [] = new boolean [adj.size()];
+        
+        for(int i =0 ;i<adj.size();i++){
+            if(!visited[i]){
+                if(dfs(i ,adj  ,  visited , res))return true;
+            }
+        }
+        
+        return false;
+        
+    }
+    
+    public boolean dfs(int src ,ArrayList<ArrayList<Integer>> adj , boolean visited[] , boolean res[])
+    {
+        visited[src] = true;
+        res[src] = true;
+        
+        for(int neighbours : adj.get(src)){
+            if(!visited[neighbours]){
+                if(dfs(neighbours , adj , visited , res)){
+                    return true;
+                }
+            }
+            else if(res[neighbours]){
+                return true;
+            }
+        }
+        
+        res[src] = false;
+        return false;
+    }
+    
+public boolean detectcycle(int src ,  ArrayList<ArrayList<Integer>> adj, boolean visited[] ){
+        Queue<int[]> q = new LinkedList<>();
+         boolean res[] =  new boolean [adj.size()];
+        visited[src] = true;
+        q.add(new int[]{src , -1});
+        
+        while(!q.isEmpty()){
+            int arr[] = q.poll();
+            int node = arr[0];
+            int parent = arr[1];
+            
+            for(int i = 0 ; i<adj.get(node).size() ;i++){
+                if(!visited[adj.get(node).get(i)]){
+                    visited[adj.get(node).get(i)] = true;
+                    q.add(new int []{adj.get(node).get(i) , node});
+                    res[adj.get(node).get(i)] = true;
+                }
+                else if(res[adj.get(node).get(i)]){
+                    return true;
+                }
+            }
+        }
+        return false;
+    
+    }
+}
