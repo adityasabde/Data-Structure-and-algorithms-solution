@@ -1,0 +1,81 @@
+Two of the nodes of a Binary Search Tree (BST) are swapped. Fix (or correct) the BST by swapping them back. Do not change the structure of the tree.
+Note: It is guaranteed than the given input will form BST, except for 2 nodes that will be wrong.
+ 
+Example 1:
+Input:
+       10
+     /    \
+    5      8
+   / \
+  2   20
+Output: 1
+Explanation:
+ 
+Example 2:
+
+Input:
+         11
+       /    \
+      3      17
+       \    /
+        4  10
+Output: 1 
+Explanation: 
+By swapping nodes 11 and 10, the BST 
+can be fixed.
+
+
+
+
+
+
+
+
+
+// User function Template for Java
+
+
+/*
+    class Node {
+        int data;
+        Node left;
+        Node right;
+        Node(int data) {
+            this.data = data;
+            left = null;
+            right = null;
+        }
+    }
+*/
+
+class Solution {
+    public Node correctBST(Node root) {
+        ArrayList<Integer> arr = new ArrayList<>();
+        
+        func(root , arr);
+        // System.out.println(arr);
+        Collections.sort(arr);
+        Collections.reverse(arr);
+        func2(root  , arr);
+        return root;
+    }
+    
+    void func(Node root ,  ArrayList<Integer> arr ){
+        if(root == null)return;
+        
+        func(root.left , arr);
+        arr.add(root.data);
+        func(root.right , arr);
+    }
+    
+    void func2(Node node   ,ArrayList<Integer> arr){
+        if(node == null)return;
+        
+        func2(node.left  , arr);
+        
+        node.data = arr.remove(arr.size()-1);
+        
+        func2(node.right , arr);
+        
+    }
+}
