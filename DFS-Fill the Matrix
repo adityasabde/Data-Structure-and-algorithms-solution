@@ -1,0 +1,114 @@
+Given a matrix with dimensions N x M, entirely filled with zeroes except for one position at co-ordinates X and Y containing '1'. Find the minimum number of iterations in which the whole matrix can be filled with ones.
+Note: In one iteration, '1' can be filled in the 4 neighbouring elements of a cell containing '1'.
+
+
+Example 1:
+
+Input:
+N = 2, M = 3
+X = 2, Y = 3
+Output: 3 
+
+Explanation: 3 is the minimum possible 
+number of iterations in which the
+matrix can be filled.
+Example 2:
+
+Input:
+N = 1, M = 1
+X = 1, Y = 1 
+Output: 0
+
+Explanation: The whole matrix is 
+already filled with ones.
+
+Your Task:  
+You don't need to read input or print anything. Your task is to complete the function minIterations() which takes the dimensions of the matrix N and M and the co-ordinates of the initial position of '1' ie X and Y as input parameters and returns the minimum number of iterations required to fill the matrix.
+
+
+Expected Time Complexity: O(N*M)
+Expected Auxiliary Space: O(1)
+
+
+Constraints:
+1 ≤ N, M ≤ 103
+1 ≤ X ≤ N
+1 ≤ Y ≤ M 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// class Solution
+// {
+// 	public static int minIteration(int N, int M, int x, int y){
+// 	  int m[][] = new int[N][M];
+// 	  boolean visited[][] = new boolean[N][M];
+// 	  if(M == 1 && N==1)return 0;
+	  
+// 	   int ans = 0;
+// 	   ans  = Math.max(ans , dfs(x-1 ,y-1 , m , 0 ,0 , visited));
+// 	   ans  = Math.max(ans , dfs(x-1 ,y-1 ,m ,N-1 , 0 ,visited));
+// 	   ans = Math.max(ans , dfs(x-1 ,y-1 ,m ,N-1 ,M-1 , visited));
+// 	   ans = Math.max(ans , dfs(x-1 ,y-1 , m , 0, N-1 , visited));
+	   
+// 	   return ans;
+		
+// 	}
+	
+// 	static int dfs(int x , int y , int m[][] , int desx , int desy , boolean visited[][]){
+	    
+// 	    if(x == desx && y == desy){
+// 	        return 0;
+// 	    }
+	    
+// 	    if(x<0 || y<0 || x >= m.length || y>=m[0].length || visited[x][y])return 0;
+	    
+// 	    int dx [] = {0, 1, 0,-1};
+// 	    int dy[] = { 1 , 0 , -1 , 0};
+// 	    int max = 0 ;
+// 	    visited[x][y] = true;
+// 	    for(int i =0; i<4 ; i++){
+// 	        int nx = dx[i] + x;
+// 	        int ny = dy[i] + y;
+// 	         max = Math.min(max , 1+ dfs(nx , ny  , m, desx , desy , visited));
+// 	    }
+// 	   	return max; 
+// 	}
+	
+
+// }
+
+
+class Solution
+{
+	public static int minIteration(int N, int M, int x, int y){
+		//code here
+		
+		if(N == 1 && M == 1)return 0; 
+		
+		int ans = 0;
+		
+		int X = x-1 , Y = y -1;
+		
+		//top left 
+		ans = Math.max(ans , X+Y );
+		//bottom left
+		ans = Math.max(ans , (N-(X+1))+Y);
+		//top right
+		ans = Math.max(ans , X + (M-(Y+1)) );
+		// bottom right
+		ans = Math.max(ans,(N-(X+1))+(M-(Y+1)) );
+		
+		return ans;
+		
+	}
