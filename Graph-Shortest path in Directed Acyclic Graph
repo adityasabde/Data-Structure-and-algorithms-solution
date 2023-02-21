@@ -1,0 +1,104 @@
+Given a Directed Acyclic Graph of N vertices from 0 to N-1 and a 2D Integer array(or vector) edges[ ][ ] of length M, where there is a directed edge from edge[i][0] to edge[i][1] with a distance of edge[i][2] for all i, 0<=i
+
+Find the shortest path from src(0) vertex to all the vertices and if it is impossible to reach any vertex, then return -1 for that vertex.
+
+ 
+
+Example:
+
+Input:
+n = 6, m= 7
+edge=[[0,1,2],[0,4,1],[4,5,4]
+,[4,2,2],[1,2,3],[2,3,6],[5,3,1]]
+
+Output:
+0 2 3 6 1 5
+ 
+
+Your Task:
+
+You don't need to print or input anything. Complete the function shortest path() which takes an integer N as number of vertices, an integer M as number of edges and a 2D Integer array(or vector) edges as the input parameters and returns an integer array(or vector), denoting the list of distance from src to all nodes.
+
+ 
+
+Constraint:
+
+1 <= n,m <= 100
+0 <= edgei,0,edgei,1 < n
+ 
+ 
+
+Expected Time Complexity: O(N+E), where N is the number of nodes and E is edges
+
+Expected Space Complexity: O(N)
+
+
+
+
+
+
+
+
+
+//User function Template for Java
+class Pair{
+    int dist;
+    int n;
+    Pair(int dist , int n){
+        this.dist = dist;
+        this.n = n;
+    }
+}
+class Solution {
+
+	public int[] shortestPath(int V,int n , int[][] edges) {
+		   PriorityQueue<Pair> pq = new  PriorityQueue<>((x ,y) -> x.dist - y.dist);
+		   
+		   ArrayList<ArrayList<ArrayList<Integer>>> adj = new ArrayList<>();
+		   
+		   for(int i =0 ;i<V;i++){
+		       adj.add(new ArrayList<>());
+		   }
+		   
+		   for(int i = 0 ;i<n ;i++){
+		       int x = edges[i][0];
+		       ArrayList<Integer> a = new ArrayList<>();
+		       a.add(edges[i][1]);
+		       a.add(edges[i][2]);
+		       adj.get(x).add(a);
+		   }
+		   
+		  // System.out.println(adj);
+		   
+		   int distarr [] = new int[V];
+		   Arrays.fill(distarr , (int)1e9);
+		   
+		   pq.add(new Pair(0, 0));
+		   distarr[0] = 0;
+		   
+		   while(!pq.isEmpty()){
+		       Pair z = pq.poll();
+		       
+		       int currdist = z.dist;
+		       int currn = z.n;
+		       
+		       for(int i = 0 ;i<adj.get(currn).size();i++){
+		           int newdist = currdist + adj.get(currn).get(i).get(1);
+		           int newn = adj.get(currn).get(i).get(0);
+		           
+		           if(newdist < distarr[newn]){
+		               distarr[newn] = newdist;
+		               pq.add(new Pair( distarr[newn] , newn));
+		           }
+		       }
+		   }
+		   
+		   for(int i =0 ;i<V;i++){
+		       if(distarr[i] == ( int )1e9){
+		           distarr[i] = -1;
+		       }
+		   }
+		   
+		   return distarr;
+		   }
+}
