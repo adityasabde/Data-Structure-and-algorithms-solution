@@ -1,0 +1,61 @@
+You are given a matrix grid of n x  m size consisting of values 0 and 1. A value of 1 means that you can enter that cell and 0 implies that entry to that cell is not allowed.
+
+You start at the upper-left corner of the grid (1, 1) and you have to reach the bottom-right corner (n, m) such that you can only move in the right or down direction from every cell.
+
+Your task is to calculate the total number of ways of reaching the target modulo (109+7).
+Note: The first (1, 1) and last cell (n, m) of the grid can also be 0
+
+
+Example 1:
+
+Input:
+n = 3, m = 3
+grid[][] = {{1, 1, 1};
+            {1, 0, 1};
+            {1, 1, 1}}
+Output:
+2
+Explanation:
+1 1 1
+1 0 1
+1 1 1
+This is one possible path.
+1 1 1
+1 0 1
+1 1 1
+This is another possible path.
+
+
+
+
+
+
+
+//User function Template for Java
+
+class Solution {
+    static int uniquePaths(int n, int m, int[][] grid) {
+        Solution obj = new Solution();
+        int dp[][] = new int[n][m];
+        
+        for(int i =0 ;i<n;i++){
+            Arrays.fill(dp[i] , -1);
+        }
+        
+        return obj.dfs(grid , n-1 , m-1 ,  n , m , dp) % 1000000007;
+    }
+    
+    int dfs(int [][] grid , int i , int j , int n , int m , int dp[][] ){
+        if(grid[0][0]==1 && i == 0 && j == 0 ){
+            return 1;
+        }
+    
+        if(i<0 || j<0 || i>=n || j>=m || grid[i][j] == 0){
+            return 0;
+        }
+        
+        if(dp[i][j] != -1)return dp[i][j];
+        
+        return dp[i][j] = (dfs(grid , i-1 , j , n , m , dp) + dfs(grid , i , j-1 ,n ,m ,dp)) % 1000000007 ;
+    }
+};
