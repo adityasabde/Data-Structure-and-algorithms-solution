@@ -1,0 +1,180 @@
+
+Given a weighted directed graph with n nodes and m edges. Nodes are labeled from 0 to n-1, the task is to check if it contains a negative weight cycle or not.
+Note: edges[i] is defined as u, v and weight.
+ 
+
+Example 1:
+
+Input: n = 3, edges = {{0,1,-1},{1,2,-2},
+{2,0,-3}}
+Output: 1
+Explanation: The graph contains negative weight
+cycle as 0->1->2->0 with weight -1,-2,-3.
+Example 2:
+
+Input: n = 3, edges = {{0,1,-1},{1,2,-2},
+{2,0,3}}
+Output: 0
+Explanation: The graph does not contain any
+negative weight cycle.
+ 
+
+Your Task:
+You don't need to read or print anyhting. Your task is to complete the function isNegativeWeightCycle() which takes n and edges as input paramater and returns 1 if graph contains negative weight cycle otherwise returns 0.
+ 
+
+Expected Time Complexity: O(n*m)
+Expected Space Compelxity: O(n)
+
+
+
+
+
+
+
+
+
+
+// //User function Template for Java
+// class Solution
+
+// {
+
+//     public int isNegativeWeightCycle(int n, int[][] edges)
+
+//     {
+
+//   int[] distance = new int[n];
+
+//   for(int i =0; i<n; i++){
+
+//       distance[i]=Integer.MAX_VALUE;
+
+//   }
+
+//   distance[0]=0;
+
+//   for(int i=1; i<n;i++){
+
+//       for(int j =0; j<edges.length;j++){
+
+//           int sources = edges[j][0];
+
+//           int distination =edges[j][1];
+
+//           int weight=edges[j][2];
+
+//           if(distance[sources]!=Integer.MAX_VALUE && distance[sources]+weight<distance[distination]){
+
+//               distance[distination] =distance[sources]+weight;
+
+//           }
+
+//       }
+
+//   }
+
+//   for(int j =0; j<edges.length;j++){
+
+//           int sources = edges[j][0];
+
+//           int distination =edges[j][1];
+
+//           int weight=edges[j][2];
+
+//           if(distance[sources]!=Integer.MAX_VALUE && distance[sources]+weight<distance[distination]){
+
+//              return 1;
+
+//           }
+
+//       }
+
+//       return 0;
+
+//     }
+
+// }
+
+// class Solution
+// {
+//     public int isNegativeWeightCycle(int n, int[][] edges)
+//     {
+//         //Apply Bellman Ford Algorithm
+        
+//         //1. create a distance array of size n and initialise the distance of all vertex with max value except element at index 0
+//         int [] dist = new int[n];
+//         for(int i =0;i<n;i++){
+//             dist[i] = 1000000007;
+//         }
+//         dist[0] = 0;
+//         //2. Apply distance-minimisation formula (n-1) times
+//         for(int k =0;k<n-1;k++){
+//             for(int i =0;i<edges.length;i++){
+//                 int u = edges[i][0];
+//                 int v = edges[i][1];
+//                 int wt = edges[i][2];
+//                 //apply distance-minimisation formula
+//                 if(dist[u] != (1e8) && dist[u]+wt<dist[v]){
+//                     dist[v] = dist[u]+wt;
+//                 }
+//             }
+//         }
+//         //3. Apply distance minimisation formula one more times
+//         //if it update the v then there is a negative weight cycle
+//         for(int i =0;i<edges.length;i++){
+//             int u = edges[i][0];
+//             int v = edges[i][1];
+//             int wt = edges[i][2];
+//             //apply distance-minimisation formula
+//             if(dist[u] != (1e8) && dist[u]+wt<dist[v]){
+//                 //if it update,then there is a negative cycle 
+//                 return 1;
+//             }
+//         }
+//         return 0;
+//     }
+// }
+
+
+
+
+class Solution
+{
+    public int isNegativeWeightCycle(int n, int[][] edges)
+    {
+      int dist[] = new int[n];
+       for(int i =0;i<n;i++){
+            dist[i] = 1000000007;
+        }
+      dist[0] = 0;
+    //   here we are checking the n-1 cycle after that if nith iteration
+    // value is still reducing means there is negative cycle is present.
+       
+      for(int i =0 ;i<n-1 ;i++){
+        //   edges array me n-1 time cycle chalegi
+          for(int arr[] : edges){
+              int u = arr[0];
+              int v = arr[1];
+              int wt = arr[2];
+               
+              if(dist[u] != (int)1e8 && dist[u] + wt < dist[v]){
+                  dist[v]  = dist[u] + wt;
+              }
+      }
+    
+    }
+    
+    for(int arr[] : edges){
+         int u = arr[0];
+         int v = arr[1];
+         int wt = arr[2];
+               
+         if(dist[u] !=(int) 1e8 && dist[u] + wt < dist[v]){
+              return 1;
+         }
+    }
+    
+    return 0;
+ }
+}
