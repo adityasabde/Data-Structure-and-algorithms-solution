@@ -1,0 +1,76 @@
+Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent. Return the answer in any order.
+
+A mapping of digits to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
+
+
+ 
+
+Example 1:
+
+Input: digits = "23"
+Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
+Example 2:
+
+Input: digits = ""
+Output: []
+Example 3:
+
+Input: digits = "2"
+Output: ["a","b","c"]
+ 
+
+Constraints:
+
+0 <= digits.length <= 4
+digits[i] is a digit in the range ['2', '9'].
+
+
+
+class Solution {
+    List<String> ans = new ArrayList<>();
+    public List<String> letterCombinations(String digits) {
+        ArrayList<ArrayList<Character>> arr = new ArrayList<>();
+        
+        for(int i = 0 ; i<=9 ; i++){
+            arr.add(new ArrayList<Character>());
+        }   
+        int j = 0;
+        int count =1;
+        for(int i =2; i<=9;i++){
+            if( i == 7 || i == 9){
+                for(int k = 0 ;k<=3 ;k++){
+                    arr.get(i).add((char)('a' + j));
+                    j++;
+                }
+                continue;
+            }
+
+            for(int k = 0 ;k<3 ;k++){
+                arr.get(i).add((char)('a' + j));
+                j++;
+            }
+        }
+
+        
+      
+      System.out.println(arr);
+        if(digits.length() == 0)return ans;
+        dfs(digits , 0 ,arr , "");
+       return ans;
+    }
+
+    void dfs(String digits , int i ,   ArrayList<ArrayList<Character>> arr , String str ){
+
+        if(i == digits.length()){
+            ans.add(str);
+            return;
+        }
+        String sample = "";
+        sample += digits.charAt(i); 
+        int num = Integer.parseInt(sample);
+        for(int j = 0 ; j < arr.get(num).size()  ;j++){
+            dfs(digits , i +1 , arr , str + arr.get(num).get(j));
+        }
+
+    }
+}
