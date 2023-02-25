@@ -1,0 +1,87 @@
+A special compression mechanism can arbitrarily delete 0 or more characters and replace them with the deleted character count.
+Given two strings, S and T where S is a normal string and T is a compressed string, determine if the compressed string  T is valid for the plaintext string S. 
+
+
+Example 1:
+
+Input:
+S = "GEEKSFORGEEKS"
+T = "G7G3S"
+Output:
+1
+Explanation:
+We can clearly see that T is a valid 
+compressed string for S.
+
+Example 2:
+
+Input:
+S = "DFS"
+T = "D1D"
+Output :
+0
+Explanation:
+T is not a valid compressed string.
+
+Your Task:  
+You don't need to read input or print anything. Your task is to complete the function checkCompressed() which takes 2 strings S and T as input parameters and returns integer 1 if T is a valid compression of S and 0 otherwise.
+
+
+
+
+
+//User function Template for Java
+
+
+// we are just converting the S string into the T and finally check wheather both String are equal or differnt
+
+class Solution {
+    static int checkCompressed(String S, String T) {
+        int tl = T.length();
+        int sl = S.length();
+        
+        
+        String ans = "";
+        
+        int k = 0;
+        int i = 0;
+        while(i < tl ){
+            if(T.charAt(i) >= 'A' && T.charAt(i) <=  'Z'){
+                ans += S.charAt(k);
+                k++;
+            }
+            else{
+                int j = i;
+                int num = 0;
+                while(j<tl && Character.isDigit(T.charAt(j))){
+                    if(num == 0){
+                        num += Character.getNumericValue(T.charAt(j));
+                     
+                    }
+                    else{
+                        num = num *10 + Character.getNumericValue(T.charAt(j));
+                    }
+                    j++;
+                }
+                ans += Integer.toString(num);
+                i = j-1;
+                if(k+num-1 >= sl){
+                    return 0;
+                }
+                k = k + num ;
+            }
+          i++;
+        }
+        
+        while(i< tl){
+            ans += S.charAt(k);
+            k++;
+            i++;
+        }
+
+        if(ans.equals(T)){
+            return 1;
+        }
+        return 0;
+    }
+}
