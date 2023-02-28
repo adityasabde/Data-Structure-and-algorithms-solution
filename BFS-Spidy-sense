@@ -1,0 +1,71 @@
+https://practice.geeksforgeeks.org/contest/gfg-weekly-coding-contest-91/problems/#
+
+
+
+
+
+class Pair{
+    int x;
+    int  y;
+    Pair(int x , int y){
+        this.x = x;
+        this.y = y;
+    }
+}
+class Solution{
+    
+    int dx[] = {0 , 1, 0, -1};
+    int dy[] = {1 , 0, -1, 0};
+    boolean issafe(int i , int j , int n , int m){
+        if(i<n && j<m && i>=0 && j>=0)return true;
+        return false;
+    }
+    
+    public int[][] shortestDistanceFromTheBomb(char b[][],
+    int n, int m){
+        Queue<Pair> q = new LinkedList<>();
+        
+       int dist[][] = new int[n][m];
+       
+       for(int i = 0 ;i<n ;i++){
+           Arrays.fill(dist[i] , (int)1e9); 
+       }
+       
+       for(int i =0 ;i<n;i++){
+           for(int j =0 ;j<m;j++){
+               if(b[i][j] == 'B'){
+                   q.add(new Pair(i,j));
+                   dist[i][j] = 0;
+               }
+           }
+       }
+       
+       while(!q.isEmpty()){
+           Pair z = q.poll();
+           int x = z.x;
+           int y = z.y;
+           
+           for(int i =0 ;i<4;i++){
+               int nr = x + dx[i];
+               int nc = y + dy[i];
+               
+               if(issafe(nr , nc , n ,m) && b[nr][nc] != 'W'
+               && dist[nr][nc] > dist[x][y] +1 ){
+                    dist[nr][nc] = dist[x][y] +1;
+                    q.add(new Pair(nr ,nc));
+               }
+           }
+       }
+       
+       for(int i =0 ;i<n;i++){
+           for(int j = 0 ;j<m;j++){
+               if(dist[i][j] == (int)1e9){
+                   dist[i][j] = -1;
+               }
+           }
+       }
+       
+       return dist;
+    }
+    
+}
