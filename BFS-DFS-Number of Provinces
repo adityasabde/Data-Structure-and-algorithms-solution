@@ -1,0 +1,87 @@
+There are n cities. Some of them are connected, while some are not. If city a is connected directly with city b, and city b is connected directly with city c, then city a is connected indirectly with city c.
+
+A province is a group of directly or indirectly connected cities and no other cities outside of the group.
+
+You are given an n x n matrix isConnected where isConnected[i][j] = 1 if the ith city and the jth city are directly connected, and isConnected[i][j] = 0 otherwise.
+
+Return the total number of provinces.
+
+ 
+
+Example 1:
+
+
+Input: isConnected = [[1,1,0],[1,1,0],[0,0,1]]
+Output: 2
+Example 2:
+
+
+Input: isConnected = [[1,0,0],[0,1,0],[0,0,1]]
+Output: 3
+ 
+
+Constraints:
+
+1 <= n <= 200
+n == isConnected.length
+n == isConnected[i].length
+isConnected[i][j] is 1 or 0.
+isConnected[i][i] == 1
+isConnected[i][j] == isConnected[j][i]
+
+
+
+class Pair{
+    int x;
+    int y;
+    Pair(int x ,int y){
+        this.x = x;
+        this.y = y;
+    }
+}
+class Solution {
+    public int findCircleNum(int[][] c) {
+        boolean visited[] = new boolean[c.length];
+        int count = 0;
+
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+
+        for(int i = 0 ; i<c.length ;i++){
+            adj.add(new ArrayList<>());
+        }
+
+        for(int i =0 ;i<c.length ;i++){
+            for(int j = 0 ;j<c[0].length ;j++){
+                if(c[i][j] == 1 && i!= j){
+                    adj.get(i).add(j);
+                }
+            }
+        }
+        System.out.println(adj);
+        for(int i = 0 ;i<adj.size() ; i++){
+                if(!visited[i]){
+                    bfs(c , i , visited , adj);
+                    count++;
+                }
+            }
+        return count;
+    }
+    
+    public void bfs(int arr[][] , int num, boolean visited[], ArrayList<ArrayList<Integer>> adj )  {
+        Queue<Integer> q = new LinkedList<>();
+        q.add(num);
+        while(!q.isEmpty()){
+            int z = q.poll();
+            
+            visited[z] = true;
+            for(int i = 0 ;i<adj.get(z).size();i++){
+                if(!visited[adj.get(z).get(i)]){
+                    q.add(adj.get(z).get(i));
+                }
+            }
+        }
+
+        return;
+    }
+
+}
