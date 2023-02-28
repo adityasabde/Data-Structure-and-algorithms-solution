@@ -1,0 +1,105 @@
+You are given an n x n binary matrix grid where 1 represents land and 0 represents water.
+
+An island is a 4-directionally connected group of 1's not connected to any other 1's. There are exactly two islands in grid.
+
+You may change 0's to 1's to connect the two islands to form one island.
+
+Return the smallest number of 0's you must flip to connect the two islands.
+
+ 
+
+Example 1:
+
+Input: grid = [[0,1],[1,0]]
+Output: 1
+Example 2:
+
+Input: grid = [[0,1,0],[0,0,0],[0,0,1]]
+Output: 2
+Example 3:
+
+Input: grid = [[1,1,1,1,1],[1,0,0,0,1],[1,0,1,0,1],[1,0,0,0,1],[1,1,1,1,1]]
+Output: 1
+ 
+
+Constraints:
+
+n == grid.length == grid[i].length
+2 <= n <= 100
+grid[i][j] is either 0 or 1.
+There are exactly two islands in grid.
+Accepted
+123.2K
+Submissions
+227K
+Acceptance Rate
+54.3%
+
+
+
+
+
+
+
+
+
+class Solution {
+    public int shortestBridge(int[][] grid) {
+        ArrayList<int[]> visitedA = new ArrayList<>();
+        ArrayList<int[]> visitedB = new ArrayList<>();
+
+        int count = 0;
+        for(int i =0 ;i<grid.length;i++){
+            for(int j = 0;j<grid[0].length;j++){
+                if(grid[i][j] == 1){
+                    count++;
+                    if(count == 1){
+                        sameisland(visitedA , grid , i , j);   
+                    }
+                    else if(count == 2){
+                        sameisland(visitedB, grid , i , j);
+                    }
+                }
+            }
+        }
+        System.out.println(visitedA.get(0)[0]);
+        System.out.println(visitedA.get(0)[1]);
+         System.out.println(visitedB.get(0)[0]);
+        System.out.println(visitedB.get(0)[1]);
+
+        // shortest distance kadha bao
+        int dist = Integer.MAX_VALUE;
+        for(int i =0 ;i<visitedA.size();i++){
+            for(int j =0 ;j<visitedB.size() ;j++){
+
+                int ans = Math.abs(visitedA.get(i)[0] - visitedB.get(j)[0] ) + Math.abs(visitedA.get(i)[1] - visitedB.get(j)[1] ) -1 ;
+               
+               if(dist > ans){
+                   dist = ans;
+               }
+
+            }
+        }
+        return dist;
+    }
+
+    void sameisland(ArrayList<int[]> visited, int grid[][] , int i , int j){
+        if(i<0 || j<0 || i>=grid.length || j>=grid[0].length || grid[i][j] == 0){
+            return ;
+        }
+        int arr[] = new int [2];
+        arr[0] = i;
+        arr[1] = j;
+        visited.add(arr);
+        grid[i][j] = 0;
+         int dx [] = {0 , 1,  0 , -1};
+         int dy [] = {1 , 0, -1, 0};
+
+         for(int k=0 ;k<4;k++){
+             int nr = i + dx[k];
+             int nc = j + dy[k];
+             sameisland(visited , grid , nr, nc );
+         } 
+     return;  
+    }
+}
