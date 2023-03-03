@@ -1,0 +1,194 @@
+Given a directed graph and two vertices ‘u’ and ‘v’ in it. Find the number of possible walks from ‘u’ to ‘v’ with exactly k edges on the walk modulo 109+7.
+
+Note : There can be a cycle in the graph and an edge can be travelled multiple times.
+
+Example 1:
+
+Input 1: graph = {{0,1,1,1},{0,0,0,1}, 
+{0,0,0,1}, {0,0,0,0}}, u = 0, v = 3, k = 2
+Output: 2
+Explanation: Let source ‘u’ be vertex 0, 
+destination ‘v’ be 3 and k be 2. The output 
+should be 2 as there are two walk from 0 to 
+3 with exactly 2 edges. The walks are {0, 2, 3}
+and {0, 1, 3}.
+
+Your Task:
+You don't need to read or print anything. Your task is to complete the function MinimumWalk() which takes graph, u, v and k as input parameter and returns total possible paths from u to v using exactly k edges modulo 109+7.
+Note: In graph, if graph[i][j] = 1, it means there is an directed edge from vertex i to j.
+ 
+
+Expected Time Complexity: O(n3)
+Expected Space Complexity: O(n3)
+
+
+
+
+
+
+
+
+//User function Template for Java
+
+// class Solution
+// {
+//     public int MinimumWalk(int[][] graph, int u, int v, int k)
+//     {
+//          int mod = 1000000007;
+
+//         if(k == 0){
+
+//             if(u == v) return 1;
+
+//             return 0;
+
+//         }
+//           if(k < 0) return 0;
+//         if(u == v) return 0;
+//         Map<Integer , ArrayList<Integer>> map = new HashMap<>();
+        
+//         for(int i =0 ;i<graph.length ;i++){
+//             ArrayList<Integer> arr = new ArrayList<>();
+//             for(int j = 0 ;j<graph[0].length;j++){
+//                 if(graph[i][j] == 1){
+//                     arr.add(j);
+//                 }
+//             }
+//             map.put(i , arr);
+//         }
+        
+//         int count =0;
+        
+//         ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+        
+//         dfs(ans , map , new ArrayList<>() , u , v,new boolean[map.size()]);
+//         System.out.println(ans);
+        
+//         for(ArrayList<Integer> a : ans){
+//             if(a.size() == k){
+//                 count++;
+//             }
+//         }
+//         return count;
+//     }
+    
+//     void dfs(ArrayList<ArrayList<Integer>> ans , Map<Integer , ArrayList<Integer>> map ,
+//     ArrayList<Integer> arr , int u , int v , boolean visited[]){
+//           if(visited[u]){
+//             return;
+//         }
+//         arr.add(u);
+//         if(u == v){
+//             ans.add(arr);
+//             return;
+//         }
+        
+//         visited[u] = true;
+//         ArrayList<Integer> a = map.get(u);
+//         if(a == null )return;
+//         for(int num : a){
+           
+//                 dfs(ans ,map , arr , num , v , visited);
+            
+//         }
+//         visited[u] = false;
+//     }
+// }
+
+
+
+class Solution
+
+{
+
+    public int fun(int node, int destination, int K,
+
+    ArrayList<ArrayList<Integer>> adj, int [][] dp){
+
+        int mod = 1000000007;
+
+        if(K == 0){
+
+            if(node == destination) return 1;
+
+            return 0;
+
+        }
+
+        if(K < 0) return 0;
+
+        if(dp[node][K] != -1) return dp[node][K];
+
+        int ans = 0;
+
+        for(Integer elem : adj.get(node)){
+
+            ans =  ((ans % mod) + (fun(elem, destination, K-1, adj, dp)%mod))%mod;
+
+        }
+
+        return dp[node][K] = (int)ans;
+
+    }
+
+    public int MinimumWalk(int[][] graph, int u, int v, int k)
+
+    {
+
+        
+
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+
+        for(int i=0; i< graph.length; i++) adj.add(new ArrayList<>());
+
+        for(int i=0; i< graph.length; i++){
+
+            for(int j=0; j< graph[0].length; j++){
+
+                if(graph[i][j] == 1)
+
+                adj.get(i).add(j);
+
+            }
+
+        }
+
+        int [][] dp = new int[graph.length][k+1];
+
+        for(int i=0; i< dp.length; i++){
+
+            for(int j=0; j < dp[0].length; j++) dp[i][j] = -1;
+
+        }
+
+        return fun(u, v, k, adj, dp);
+
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
