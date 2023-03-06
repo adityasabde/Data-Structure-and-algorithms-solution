@@ -1,0 +1,49 @@
+Given a string of S as input. Your task is to write a program to remove or delete the minimum number of characters from the string so that the resultant string is a palindrome.
+Note: The order of characters in the string should be maintained.
+
+Example 1:
+
+Input: S = "aebcbda"
+Output: 2
+Explanation: Remove characters 'e' 
+and 'd'.
+Example 2:
+
+Input: S = "geeksforgeeks"
+Output: 8
+Explanation: One of the possible result
+string can be "eefee", so answer is 
+13 - 5 = 8.
+Your Task:  
+You don't need to read input or print anything. Your task is to complete the function minimumNumberOfDeletions() which takes the string S as inputs and returns the minimum number of deletions required to convert S into a pallindrome.
+
+Expected Time Complexity: O(|S|2)
+Expected Auxiliary Space: O(|S|2)
+
+
+
+
+
+
+//User function Template for Java
+class Solution{
+    static int minimumNumberOfDeletions(String s, int i, int j, int[][] dp) {
+        if(i >= j)
+            return dp[i][j] = 0;
+        if(dp[i][j] != -1)
+            return dp[i][j];
+        
+        if(s.charAt(i) == s.charAt(j))
+            return dp[i][j] = minimumNumberOfDeletions(s, i + 1, j - 1, dp);
+        else
+            return dp[i][j] = Math.min(minimumNumberOfDeletions(s, i + 1, j, dp),
+            minimumNumberOfDeletions(s, i, j - 1, dp)) + 1;
+    }
+    static int minimumNumberOfDeletions(String S) {
+        int n = S.length();
+        int[][] dp = new int[n + 1][n + 1];
+        for(int[] d : dp)
+            Arrays.fill(d, -1);
+        return minimumNumberOfDeletions(S, 0, n - 1, dp);
+    }
+}
