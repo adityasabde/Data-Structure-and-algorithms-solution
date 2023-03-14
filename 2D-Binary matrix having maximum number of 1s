@@ -1,0 +1,24 @@
+//User function Template for Java
+
+class Solution {
+    public int[] findMaxRow(int mat[][], int N) {
+        int max = 0;
+        int index = 0;
+        for(int i = 0 ;i<N ;i++){
+            int count  = 0;
+            for(int j = 0 ; j< mat[0].length ; j++){
+                if(mat[i][j] == 1){
+                    count++;
+                }
+            }
+            if(max < count){
+                index = i;
+                max = count;
+            }
+        }
+        int ans[] = new int[2];
+        ans[0] = index;
+        ans[1] = max;
+        return ans;
+    }
+};
