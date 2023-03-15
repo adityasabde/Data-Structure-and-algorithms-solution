@@ -1,0 +1,98 @@
+Given two strings s1 and s2, The task is to convert s1 into a palindrome such that s1 contain s2 as a substring in a minimum number of operation.
+In a single operation, we can replace any word of s1 with any character.
+
+Note: If it is not possible to convert s1 such that it is a palindrome as well as contains substring of s2, then return -1.
+
+Example 1:
+
+Input:
+s1="abaa" s2="bb"
+Output: 1
+Explanation:
+we can replace s1[2]='a' with 'b'.
+So the new s1 will be like "abba",
+having s2 as a substring.
+Example 2:
+
+Input:
+s1="abbd" s2="mr"
+Output: 4
+Explanation:
+1st: s1="mrbd" --> 2 operations (this is the 
+minimum operation to make s2 a substring of s1) 
+2nd: s1="mrrm" --> 2 operations 
+(this is the minimum operation to make s1 palindrome)
+Your Task: 
+You don't need to read input or print anything. Complete the function specialPalindrome() which takes the two strings s1 and s2 as input parameters. Return the minimum number of operations needs to convert s1 such that it is a palindrome and having s2 as a substring in s1.
+
+Expected Time Complexity: O(N*M) [N: size of s1 and M: size of s2]
+Expected Auxiliary Space: O(N)
+
+Constraints:
+1 ≤ |s2| ≤ |s1| ≤  1000
+
+V
+
+
+
+
+
+
+
+//User function Template for Java
+
+
+class Solution{
+   public  static int specialPalindrome(String a, String b){
+       //Code Here
+       // Calculate the length of strings a and b
+        int n1 = a.length(), n2 = b.length();
+        // Initialize the answer to be the maximum integer value
+        int ans = Integer.MAX_VALUE;
+        // Iterate over all possible substrings of a that are of the same length as b
+        for (int i = 0; i <= n1 - n2; i++) {
+        // Initialize the cost of changing the substring to be zero
+        int costs = 0;
+        // Compare each character of the substring to the corresponding character of b
+        for (int k = 0; k < n2; k++) {
+        if (a.charAt(i+k) != b.charAt(k)) {
+        costs += 1;
+        }
+        }
+        // Initialize two pointers at the start and end of the substring
+        int leftPtr = 0, rightPtr = n1 - 1;
+        // Move the pointers towards the center, comparing characters along the way
+        while (leftPtr < rightPtr) {
+        // If the characters at the current pointers don't match and they are outside the substring,
+        // there is no way to make the palindrome special, so we break out of the loop
+        if (i <= leftPtr && leftPtr < i+n2 && i <= rightPtr && rightPtr < i+n2 && b.charAt(leftPtr-i) != b.charAt(rightPtr-i)) {
+        break;
+        }
+        // If the characters at the current pointers are within the substring,
+        // use the corresponding characters in b instead of a for the comparison
+        char left = a.charAt(leftPtr);
+        char right = a.charAt(rightPtr);
+        if (i <= leftPtr && leftPtr < i+n2) {
+        left = b.charAt(leftPtr-i);
+        }
+        if (i <= rightPtr && rightPtr < i+n2) {
+        right = b.charAt(rightPtr-i);
+        }
+        // If the characters at the current pointers don't match, increment the cost
+        if (left != right) {
+        costs += 1;
+        }
+        // Move the pointers closer to the center
+        leftPtr += 1;
+        rightPtr -= 1;
+        }
+        // If the pointers have crossed each other (i.e., the substring is a palindrome),
+        // update the answer if the current cost is lower
+        if (leftPtr >= rightPtr) {
+        ans = Math.min(ans, costs);
+        }
+        }
+        // If no special palindrome can be made, return -1, otherwise return the minimum cost
+        return ans == Integer.MAX_VALUE ? -1 : ans;
+    }
+}
