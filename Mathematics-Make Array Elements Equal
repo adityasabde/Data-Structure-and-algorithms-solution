@@ -1,0 +1,17 @@
+
+// User function Template for Java
+
+class Solution {
+    public long minOperations(int N) {
+        long ans;
+        long n = N/2;
+    
+        if(N%2==1){
+            ans= n*(n+1);
+        }
+        else{
+            ans= n*n;
+        }
+        return ans;
+    }
+}
