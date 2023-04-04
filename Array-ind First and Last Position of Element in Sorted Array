@@ -1,0 +1,56 @@
+
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+         int [] ans = new int[2];
+        
+         int  s =0 ;
+         int  e =nums.length -1;
+         int idx1 = 0;
+         int idx2 = 0;
+
+         while(s <= e){
+             int mid = (s + e) / 2;
+
+             if(nums[mid] <= target){
+                 idx1 = mid;
+                 s = mid + 1;                 
+             }
+             else{
+                 e = mid -1;
+             }
+         }
+    
+        s = 0;
+        e = nums.length -1; 
+        while(s <= e){
+             int mid = (s + e) / 2;
+
+             if(nums[mid] < target){
+                 s = mid + 1;                 
+             }
+             else{
+                 idx2 = mid;
+                 e = mid -1;
+             }
+         }
+
+        if(nums.length == 0){
+            ans[0] = -1;
+            ans[1] = -1;
+            return ans;
+        }
+        if(nums[idx1] == target){
+            ans[1] = idx1;
+        }
+        else{
+            ans[1] = -1;
+        }
+        if(nums[idx2] == target){
+            ans[0] = idx2;
+        }
+        else{
+            ans[0] = -1;
+        }
+          return ans;
+    }
+}
