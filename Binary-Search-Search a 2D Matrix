@@ -1,0 +1,35 @@
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int i = 0 ;
+        while( i < matrix.length ){
+            if(matrix[i][matrix[0].length -1] < target){
+                i++;
+            }
+            else{
+                break;
+            }
+        }
+        if(i == matrix.length){
+            return false;
+        }
+        
+        int s = 0;
+        int e = matrix[0].length -1;
+
+        while(s <= e){
+            int mid = ( s + e )/2;
+
+            if(matrix[i][mid] == target){
+                return true;
+            }
+            if(matrix[i][mid] < target){
+                s = mid +1 ;
+            }
+            else{
+                e = mid - 1;
+            }
+        }
+
+        return false;
+    }
+}
