@@ -1,0 +1,63 @@
+class TimeMap {
+    
+    class Pair{
+        int index ;
+        String value ;
+        Pair(int index , String value){
+            this.index = index;
+            this.value = value;
+        }
+    }
+
+    HashMap<String , List<Pair>> map ;
+    public TimeMap() {
+        map = new HashMap<>();
+    }
+    
+    public void set(String key, String value, int timestamp) {
+        if( map.containsKey(key)){
+            map.get(key).add(new Pair(timestamp , value));
+        }
+        else{
+            List<Pair> arr = new ArrayList<>();
+            arr.add(new Pair(timestamp , value));
+            map.put(key , arr);
+        }        
+      
+    }
+    
+    public String get(String key, int timestamp) {
+        
+        if(map.containsKey(key)){
+            List<Pair> arr = map.get(key);
+            int s = 0;
+            int r = arr.size() - 1 ;
+            String str ="";
+            while(s <= r){
+                int mid = (s + r)/2;
+
+                if(arr.get(mid).index <= timestamp){
+                    str = arr.get(mid).value;
+                    s = mid +1;
+                }
+                else{
+                    r = mid -1;
+                }
+            }
+            if(str.length() == 0){
+                return "";
+            }
+            return str;
+        }
+        
+     
+        return "";
+    }
+}
+
+/**
+ * Your TimeMap object will be instantiated and called as such:
+ * TimeMap obj = new TimeMap();
+ * obj.set(key,value,timestamp);
+ * String param_2 = obj.get(key,timestamp);
+ */
