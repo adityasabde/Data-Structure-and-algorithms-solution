@@ -1,0 +1,22 @@
+
+
+
+
+
+class Solution {
+    public static int minimumInteger(int N, int[] A) {
+        long sum = 0;
+        Arrays.sort(A);
+        for(int i= 0 ;i<N ;i++){
+            sum += A[i];
+        }
+        
+        for(int i = 0 ;i<N;i++){
+            if((long)N*(long)A[i] >= sum){
+                return A[i];
+            }
+        }
+        return -1;
+    }
+}
+        
