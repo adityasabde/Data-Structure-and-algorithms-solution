@@ -1,0 +1,10 @@
+
+
+
+Arrays.sort(a);
+       int min=a[n-1]-a[0];
+       for(int i=n-1;i>=1;i--){
+           min=Math.min(min,Math.max(a[n-1]-k,a[i-1]+k)-Math.min(a[i]-k,a[0]+k));
+       }
+       return min;
+
