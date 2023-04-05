@@ -1,0 +1,38 @@
+class Solution {
+  private boolean isvalid(int mid , int [] nums){
+    long sum = 0;
+    for(int i =0 ;i<nums.length ;i++){
+      sum +=nums[i];
+      if(sum  > (long) mid * (i+1) ) return false;
+    }
+      return true;
+  }
+
+    public int minimizeArrayValue(int[] nums) {
+        int s = 0;
+        int e = Arrays.stream(nums).max().getAsInt();
+        int ans = 0;
+        while( s <= e){
+          int mid = ( s + e ) /2;
+          if(isvalid(mid , nums)){
+            ans = mid;
+            e = mid -1;
+          }
+          else{
+            s = mid +1;
+          }
+        }
+        return ans;
+    }
+
+}
+
+// second approch
+
+// long res = 0;
+//       long sum = 0;
+//       for(int i =0 ;i<nums.length ; i++){
+//            sum += (long)nums[i];
+//             res = (long)Math.max(res , (sum + i)/ ( i + 1));
+//       }  
+//     return (int)res;
