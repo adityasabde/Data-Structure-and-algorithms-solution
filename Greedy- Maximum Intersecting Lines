@@ -1,0 +1,87 @@
+N horizontal line segments are arranged on the X-axis of a 2D plane. The start and end point of each line segment is given in a Nx2 matrix lines[ ][ ]. Your task is to find the maximum number of intersections possible of any vertical line with the given N line segments.
+
+Example 1:
+
+Input:
+N = 4
+lines[][] = {{1,3}, {2,3}, {1,2}, {4,4}}
+Output:
+3
+Explanation:
+A vertical line at X = 2 passes through 
+{1,3}, {2,3}, {1,2}, ie three of the 
+given horizontal lines.
+Example 2:
+
+Input: 
+N = 3
+lines[][] = {{1, 3}, {5, 6}, {3,4}}
+Output:
+2
+Explanation: 
+A vertical line at X = 3 passes through 
+two of the given horizontal lines which 
+is the maximum possible.
+
+
+
+
+
+
+// User function Template for Java
+
+class Solution {
+    public int maxIntersections(int[][] lines, int N) {
+    
+    Approch 1************************************************************
+    
+        // HashMap<Integer , Integer> map = new HashMap<>();
+        
+        // for(int i =0 ;i<N;i++){
+        //     int start = Math.min(lines[i][0] , lines[i][1]);
+        //     int end = Math.max(lines[i][0] , lines[i][1]);
+            
+        //     for(int j = start ; j<=end ; j++){
+        //         map.put(j , map.getOrDefault(j , 0) + 1);
+        //     }
+        // }
+        // // System.out.println(map);
+        // int max = 0;
+        // for(Map.Entry<Integer ,Integer> entry : map.entrySet()){
+        //     max = Math.max(max , entry.getValue());
+        // }
+        
+        // return max;
+     
+     Approch 2 ******************************************************************
+     
+        TreeMap<Integer , Integer> map = new TreeMap<>();
+        
+        for(int i =0 ;i<N;i++){
+             int start =lines[i][0];
+            int end = lines[i][1];
+            
+            if(map.containsKey(start)){
+                map.put(start , map.get(start) + 1);
+            }
+            else{
+                map.put(start , 1);
+            }
+            
+             if(map.containsKey(end + 1)){
+                map.put(end + 1  , map.get(end +1) - 1);
+            }
+            else{
+                map.put(end + 1 , -1);
+            }
+        }
+        
+        int max = 0;
+        int count = 0;
+        for(Map.Entry<Integer ,Integer> entry : map.entrySet()){
+            count += entry.getValue();
+            max = Math.max(max , count);
+        }
+        return max;
+    }
+}
