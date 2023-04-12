@@ -1,0 +1,27 @@
+
+class Solution {
+    public static int dominantPairs(int n, int[] arr) {
+        // Arrays.sort(arr);
+        
+       Arrays.sort(arr, n / 2, n);
+		Arrays.sort(arr, 0, n / 2);
+		int count = 0;
+		int finalCount = 0;
+		int i = 0;
+		int j = n / 2;
+		boolean flag = false;
+		for (i = 0; i < n / 2; i++) {
+			while (j < n && arr[i] >= (5 * arr[j])) {
+				count++;
+				j++;
+				flag = true;
+			}
+			if (flag) {
+				finalCount = finalCount + count;
+			}
+		}
+
+		return finalCount;
+    }
+}
+        
