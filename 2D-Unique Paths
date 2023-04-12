@@ -1,0 +1,36 @@
+class Solution {
+    public int uniquePaths(int m, int n) {
+        // boolean visited[][] = new boolean[m][n];
+        int dp[][] = new int [m+1][n+1];
+
+        int sx = 0 ;
+        int sy = 0 ;
+        for(int i = 0 ;i<dp.length-1;i++){
+            Arrays.fill(dp[i] ,-1);
+        }
+        return dfs(sx , sy , m , n , dp);
+
+    }
+
+    public int dfs(int sx , int sy , int m , int n , int [][]dp){
+        if(sx == m-1 && sy== n-1){
+            return 1;
+        }
+
+        if(sx > m || sy > n){
+            return 0;
+        }
+        
+        if(dp[sx][sy] != -1){
+            return dp[sx][sy];
+        }
+
+        int ans= 0 ;
+
+        ans += dfs(sx + 1 , sy , m , n , dp);
+        ans += dfs(sx , sy+1 , m , n , dp);
+
+        return dp[sx][sy] = ans;
+
+    }
+}
