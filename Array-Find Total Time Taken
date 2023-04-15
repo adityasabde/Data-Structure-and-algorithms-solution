@@ -1,0 +1,32 @@
+
+//User function Template for Java
+
+class Solution
+{
+    public static long totalTime(int n,int arr[],int time[])
+    {
+       Long[] arr1 = new Long[n];
+        long ans = 0;
+        arr1[arr[0]-1] = 0l;
+        
+        for(int i=1; i<n; i++){
+            
+            if(arr1[arr[i]-1] == null){
+                
+                ans++;
+                
+            }
+            else{
+            
+                ans = Math.max( arr1[arr[i]-1]+time[arr[i]-1], ans+1 );
+                
+            }
+            
+            arr1[arr[i]-1] = ans;
+            
+        }
+        
+        return ans;
+       
+    }
+}
