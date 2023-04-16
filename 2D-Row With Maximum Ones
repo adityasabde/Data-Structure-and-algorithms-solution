@@ -1,0 +1,40 @@
+class Solution {
+    public int[] rowAndMaximumOnes(int[][] mat) {
+        ArrayList<Integer> arr = new ArrayList<>();
+        int max = 0;
+        
+        for(int i =0 ;i<mat.length ;i++){
+            int count = 0;
+            for(int j =0 ;j<mat[0].length ;j++){
+                if(mat[i][j] == 1){
+                    count++;
+                }
+            }
+            
+            max = Math.max(count , max);
+        }
+        
+        for(int i =0 ;i<mat.length ;i++){
+            int count = 0;
+            for(int j =0 ;j<mat[0].length ;j++){
+                if(mat[i][j] == 1){
+                    count++;
+                }
+            }
+            
+            if(max == count){
+                arr.add(i);
+                arr.add(max);
+                break;
+            }
+        }
+        
+        int ans [] = new int[arr.size()];
+        
+        for(int i =0 ;i<arr.size();i++){
+            ans[i] = arr.get(i);
+        }
+        
+        return ans;
+    }
+}
