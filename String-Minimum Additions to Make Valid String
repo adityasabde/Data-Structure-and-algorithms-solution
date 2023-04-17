@@ -1,0 +1,40 @@
+class Solution {
+    public int addMinimum(String word) {
+        if(word.length() == 0){
+            return 3;
+        }
+        if(word.length() == 1){
+            return 2;
+        }
+        int i =0 ;
+   
+        
+        ArrayList<Character> arr = new ArrayList<>();
+        int  k =0;
+        while(i < word.length() ){
+            if(word.charAt(i) !=(char)('a' + k)){
+                arr.add((char)('a' + k));
+            }    
+            else
+            {
+                arr.add(word.charAt(i));
+                i++;
+            }
+            k++;
+            if(k > 2){
+                k = 0;
+            }
+        }
+        
+        if(arr.get(arr.size() -1) == 'a' ){
+            arr.add('b');
+            arr.add('c');
+        }
+        if(arr.get(arr.size() -1) == 'b'){
+            arr.add('c');
+        }
+        
+        int count = Math.abs(word.length() - arr.size());
+        return count;
+    }
+}
