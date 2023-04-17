@@ -1,0 +1,40 @@
+
+class Solution
+{
+    //Function to find the maximum profit and the number of jobs done.
+    int[] JobScheduling(Job arr[], int n)
+    {
+        Arrays.sort(arr , (a,b)-> b.profit - a.profit );
+        
+       Job [] a = new Job[n];
+       
+       Arrays.fill(a ,new Job(-1 , -1, 0));
+       
+       int count  =0 ;
+       int sum = 0;
+       
+       for(int i =0 ;i<n;i++){
+           int e = arr[i].deadline - 1;
+           
+           while(e >=0 && a[e].deadline != -1){
+               e--;
+           }
+        //   System.out.println(e);
+           if(e >= 0){
+               a[e] = arr[i];
+           }
+       }
+       
+       for(int i =0 ;i<n;i++){
+          if(a[i].deadline != -1){
+            count++;  
+           sum += a[i].profit;
+          }
+       }
+       
+       int ans [] = new int[2];
+       ans[0] = count;
+       ans[1] = sum;
+       return ans;
+    }
+}
