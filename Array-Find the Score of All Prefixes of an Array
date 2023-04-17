@@ -1,0 +1,17 @@
+class Solution {
+    public long[] findPrefixScore(int[] nums) {
+        long max[] = new long[nums.length];
+        
+        long ans[] = new long[nums.length];
+        
+        ans[0] = nums[0]  * 2;
+        max[0] = nums[0];
+        for(int i =1 ;i<nums.length ;i++){
+            max[i] = Math.max(max[i-1] , nums[i]);
+            
+            ans[i] = ans[i-1] + max[i] + nums[i];
+        }
+        
+        return ans;
+    }
+}
