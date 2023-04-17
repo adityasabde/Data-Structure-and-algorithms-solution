@@ -1,0 +1,101 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+
+class Solution {
+    HashMap<Integer , Integer> map;
+    public TreeNode replaceValueInTree(TreeNode root) {
+         map = new HashMap<>();
+        TreeNode  y = root;
+        bfs(y);
+        // System.out.println(map);
+        Queue<TreeNode> q = new LinkedList<>();
+        
+        TreeNode dummy = root;
+        
+        q.add( dummy );
+        int level = 0;
+
+        while(! q.isEmpty()){
+            int n = q.size();
+            int i = 0;
+            level++;
+            HashMap<TreeNode , Integer> map1 = new HashMap<>();
+            while(n > i){
+                TreeNode p = q.poll();
+                
+                if(p != null && p.left != null){
+                    map1.put(p , map1.getOrDefault(p , 0) + p.left.val);
+                    q.add(p.left);
+                }
+
+                if(p != null &&  p.right != null){
+                      map1.put(p , map1.getOrDefault(p , 0) + p.right.val);
+                      q.add(p.right);
+                }
+                i++;
+            }
+            // System.out.println(map1);
+            for(Map.Entry<TreeNode , Integer> entry : map1.entrySet()){
+                TreeNode x = entry.getKey();
+
+                if(x.left != null){
+                    int ans = map.getOrDefault(level + 1 , 0) - entry.getValue();
+                    x.left.val = ans < 0 ? 0 : ans;
+                }
+
+               if(x.right != null){
+                   int ans = map.getOrDefault(level + 1 , 0) - entry.getValue();
+                    x.right.val = ans < 0 ? 0 : ans;
+                } 
+            }
+
+        }
+        root.val = 0;
+        return root;
+    }
+    
+    public void bfs(TreeNode root){
+        Queue<TreeNode> q = new LinkedList<>();
+        
+        q.add(root);
+        int level = 0;
+        while(!q.isEmpty()){
+            int n1 = q.size();
+            level++;
+            int sum = 0;
+            int i = 0;
+            while(n1 > i){
+                TreeNode n = q.poll();
+                
+                sum += n.val;
+                if(n.left != null){
+                    q.add(n.left);
+                }
+                
+                if(n.right != null){
+                    q.add(n.right);
+                }
+                i++;
+            }
+            map.put(level , sum);
+            
+        }
+    }
+}
+
+
+
