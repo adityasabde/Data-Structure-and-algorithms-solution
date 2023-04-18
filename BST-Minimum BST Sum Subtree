@@ -1,0 +1,84 @@
+
+/*
+
+Definition for Binary Tree Node
+class Node
+{
+    int data;
+    Node left;
+    Node right;
+
+    Node(int data)
+    {
+        this.data = data;
+        left = null;
+        right = null;
+    }
+}
+*/
+
+class Solution {
+    static int count;
+    static int c;
+    
+    static boolean checkBST(Node root , int minval , int maxval){
+        if(root == null)return true;
+        
+        if(root.data < minval || root.data > maxval){
+            return false;
+        }
+        
+        return checkBST(root.left , minval , root.data - 1) && checkBST(root.right , root.data+1 , maxval);
+    }
+    
+    static int checksum (Node root ){
+        if(root == null){
+            return 0;
+        }
+        
+        if(root.left == null && root.right == null){
+            c++;
+            return root.data;
+        }
+        
+        c++;
+        
+        return root.data + checksum(root.left ) + checksum(root.right );
+    }
+    
+    public static int minSubtreeSumBST(int target, Node root) {
+         count = Integer.MAX_VALUE;
+        func(target ,root);
+        
+        if(count == Integer.MAX_VALUE){
+            return -1;
+        }
+        return count;
+    }
+    
+    public static void func(int target , Node root ){
+        if(root == null){
+            return;
+        }
+        
+        if(root.left == null && root.right == null ){
+            if(root.data == target){
+                count  = 1;
+                return ;
+            }
+        }
+        
+        
+        if(checkBST(root , Integer.MIN_VALUE , Integer.MAX_VALUE)){
+            c = 0;
+           
+            int s = checksum(root);
+            if(s == target){
+                count = Math.min(count , c);
+            }
+        }
+        
+        func(target , root.left);
+        func(target , root.right);
+    }
+}
