@@ -1,0 +1,34 @@
+
+//User function Template for Java
+class Solution 
+{ 
+    boolean wifiRange(int N, String S, int X) 
+    { 
+        boolean visited[] = new boolean[N];
+        
+        for(int i = 0;i<N;i++){
+            if(S.charAt(i) == '1'){
+                visited[i] = true; 
+               
+                 
+                for(int j = i - X ; j<= i+X ;j++){
+                    if(j >=0 && j<N){
+                        visited[j] = true;
+                    }
+                }
+                
+                
+            }
+        }
+        
+        for(int i =0 ;i<visited.length ;i++){
+            if(!visited[i]){
+                return false;
+            }
+        }
+        
+        return true;
+        
+        
+    }
+} 
