@@ -1,0 +1,35 @@
+
+//User function Template for Java
+class Solution
+{
+    public long[] smallerSum(int n,int arr[])
+    {
+        int [] a= new int[n];
+        
+        for(int i =0;i<n;i++){
+            a[i] = arr[i]; 
+        }
+        
+        Arrays.sort(a);
+        HashMap<Integer , Long> map = new HashMap<>();
+         
+         long sum = 0;
+         map.put(a[0] ,(long) 0);
+         sum = a[0];
+         
+        for(int i= 1 ; i<n;i++){
+           if(!map.containsKey(a[i])){
+               map.put(a[i] , sum);
+           }
+           sum += a[i];
+        }
+        long ans[] = new long[n];
+        
+        for(int i =0 ;i<n;i++){
+            ans[i] = map.get(arr[i]);       
+        }
+        
+        return ans;
+        
+    }
+}
