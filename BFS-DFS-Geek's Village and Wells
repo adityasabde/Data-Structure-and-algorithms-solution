@@ -1,0 +1,109 @@
+
+//User function Template for Java
+class Solution
+{
+    
+     Queue<int[]> queue;
+    public int[][] chefAndWells(int n,int m,char c[][])
+    {
+        int [][]arr=new int[n][m];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(c[i][j]=='H' || c[i][j]=='.') arr[i][j]=-1;
+                else if(c[i][j]=='W') arr[i][j]=0;
+                else arr[i][j]=Integer.MAX_VALUE;
+            }
+        }
+        queue=new LinkedList<>();
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(arr[i][j]==0) queue.offer(new int[]{i,j});
+            }
+        }
+        
+        while(!queue.isEmpty()){
+            int count=queue.size();
+            for(int i=0;i<count;i++) updateQueue(queue.poll(),arr);
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(c[i][j]=='N' || c[i][j]=='.') arr[i][j]=0;
+            }
+        }
+        
+        return arr;
+    }
+    
+    void updateQueue(int []water,int [][]arr){
+        int distance=arr[water[0]][water[1]]+2;
+        int []dx={0,1,-1,0};
+        int []dy={-1,0,0,1};
+        for(int i=0;i<4;i++){
+            int x=water[0]+dx[i],y=water[1]+dy[i];
+            if(!inValid(x,y,arr)){
+                arr[x][y]=distance;
+                queue.offer(new int[]{x,y});
+            }
+        }
+    }
+    
+    boolean inValid(int i,int j,int arr[][]){
+        return (i<0 || i==arr.length || j<0 || j==arr[0].length || arr[i][j]!=-1);
+    }
+    
+    // public int[][] chefAndWells(int n,int m,char c[][])
+    // {
+    //     boolean visited[][] = new boolean[n][m];
+    //     int ans[][] = new int [n][m];
+    //     for(int i = 0 ;i<n;i++){
+    //         for(int j =0 ;j<m;j++){
+    //             if(c[i][j] == 'H'){
+    //                 int x =  solve(i , j , c , visited);
+    //                 if(x == -1){
+    //                     ans[i][j] = x;
+    //                 }
+    //                 else{
+    //                     ans[i][j] = 2*x;
+    //                 }
+    //             }
+    //             else{
+    //                 ans[i][j] = 0;
+    //             }
+    //         }
+    //     }
+        
+    //     return ans;
+    // }
+    
+    // public int solve(int i , int j , char c[][] , boolean visited[][]){
+    //     if(i==c.length || j==c[0].length || i<0 || j<0 || c[i][j] == 'N'|| visited[i][j]){
+    //         return -1;
+    //     }
+        
+    //     if(c[i][j] == 'W'){
+    //         return 0;
+    //     }
+    //     visited[i][j] = true;
+        
+    //     int dx[] = {0 ,1, 0 ,-1};
+    //     int dy[] = { 1, 0 ,-1, 0};
+    //     int min = Integer.MAX_VALUE;
+        
+    //     for(int k = 0 ;k<4 ; k++){
+    //         int x = dx[k] + i;
+    //         int y = dy[k] + j;
+    
+    //           int ans = solve(x, y , c , visited);
+    //           if(ans != -1){
+    //              min = Math.min(min , ans);
+    //           }
+    //     }
+    //     visited[i][j] = false;
+        
+    //     if(min == Integer.MAX_VALUE ){
+    //         return -1;
+    //     }
+        
+    //     return 1 + min;
+    // }
+}
