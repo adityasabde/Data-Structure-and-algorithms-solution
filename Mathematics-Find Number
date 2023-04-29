@@ -1,0 +1,15 @@
+class Solution
+{
+    public long findNumber(long N)
+    {
+         long digitShift = 1;
+        long val = 0;
+        while (N > 0) {
+            N--; // adjust for mapping offset
+            val += ((2 * (N % 5)) + 1) * digitShift;
+            N = N / 5;
+            digitShift *= 10;
+        }
+        return val;
+    }
+}
