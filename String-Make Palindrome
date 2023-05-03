@@ -1,0 +1,61 @@
+
+class Solution {
+    public static boolean makePalindrome(int n, String[] arr) {
+        int count = 0;
+        HashSet<String> set = new HashSet<>();
+        
+        for(int i =0 ;i<n;i++){
+            String rev = reverse(arr[i]);
+            // System.out.println(rev +" " + arr[i]);
+            if(set.contains(rev)){
+                set.remove(rev);
+            }
+            else{
+                set.add(arr[i]);
+            }
+        }
+        
+        if(set.size() > 1 ){
+            return false;
+        }
+        
+        if(set.size() == 1  && arr.length % 2 !=0 ){
+            String s = "";
+            for(String x : set){
+                s = x;
+            }
+            int i = 0 ;
+            int j = s.length()-1;
+            // System.out.println(s);
+            while(i<j){
+                if(s.charAt(i) != s.charAt(j)){
+                    return false;
+                } 
+                i++;
+                j--;
+            }
+        }
+        return true;
+    }
+    
+    public static String reverse(String str){
+        int i = 0;
+        int j = str.length() -1;
+        char ch[] = str.toCharArray();
+        while(i<j){
+            char c = ch[i];
+            ch[i] = ch[j];
+            ch[j] = c;
+            
+            i++;
+            j--;
+        }
+        
+        StringBuilder s = new StringBuilder();
+        for(int k = 0 ;k<ch.length;k++){
+            s.append(ch[k]);   
+        }
+        return s.toString();
+    }
+}
+        
