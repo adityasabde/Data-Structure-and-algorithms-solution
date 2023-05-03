@@ -1,0 +1,25 @@
+class Solution {
+    public int arraySign(int[] nums) {
+        int countneg = 0;
+        int countzero = 0;
+        for(int i = 0 ;i<nums.length ;i++){
+            if(nums[i] < 0){
+                countneg++;
+            }
+
+            if(nums[i] == 0){
+                countzero++;
+            }
+        }
+
+        if(countzero > 0){
+            return 0;
+        }
+
+        if(countneg % 2 != 0){
+            return -1;
+        }
+
+        return 1;
+    }
+}
