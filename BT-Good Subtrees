@@ -1,0 +1,39 @@
+
+class Solution
+{
+    static int  count;
+    public static int goodSubtrees(Node root,int k)
+    {
+        count = 0;
+        HashSet<Integer> s = solve(root , k);
+        s.add(root.data);
+         if(s.size() > 0 && s.size() <= k ){
+            // System.out.println(s2);
+            count++;
+        }
+        return count;
+    }
+    
+    public static HashSet<Integer> solve(Node root , int k){
+        if(root == null){
+            return new HashSet<>();
+        }
+        
+        HashSet<Integer> s1 = solve(root.left , k);
+        if(s1.size() > 0 && s1.size() <= k ){
+            // System.out.println(s1);
+            count++;
+        }
+        
+        HashSet<Integer> s2 = solve(root.right , k);
+        if(s2.size() > 0 && s2.size() <= k ){
+            // System.out.println(s2);
+            count++;
+        }
+        
+        s1.addAll(s2);
+        s1.add(root.data);
+        
+        return s1;
+    } 
+}
