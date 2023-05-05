@@ -1,0 +1,43 @@
+class Pair{
+    int i ;
+    char ch;
+    Pair(int i , char ch){
+        this.i = i;
+        this.ch = ch;
+    }
+}
+class Solution {
+    public String predictPartyVictory(String senate) {
+        Queue<Pair> R = new LinkedList<>();
+        Queue<Pair> D = new LinkedList<>();
+
+        for(int i=0 ;i<senate.length() ;i++){
+            if(senate.charAt(i) == 'R'){
+                R.add(new Pair(i , 'R'));
+            }
+            else{
+                D.add(new Pair(i , 'D'));
+            }
+        }
+
+        while(R.size() != 0  && D.size() != 0){
+            Pair x = R.poll();
+            Pair y = D.poll();
+
+            if(x.i < y.i){
+                x.i += senate.length();
+                R.add(new Pair(x.i , 'R'));
+            }
+            else{
+                y.i += senate.length();
+                D.add(new Pair(y.i , 'D'));
+            }
+        }
+
+        if(R.size() >= 1){
+            return "Radiant";     
+        }
+
+        return "Dire";
+    }
+}
