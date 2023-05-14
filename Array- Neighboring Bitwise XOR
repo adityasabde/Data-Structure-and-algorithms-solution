@@ -1,0 +1,28 @@
+class Solution {
+    public boolean doesValidArrayExist(int[] derived) {
+       
+        int n = derived.length;
+        int ans [] = new int [n];
+        ans[0] = 0;
+        for(int i =1 ;i<n;i++){
+            if(derived[i-1] == 0){
+                ans[i] = ans[i-1];
+            }
+            else{
+                if(ans[i-1] == 0){
+                    ans[i] = 1;
+                }
+                else{
+                    ans[i] = 0;
+                }
+            }
+        }
+        
+        
+        if((ans[n-1] ^ ans[0]) == derived[n-1]){
+            return true;
+        }
+        return false;
+        
+    }
+}
