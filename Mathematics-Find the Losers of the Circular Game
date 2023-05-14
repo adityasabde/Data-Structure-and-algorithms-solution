@@ -1,0 +1,41 @@
+class Solution {
+    public int[] circularGameLosers(int n, int k) {
+        boolean[] arr = new boolean[n+1];
+        
+        int i  = 1 ;
+        Arrays.fill(arr , true);
+        int count = 0;
+        int x = 1;
+        
+        while(arr[i]){
+            arr[i] = false;
+            System.out.println(i);
+            i=i+(k *x );
+             System.out.println(i);
+            x++ ;
+            if(i > n){
+                i = i%n;
+                
+                if(i == 0){
+                    i = n;
+                }
+            }
+            System.out.println(i);
+            count++;
+        }
+        
+        if(n <= count){
+            return new int[]{};
+        }
+        
+        int ans[] = new int[n - count];
+        int p = 0;
+        for( i =1 ;i<n+1 ;i++){
+            if(arr[i] == true){
+                ans[p++] = i;
+            }
+        }
+        
+        return ans;
+    }
+}
