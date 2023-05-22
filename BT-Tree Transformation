@@ -1,0 +1,16 @@
+
+class Solution {
+    public static int solve(int N, int[] p) {
+          int cnt=0;
+        Set<Integer> hs = new HashSet<>();
+        for(int i=0;i<N;i++)
+            if(p[i]!=0 && p[i]!=-1)
+                if(!hs.contains(p[i]))
+                {
+                    hs.add(p[i]);
+                    cnt++;
+                }
+        return cnt;
+    }
+}
+        
