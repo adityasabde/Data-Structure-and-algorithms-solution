@@ -1,0 +1,73 @@
+    
+class Solution
+{
+    /*You are required to complete this method*/
+    int findK(int A[][], int n, int m, int k)
+    {   
+        int ans = 0;
+        int ix = 0;
+        int iy = m -1  ;
+        int rx = n -1 ;
+        int ry = 0;
+        
+        int i =0 ;
+        while(ix <= rx && ry <= iy){
+            
+            if(i == 0){
+                for(int j = ry ; j<= iy;j++){
+                   ans++;
+                    if(k == ans){
+                        return A[ix][j];
+                    }
+                    // System.out.println(ix  + " "+j +" "+ A[ix][j]);
+                }
+                ix++;
+            // System.out.println(ix);
+            }
+            else if(i == 1){
+                for(int j = ix ; j<= rx; j++ ){
+                      ans++;
+                    if(k == ans){
+                        return A[j][iy];
+                    }
+                    //  System.out.println(j + " " +(iy-1) + +A[j][iy - 1] );
+                }
+                iy--;
+                // System.out.println(iy);
+            }
+            
+            else if(i == 2){
+                for(int j = iy; j >= ry ; j--){
+                      ans++;
+                    // System.out.println((rx - 1)+" " + j + +A[rx - 1][j]);
+                    if(k == ans){
+                        return A[rx][j];
+                    }
+                }
+                rx--;
+                // System.out.println(rx);
+            }
+            
+            else if( i == 3){
+                for(int j = rx ; j >= ix ;j--){
+                      ans++;
+                    if(k == ans){
+                        return A[j][ry];
+                    }
+                    //   System.out.println(j + " "+ry + ""+ A[j][ry] );
+                }
+                ry++;
+                // System.out.println(ry);
+            }
+            
+            i++;
+            
+            if(i == 4){
+                i = 0 ;
+            }
+            
+        }
+        
+        return -1;
+    }
+}
