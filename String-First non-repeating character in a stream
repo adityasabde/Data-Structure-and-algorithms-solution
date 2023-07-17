@@ -1,0 +1,33 @@
+
+
+class Solution
+{
+    public String FirstNonRepeating(String A)
+    {
+       char ch[] = new char[26];
+       Queue<Character> q = new LinkedList<>();
+    
+       StringBuilder ans = new StringBuilder();
+       for(int i = 0 ; i < A.length() ; i++){
+           ch[A.charAt(i) - 'a']++;
+           q.add(A.charAt(i));
+           
+          
+           while(!q.isEmpty()){
+               char x = q.peek();
+               
+               if(ch[x - 'a'] == 1){
+                   ans.append(x);
+                   break;
+               }
+               q.poll();
+           }
+           
+           if(q.isEmpty()){
+               ans.append('#');
+           }
+           
+       }
+       return ans.toString();
+    }
+}
