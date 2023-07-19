@@ -1,0 +1,47 @@
+class Solution {
+    public int longestPalinSubseq(String S) {
+        int n = S.length();
+        int[][] memo = new int[n][n]; // Memoization table
+
+        return longestPalinSubseqHelper(S, 0, n - 1, memo);
+    }
+
+    private int longestPalinSubseqHelper(String s, int start, int end, int[][] memo) {
+        if (start == end) {
+            return 1;
+        }
+
+        if (start > end) {
+            return 0;
+        }
+
+        if (memo[start][end] != 0) {
+            return memo[start][end];
+        }
+
+        if (s.charAt(start) == s.charAt(end)) {
+            memo[start][end] = longestPalinSubseqHelper(s, start + 1, end - 1, memo) + 2;
+        } else {
+            int len1 = longestPalinSubseqHelper(s, start + 1, end, memo);
+            int len2 = longestPalinSubseqHelper(s, start, end - 1, memo);
+            memo[start][end] = Math.max(len1, len2);
+        }
+
+        return memo[start][end];
+    }
+
+    private boolean palindrom(StringBuilder s) {
+        int i = 0;
+        int j = s.length() - 1;
+
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) {
+                return false;
+            }
+            i++;
+            j--;
+        }
+
+        return true;
+    }
+}
