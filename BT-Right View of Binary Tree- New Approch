@@ -1,0 +1,44 @@
+
+class Solution{
+    //Function to return list containing elements of right view of binary tree.
+    ArrayList<Integer> rightView(Node node) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        
+        func(node  , ans);
+        
+        return ans;
+    }
+    
+    void func(Node node ,  ArrayList<Integer> ans ){
+        Queue<Node> q = new LinkedList<>();
+        
+        q.add(node);
+        while(!q.isEmpty()){
+            int n1 = q.size();
+            
+            // System.out.println(q);
+            
+            for(int i =0 ;i<n1-1 ;i++){
+                Node n = q.poll();
+                if(n.left != null){
+                    q.add(n.left);
+                }                
+                
+                if(n.right != null){
+                    q.add(n.right);
+                }
+            }
+            
+            ans.add(q.peek().data);
+            Node x = q.poll();
+            if(x.left != null){
+                q.add(x.left);
+            }                
+                
+            if(x.right != null){
+                q.add(x.right);
+            }           
+        }
+    }
+}
+
