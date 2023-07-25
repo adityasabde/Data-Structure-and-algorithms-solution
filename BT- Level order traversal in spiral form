@@ -1,0 +1,71 @@
+
+/*
+// A Binary Tree node
+class Node
+{
+    int data;
+    Node left, right;
+
+    Node(int item)
+    {
+        data = item;
+        left = right = null;
+    }
+}
+*/
+
+class Spiral
+{
+    //Function to return a list containing the level order 
+    //traversal in spiral form.	
+    ArrayList<Integer> findSpiral(Node root) 
+    {
+        ArrayList<Integer> ans = new ArrayList<>();
+        Queue<Node> q =new LinkedList<>();
+        Stack<Node> st = new Stack<>();
+        
+        
+        q.add(root);
+        st.push(root);
+        int flag = 1;
+        
+        while(!q.isEmpty()){
+            int n = q.size();
+            
+            if(flag == 0){
+                for(int i = 0; i<n ;i++){
+                    Node x1 = q.poll();
+                    ans.add(x1.data);
+                    
+                   if(x1.left != null){
+                       st.add(x1.left);
+                       q.add(x1.left);
+                   }
+                   
+                   if(x1.right != null){
+                       st.add(x1.right);
+                       q.add(x1.right);
+                   }
+                }
+                flag = 1;
+            }
+            else{
+               for(int i = 0; i<n ;i++){
+                    Node x1 = q.poll();
+                    ans.add(st.pop().data);
+                    
+                   if(x1.left != null){
+                       q.add(x1.left);
+                   }
+                   
+                    if(x1.right != null){
+                       q.add(x1.right);
+                   }
+                }
+                flag = 0;
+            }
+            
+        }
+        return ans;
+    }
+}
