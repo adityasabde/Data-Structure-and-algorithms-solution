@@ -1,0 +1,42 @@
+class Solution {
+    public int minSpeedOnTime(int[] dist, double hour) {
+        int min = 1;
+        int max =(int) 1e7;
+
+        int minSpeed = -1;
+
+        while(min <= max){
+            int mid =  min  + (max -min) / 2;
+            if(check(mid , dist , hour)){
+                minSpeed = mid;
+               max = mid -1;
+            }
+            else {
+                min = mid +1;
+            }
+        }
+
+        return minSpeed;
+    }
+
+    boolean check(double mid , int dist[] , double hour ){
+        double ans = 0;
+        for(int i =0 ;i<dist.length ;i++){
+            double d = dist[i] / mid;
+
+            if( i != dist.length - 1){
+                ans = ans + Math.ceil(d);
+            }
+            else{
+                ans += d;
+            }
+
+            if( ans > hour){
+                return false;
+            }
+
+        }
+
+        return ans <= hour;
+    }
+}
