@@ -1,0 +1,47 @@
+
+/*
+class Node {
+   int data;
+   Node next;
+
+  Node(int data) {
+      this.data = data;
+  }
+}
+*/
+class Solution
+{
+    Node compute(Node head)
+    {
+        Stack<Node> st = new Stack<>();
+        
+        Node temp = head;
+        while(temp != null){
+            if(st.isEmpty()){
+                // System.out.println(temp.data);
+                st.push(temp);
+            }
+            else{
+                 while(!st.isEmpty() && st.peek().data < temp.data){
+                    st.pop();
+                }
+                //   System.out.println(temp.data);
+                st.push(temp);
+            }
+            temp = temp.next;
+        }
+        
+        Node curr = null;
+        Node prev = null;
+        
+       while(!st.isEmpty()){
+        //   System.out.print(t.data);
+           curr = st.pop();
+           curr.next = prev;
+           prev = curr;
+       }
+       
+       return prev;
+    }
+}
+  
