@@ -1,0 +1,71 @@
+
+//User function Template for Java
+
+class Solution{
+    static char[][] fill(int n, int m, char a[][])
+    {
+        boolean visited [][] = new boolean[n][m];
+        for(int i=0;i<n;i++){
+            Arrays.fill(visited[i] , false);
+            
+        }
+            
+          for(int i =0 ; i<m;i++){
+              if(a[0][i] == 'O' && !visited[0][i]){
+            //   System.out.println(a[0][i] );
+                  func(0 , i , a , visited);
+              }
+          }
+          
+          for(int i =0 ; i<n;i++){
+                //   System.out.println(a[i][0]);
+              if(a[i][0] == 'O' && !visited[i][0]){
+                  func(i , 0 , a , visited);
+              }
+          }
+          
+          for(int i =0 ; i<n;i++){
+              if(a[i][m-1] == 'O' && !visited[i][m-1]){
+                //   System.out.println(a[i][m-1]);
+                  func(i , m-1 , a , visited);
+              }
+          }
+          
+          for(int i =0 ; i<m;i++){
+              if(a[n-1][i] == 'O' && !visited[n-1][i]){
+                //   System.out.println(a[n-1][i]);
+                  func(n-1 , i , a , visited);
+              }
+          }
+        
+        
+        for(int i =0 ;i<n;i++){
+            for(int j =0 ;j<m;j++){
+                if(!visited[i][j]){
+                    a[i][j] = 'X';
+                }
+            }
+        }
+        
+        return a;
+    }
+    
+    static void func(int i , int j , char a[][] , boolean visited[][]){
+        
+        if(i<0 || j<0 || i >= a.length || j >= a[0].length || a[i][j] == 'X' || visited[i][j]){
+            return;
+        }
+        
+        visited[i][j] = true;
+        
+        int dx[] = {0 , 1 , 0 , -1};
+        int dy[] = {1 , 0 , -1,  0};
+        
+        for(int k= 0 ;k<4;k++){
+            int newx = dx[k] + i;
+            int newy = dy[k] + j;
+            
+            func(newx , newy , a , visited);
+        }
+    }
+}
