@@ -1,0 +1,45 @@
+
+
+class Solution
+{
+    //Function to find a Mother Vertex in the Graph.
+    public int findMotherVertex(int V, ArrayList<ArrayList<Integer>>adj)
+    {
+        ArrayList<Boolean> visited = new ArrayList<Boolean>(Collections.nCopies(V, false));
+        int v = -1;
+        
+        for(int i =0 ;i<V;i++){
+            if(!visited.get(i)){
+                dfs(adj , i , visited);
+                v = i;
+            }
+        }
+        
+        ArrayList<Boolean> check = new ArrayList<Boolean>(Collections.nCopies(V, false));
+        dfs(adj , v , check);
+        boolean flag = false;
+        
+        for(int j =0 ;j<check.size() ;j++){
+            if(!check.get(j)){
+                flag = true;
+                break;
+            }
+        }
+        
+        if(!flag){
+            return v;
+        }
+        return -1;
+    }
+    
+    public void dfs(ArrayList<ArrayList<Integer>>adj, int i, ArrayList<Boolean>visited){
+        visited.set(i,  true);
+        
+        for(int j = 0 ; j<adj.get(i).size();j++){
+            if(!visited.get(adj.get(i).get(j))){
+                dfs(adj , adj.get(i).get(j) , visited);
+            }
+        }
+    }
+    
+}
