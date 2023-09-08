@@ -1,0 +1,50 @@
+
+//User function Template for Java
+
+/*Structure of the node class is
+class Node
+{
+    int data;
+    Node left, right;
+    Node(int item){
+        data = item;
+        left = right = null;
+    }
+} */
+
+
+class Solution
+{
+    // The given root is the root of the Binary Tree
+    // Return the root of the generated BST
+    Node binaryTreeToBST(Node root)
+    {
+       PriorityQueue<Integer> pq = new PriorityQueue<>();
+       
+       func(pq , root);
+    //   System.out.println(pq);
+       pushFunc(pq , root);
+       return root;
+    }
+    
+    public void pushFunc(PriorityQueue<Integer> pq, Node root){
+        if(root == null){
+            return;
+        }
+        
+        pushFunc(pq , root.left);
+        root.data = pq.poll();
+        pushFunc(pq , root.right);
+    }
+    
+    public void func(PriorityQueue<Integer> pq , Node root){
+        if(root == null){
+            return;
+        }
+        
+        pq.add(root.data);
+        func(pq , root.left);
+        func(pq , root.right);
+    }
+}
+ 
