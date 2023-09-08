@@ -1,0 +1,32 @@
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        //  nc4 === n!/(n-4)! * 4!
+        
+        List<List<Integer>> ll = new ArrayList<>();
+        
+        for(int i =0 ; i<numRows ; i++){
+            List<Integer> l = new ArrayList<>();
+            for(int j =0 ;j<=i ;j++){
+               l.add( op(i , j) );
+            }
+            ll.add(l);
+        }
+
+        return ll;
+      
+    }
+
+    public int op(int numRows , int n  ){
+        int res = 1;
+          
+        if (k > n - k)
+        k = n - k;
+              
+        for (int i = 0; i < k; ++i)
+        {
+            res *= (n - i);
+            res /= (i + 1);
+        }
+        return res;
+    }
+}
