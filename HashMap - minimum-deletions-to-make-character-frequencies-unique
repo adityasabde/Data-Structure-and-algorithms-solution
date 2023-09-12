@@ -1,0 +1,24 @@
+class Solution {
+    public int minDeletions(String s) {
+        HashMap<Character , Integer> map = new HashMap<>();
+
+        for(int i =0 ;i<s.length();i++){
+            map.put(s.charAt(i) , map.getOrDefault(s.charAt(i) , 0) + 1);
+        } 
+
+        int count  =0 ;
+        HashSet<Integer>set = new HashSet<>();
+        for(Map.Entry<Character , Integer> entry : map.entrySet()){
+            int x = entry.getValue();
+            while(x > 0 && set.contains(x)){
+                count++;
+                x--;
+            }
+            if(x != 0){
+              set.add(x);
+            }
+            
+        }
+        return count ;
+    }
+}
