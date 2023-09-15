@@ -1,0 +1,66 @@
+
+// User function Template for Java
+
+class Solution{
+    // static int equalPartition(int N, int arr[])
+    // {
+    //     int sum = 0;
+    //     for(int i =0 ;i<N;i++){
+    //         sum =sum + arr[i] ;
+    //     }
+    //     boolean dp[][] = new boolean[N + 1][sum + 1];
+        
+    //     if(sum %2 != 0)return 0;
+        
+    //     if(subset(arr ,0 , sum / 2, dp)){
+    //         return 1;
+    //     }
+    //     return 0;
+    // }
+    
+    // public static boolean subset(int arr[] , int i , int sum , boolean dp[][]){
+        
+    //     if(i >= arr.length){
+    //         return false;
+    //     }
+    //      if(sum == 0){
+    //          return true;
+    //     }
+    
+    //     if(dp[i][sum] != false)return dp[i][sum];
+        
+    //     boolean nt  = subset(arr, i+1  , sum , dp);
+    //      boolean t = false;
+    //     if(arr[i] <= sum){
+    //          t = subset(arr , i+1 , sum - arr[i], dp);
+    //     }
+        
+    //     return dp[i][sum] = (nt || t);
+    // }
+    
+    
+    static int equalPartition(int N, int arr[])
+    {
+        // code here
+        int sum = 0;
+        for(int i=0; i<N; i++) {
+            sum += arr[i];
+        }
+        
+        if(sum %2 == 1) return 0;
+        
+        sum /= 2;
+        boolean[] dp = new boolean[sum+1];
+        return (subset(arr, sum, N-1, dp) == true) ? 1:0;
+    }
+    
+    static boolean subset(int[] arr, int sum , int N, boolean[] dp) {
+        if(sum == 0) return true;
+        if(N <= 0) return false;
+        if(sum < 0) return false;
+        
+        if(dp[sum] == true) return false;
+        
+        return dp[sum] = subset(arr, sum-arr[N-1], N-1, dp) || subset(arr, sum, N-1, dp);
+    }
+}
