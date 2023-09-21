@@ -1,0 +1,25 @@
+
+class Solution
+{
+    //Function to find the maximum money the thief can get.
+    public int FindMaxSum(int arr[], int n)
+    {
+        int dp[] = new int[n +1];
+        Arrays.fill(dp , -1);
+        return func(arr , n , 0 , dp);
+    }
+    
+    public int func(int arr[] , int n , int index , int dp[] ){
+        if(index >= n){
+            return 0;
+        }
+        
+        if(dp[index] != -1)return dp[index];
+        
+        int ans1 = func(arr , n , index + 1 , dp);
+        int ans2 = func(arr , n , index + 2 , dp) + arr[index];
+        
+        return dp[index] = Math.max(ans1 , ans2);
+        
+    }
+}
