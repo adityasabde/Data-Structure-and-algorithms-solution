@@ -1,0 +1,39 @@
+
+// User function Template for Java
+
+class Solution {
+    static List<Integer> maxCombinations(int N, int K, int A[], int B[]) {
+        // code here
+        Arrays.sort(A);
+        Arrays.sort(B);
+        
+        PriorityQueue<Integer> pq=new PriorityQueue<>();
+        
+        for(int i=N-1;i>N-K-1;i--){
+            for(int j=N-1;j>N-K-1;j--){
+                int n=A[i]+B[j];
+                
+                if(pq.size()<K){
+                    pq.add(n);
+                }else{
+                    if(pq.peek()<n){
+                        pq.poll();
+                        pq.add(n);
+                    }
+                else break;
+                }
+            }
+        }
+        
+        List<Integer> ans=new ArrayList<>();
+        
+        while(!pq.isEmpty()){
+            if(ans.isEmpty())
+            ans.add(pq.poll());
+            else
+            ans.add(0,pq.poll());
+        }
+        
+        return ans;
+    }
+}
