@@ -1,0 +1,60 @@
+
+/*node class of the linked list
+class Node
+{
+    int data;
+    Node next;
+    Node(int key)
+    {
+        data = key;
+        next = null;
+    }
+}*/
+class Solution
+{
+    public static void rearrange(Node odd)
+    {
+      Stack<Node> st = new Stack<>();
+        
+        Node prev= null;
+        Node temp = odd;
+     
+        int i =0 ;
+        
+        while(temp != null){
+            if(i % 2 != 0){
+              st.push(temp);
+               prev.next = temp.next;
+            }
+            else{
+                prev = temp;
+            }
+            temp = temp.next;
+            i++;
+        }
+        
+        
+        Node head = null;
+        Node curr = null;
+        while(!st.isEmpty()){
+            Node newnode = st.pop();
+            if(st.isEmpty())newnode.next = null;
+            if(head == null){
+                head = newnode;
+                curr = newnode;
+            }
+            else{
+                curr.next = newnode;
+                curr = curr.next;
+            }
+        }
+        
+        temp = odd;
+       while(temp.next != null){
+           temp = temp.next;
+       }
+       temp.next = head;
+        
+      
+    }
+}
