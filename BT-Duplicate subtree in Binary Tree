@@ -1,0 +1,27 @@
+
+class Solution {
+    boolean flag;
+    int dupSub(Node root) {
+        flag = false;
+       HashSet<String>set = new HashSet<>();
+       String ans = func(root , set);
+       return flag ? 1 : 0;
+    }
+    
+    public String func(Node node , HashSet<String> set){
+        if(node == null)return "";
+        
+        String x = func(node.left , set );
+        String y = func(node.right , set);
+        
+         String newstr = "(" + x + node.data + y + ")";
+
+        if (newstr.length() > 3 && set.contains(newstr)) {
+            flag = true;
+        }
+        
+     
+        set.add(newstr);
+        return newstr;
+    }
+}
