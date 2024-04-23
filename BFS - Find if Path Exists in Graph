@@ -1,0 +1,47 @@
+class Solution {
+    public boolean validPath(int n, int[][] edges, int source, int destination) {
+        HashMap<Integer , ArrayList<Integer>> map = new HashMap<>();
+        if(edges.length == 0)return true;
+        int max = 0;
+        for(int i =0 ;i<edges.length ;i++){
+            if(map.containsKey(edges[i][0])){
+                map.get(edges[i][0]).add(edges[i][1]);
+            }
+            else{
+                ArrayList<Integer> a = new ArrayList<>();
+                a.add(edges[i][1]);
+                map.put(edges[i][0] , a);
+            }
+            
+             if(map.containsKey(edges[i][1])){
+                map.get(edges[i][1]).add(edges[i][0]);
+            }
+            else{
+                ArrayList<Integer> a = new ArrayList<>();
+                a.add(edges[i][0]);
+                map.put(edges[i][1] , a);
+            }
+           max = Math.max(max , edges[i][0]);
+           max = Math.max(max , edges[i][1]);
+        }
+
+
+        boolean visited[] = new boolean[max+1];
+        Queue<Integer> q = new LinkedList<>();
+
+        q.offer(source);
+        visited[source] = true;
+        while(!q.isEmpty()){
+            int x = q.poll();
+            if(destination == x )return true;
+            ArrayList<Integer> arr = map.get(x);
+            for(int y : arr){
+                if(!visited[y]){
+                    q.add(y);
+                    visited[y] = true;
+                }
+            }
+        }
+        return false;
+    }
+}
