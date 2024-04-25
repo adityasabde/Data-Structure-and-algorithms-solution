@@ -1,0 +1,24 @@
+class Solution {
+    public int longestIdealString(String s, int k) {
+        StringBuilder str = new StringBuilder(s);
+        int dp[][] = new int[s.length() + 1][130];
+        for(int i =0 ;i<s.length() + 1 ;i++)Arrays.fill(dp[i] , -1);
+        return dfs(s , 0 , k , '#' , dp);
+    }
+
+    public int dfs(String s , int index ,int k , char ch , int dp[][]){
+        if(index >= s.length())return 0;
+
+        if(dp[index][ch] != -1)return dp[index][ch];
+
+        int take = 0;
+        int nontake = 0;
+
+        if(Math.abs(ch - s.charAt(index)) <= k || ch == '#'){
+            take = dfs(s , index + 1 , k , s.charAt(index) , dp) + 1;
+        }
+        nontake = dfs(s ,index + 1 , k , ch , dp);
+
+        return dp[index][ch] = Math.max (take , nontake);
+    }
+}
