@@ -1,0 +1,55 @@
+
+// User function Template for Java
+
+class Solution {
+    public int[] FindExitPoint(int n, int m, int[][] matrix) {
+       int currx = 0;
+       int curry = 0;
+       
+       int dire = 0;
+        int lastcord[] = new int[2];
+        
+       while(true){
+           dire = (dire + matrix[currx][curry])%4;
+           if(matrix[currx][curry] == 1)matrix[currx][curry]=0;
+           
+           if( dire == 0){
+               curry++;
+           }
+           else if(dire == 1){
+               currx++;
+           }
+           else if(dire == 2){
+               curry--;
+           }
+           else if(dire == 3){
+               currx--;
+           }
+           
+           
+          
+           if(currx < 0){
+               lastcord[0] = currx + 1;
+               lastcord[1] = curry;
+               break;
+           }
+           else if(currx == matrix.length){
+               lastcord[0] = currx - 1;
+               lastcord[1] = curry;
+               break;
+           }
+           else if( curry<  0 ){
+               lastcord[0] = currx;
+               lastcord[1] = curry + 1;
+               break;
+           }
+           else if( curry == matrix[0].length){
+               lastcord[0] = currx;
+               lastcord[1] = curry - 1;
+               break;
+           }
+          
+       }
+       return lastcord;
+    }
+}
