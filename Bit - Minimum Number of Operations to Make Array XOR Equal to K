@@ -1,0 +1,26 @@
+class Solution {
+    public int minOperations(int[] nums, int k) {
+       StringBuilder str1 = new StringBuilder();
+       int n =  0;
+       for(int i =0 ;i<nums.length ; i++){
+            n ^= nums[i];
+       }
+
+         if (n == k) {
+            return 0;
+        }
+
+       int target = n ^ k;
+       int count  = 0;
+       
+       while(target > 0){
+          int rem  = target % 2;
+          target  = target / 2;
+          if( rem == 1){
+              count++;
+          }
+       }
+        
+        return count ;
+    }
+}
