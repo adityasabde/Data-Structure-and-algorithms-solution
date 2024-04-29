@@ -1,0 +1,39 @@
+
+/* Link list Node
+class Node
+{
+	Node next;
+	int data;
+	Node(int d)
+	{
+		data = d;
+		next = null;
+	}
+}*/
+class Solution
+{
+    /*You are required to complete this method*/
+    Node delete(Node head, int k)
+    {
+        if( head == null || k <= 0)return null;
+        if( k == 1){
+            return null;
+        }
+        
+       Node n = new Node(0);
+	   n.next = head ;
+	   int len = 0;
+	   
+	   while(n != null){
+	       
+	       if( len  == (k - 1) && n.next != null){
+	           n.next = n.next.next;
+	           len = 0;
+	       }
+	       
+	       n = n.next;
+	       len++;
+	   }
+	  return head;
+    }
+}
